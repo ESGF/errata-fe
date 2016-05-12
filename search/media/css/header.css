@@ -1,0 +1,9 @@
+header {
+    margin-top: 5px;
+}
+header img:hover {
+    cursor:pointer;
+}
+header h1 small b {
+    color: black;
+}

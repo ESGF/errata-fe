@@ -1,0 +1,13 @@
+header {
+    margin-top: 5px;
+	margin-bottom: 0;
+}
+header img {
+    margin-top: 15px;
+}
+header img:hover {
+    cursor:pointer;
+}
+header h1 small b {
+    color: black;
+}

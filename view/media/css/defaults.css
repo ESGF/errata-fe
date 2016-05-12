@@ -1,0 +1,18 @@
+body {
+    width: 980px;
+    margin:auto;
+}
+
+body > div > header {
+    margin-top: 5px;
+	margin-bottom: 0;
+}
+body > div > header img {
+    margin-top: 15px;
+}
+body > div > header img:hover {
+    cursor:pointer;
+}
+body > div > header h1 small b {
+    color: black;
+}
