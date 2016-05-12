@@ -1,0 +1,40 @@
+
+
+
+/* **************************************** */
+
+/*  HTML DEFAULTS                           */
+
+/* **************************************** */
+ html, body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+body {
+    width: 980px;
+    margin:auto;
+}
+
+body > header {
+    margin-top: 5px;
+}
+body > header img {
+    margin-top: 15px;
+}
+body > header img:hover {
+    cursor:pointer;
+}
+body > header h1 small b {
+    color: black;
+}
+
+#contentContainer {
+    display: inline-block;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.modal {
+    margin-top: 100px;
+}

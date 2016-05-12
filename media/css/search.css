@@ -1,0 +1,15 @@
+body > header {
+	margin-bottom: 0;
+}
+
+body > div.panel {
+
+}
+
+body > table {
+	margin-top: 5px;
+}
+
+body > table thead  {
+    background-color:#eceeef;
+}
