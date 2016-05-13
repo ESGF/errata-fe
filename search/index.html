@@ -27,25 +27,27 @@
 <!-- ---------------------------------------------- -->
 <body>
 
-<!-- BEGIN: Template: page header -->
-<script type="underscore/template" id="template-page-header">
+<!-- BEGIN: Page header -->
+<script type="underscore/template" id="template-header">
 <header>
     <img src="media/img/logo.png"
          alt="Earth System Documentation"
          title="Earth System Documentation"
          class="pull-left esdoc-logo" />
     <h1 class="pull-right">
-        <small><b><%= APP.NAME %></b></small>
-        <b class="h6"> v<%= APP.VERSION %></b>
+        <small>
+            <b><%= APP.NAME %></b>
+            <b><%= APP.SUBTITLE %></b>
+        </small>
+        <strong class="h6"> v<%= APP.VERSION %></strong>
         <button class="esdoc-support btn btn-primary">Support</button>
     </h1>
 </header>
 </script>
-<!-- END: Template: page header -->
+<!-- END: page header -->
 
-
-<!-- BEGIN: Template: filter panel                  -->
-<script type="underscore/template" id="template-filter-panel">
+<!-- BEGIN: filter panel -->
+<script type="underscore/template" id="template-filter">
 <div class="filter col-md-12 bg-primary">
     <div class="row">
         <% _.each(_.sortBy(APP.state.filters, 'uiPosition'), function(f) { %>
@@ -69,11 +71,84 @@
     </div>
 </div>
 </script>
-<!-- END: Template: filter panel                    -->
+<!-- END: filter panel -->
 
+<!-- BEGIN: grid -->
+<script type="underscore/template" id="template-grid">
+<table class='table table-hover table-bordered table-condensed table-striped monitoring-table'>
+    <%= APP.utils.renderTemplate("template-grid-header", APP.state) %>
+    <%= APP.utils.renderTemplate("template-grid-body", APP.state) %>
+    <%= APP.utils.renderTemplate("template-grid-footer", APP.state) %>
+</table>
+</script>
+<!-- END: grid -->
 
-<!-- Template: permalink table header row -->
-<script type="underscore/template" id="grid-pager-template">
+<!-- BEGIN: grid header -->
+<script type="underscore/template" id="template-grid-header">
+<thead>
+    <tr class="bg-primary">
+        <th colspan="8">
+            <span class="pull-left summary-main">
+            <%= APP.utils.renderTemplate("template-grid-header-summary", APP.state) %>
+            </span>
+            <%= APP.utils.renderTemplate("template-grid-header-pager", APP.state) %>
+        </th>
+    </tr>
+    <tr class="column-headers">
+        <th title='Number' class="text-center sort-target">
+            <small>
+                #
+            </small>
+        </th>
+        <th title='Institute' class="text-center sort-target sort-target-institute">
+            <small class="sort-target-institute">
+                Institute
+            </small>
+            <span class='pull-right glyphicon sort-target-institute' />
+        </th>
+        <th title='Title' class="sort-target sort-target-title">
+            <small class="sort-target-title">
+                Title
+            </small>
+            <span class='pull-right glyphicon sort-target-title' />
+        </th>
+        <th title='Date Created' class="text-center sort-target sort-target-dateCreated">
+            <small class="sort-target-dateCreated">
+                Created
+            </small>
+            <span class='pull-right glyphicon sort-target-dateCreated' />
+        </th>
+        <th title='Date Last Updated' class="text-center sort-target sort-target-dateUpdated">
+            <small class="sort-target-dateUpdated">
+                Last Updated
+            </small>
+            <span class='pull-right glyphicon sort-target-dateUpdated' />
+        </th>
+        <th title='Severity' class="text-center sort-target sort-target-severity">
+            <small class="sort-target-severity">
+                Severity
+            </small>
+            <span class='pull-right glyphicon sort-target-severity' />
+        </th>
+        <th title='Workflow' class="text-center sort-target sort-target-workflow">
+            <small class="sort-target-workflow">
+                Workflow
+            </small>
+            <span class='pull-right glyphicon sort-target-workflow' />
+        </th>
+        <th title='State' class="text-center sort-target sort-target-state">
+            <small class="sort-target-state">
+                State
+            </small>
+            <span class='pull-right glyphicon sort-target-state' />
+        </th>
+    </tr>
+</thead>
+</script>
+<!-- END: grid header -->
+
+<!-- BEGIN: grid header pager -->
+<script type="underscore/template" id="template-grid-header-pager">
 <span class="pull-right form-inline <%= paging.count < 2 ? '' : '' %>">
     <button type="button"
             class="btn btn-sm btn-default pagination-first">
@@ -95,110 +170,59 @@
         <strong class="text-muted">>></strong>
     </button>
     <select class="pagination-page-size form-control input-sm">
-        <% _.each(APP.state.pageSizeOptions, function(pageSize) { %>
-        <option value="<%= pageSize %>" <%= pageSize == APP.state.pageSize ? "selected" : "" %>>
+        <% _.each(APP.state.paging.pageSizeOptions, function(pageSize) { %>
+        <option value="<%= pageSize %>" <%= pageSize == APP.state.paging.pageSize ? "selected" : "" %>>
             <%= pageSize %> / page
         </option>
         <% }); %>
     </select>
 </span>
 </script>
+<!-- END: grid header pager -->
 
-<script type="underscore/template" id="grid-summary-template">
-<span class="pull-left search-summary">
+<!-- BEGIN: grid header summary -->
+<script type="underscore/template" id="template-grid-header-summary">
+<span id="grid-header-summary">
     Total Issues = <%= APP.state.searchData.total %>.
-    Filtered Issues = <%= issues.length %>.
+    Filtered Issues = <%= APP.state.searchData.count %>.
 </span>
 </script>
+<!-- END: grid header summary -->
 
-<!-- BEGIN: Template: results grid                  -->
-<script type="underscore/template" id="template-grid">
-<table class='table table-hover table-bordered table-condensed table-striped monitoring-table'>
-    <thead>
-        <tr class="bg-primary">
-            <th colspan="7">
-                <%= APP.utils.renderTemplate("grid-summary-template", {issues:issues, APP: APP}) %>
-                <%= APP.utils.renderTemplate("grid-pager-template", APP.state) %>
-            </th>
-        </tr>
-        <tr class="column-headers">
-            <th title='Number' class="text-center">
-                <small>
-                    #
-                </small>
-            </th>
-            <th title='Title'>
-                <small>
-                    Title
-                </small>
-            </th>
-            <th title='Date Created' class="text-center">
-                <small>
-                    Created
-                </small>
-            </th>
-            <th title='Date Last Updated' class="text-center">
-                <small>
-                    Updated
-                </small>
-            </th>
-            <th title='Severity' class="text-center">
-                <small>
-                    Severity
-                </small>
-            </th>
-            <th title='Workflow' class="text-center">
-                <small>
-                    Workflow
-                </small>
-            </th>
-            <th title='State' class="text-center">
-                <small>
-                    State
-                </small>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <% _.each((issues), function(issue, idx) { %>
-        <%= APP.utils.renderTemplate("template-grid-row", {issue: issue, idx: idx + 1}) %>
-        <% }); %>
-    </tbody>
-    <tfoot>
-        <tr class="bg-default">
-            <th colspan="7" title='Summary'>
-                <span>
-                    <strong><small>
-                        Total Issues = <%= APP.state.searchData.total %>.
-                        Filtered Issues = <%= issues.length %>.
-                    </small></strong>
-                </span>
-                <span class="pull-right">
-                    <strong><small>
-                        <%- APP.NAME %> v<%- APP.VERSION %> © <%- APP.copyrightYear %>
-                        <a href="<%- APP.defaults.homepage %>" target='_blank'>ES-DOC</a>
-                    </small></strong>
-                </span>
-            </th>
-        </tr>
-    </tfoot>
-
-</table>
+<!-- BEGIN: grid body -->
+<script type="underscore/template" id="template-grid-body">
+<tbody>
+<% if (paging.current) { %>
+    <% _.each((paging.current ? paging.current.data : []), function(issue, idx) { %>
+    <%= APP.utils.renderTemplate("template-grid-body-row", {issue: issue, idx:idx + 1}) %>
+    <% }); %>
+<% } else { %>
+    <tr class="null-search">
+        <td colspan="8">
+            <strong>SEARCH RETURNED NO RESULTS</strong>
+        </td>
+    </tr>
+<% } %>
+</tbody>
 </script>
-<!-- END: Template: results grid                    -->
+<!-- END: grid body -->
 
-
-<!-- BEGIN: Template: results grid row              -->
-<script type="underscore/template" id="template-grid-row">
+<!-- BEGIN: grid body row -->
+<script type="underscore/template" id="template-grid-body-row">
 <tr id="<%= issue.uid %>" class='issue'>
     <td class="issue-idx text-center" title="issue id">
         <small>
             <%= idx %>
         </small>
     </td>
+    <td class="issue-institute text-center col-md-1" title="issue institute">
+        <small>
+            <%= issue.institute.toUpperCase() %>
+        </small>
+    </td>
     <td class="issue-title col-md-5" title="issue title">
         <small>
-            <%= issue.title %>
+            <%= issue._title %>
         </small>
     </td>
     <td class="issue-date-created text-center" title="issue creation date">
@@ -228,7 +252,36 @@
     </td>
 </tr>
 </script>
-<!-- END: Template: results grid row                -->
+<!-- END: grid body row -->
+
+<!-- BEGIN: grid footer -->
+<script type="underscore/template" id="template-grid-footer">
+<tfoot>
+    <tr class="bg-default">
+        <th colspan="8">
+            <%= APP.utils.renderTemplate("template-grid-footer-summary", APP.state) %>
+            <span class="pull-right">
+                <strong><small>
+                    <%- APP.NAME %> v<%- APP.VERSION %> © <%- APP.copyrightYear %>
+                    <a href="<%- APP.defaults.homepage %>" target='_blank'>ES-DOC</a>
+                </small></strong>
+            </span>
+        </th>
+    </tr>
+</tfoot>
+</script>
+<!-- END: grid footer -->
+
+<!-- BEGIN: grid footer summary -->
+<script type="underscore/template" id="template-grid-footer-summary">
+<span id="grid-footer-summary">
+    <strong><small>
+    Total Issues = <%= APP.state.searchData.total %>.
+    Filtered Issues = <%= APP.state.searchData.count %>.
+    </small></strong>
+</span>
+</script>
+<!-- END: grid footer summary -->
 
 
 <!-- ---------------------------------------------- -->
@@ -247,8 +300,8 @@
 <!-- ---------------------------------------------- -->
 <!-- ... shared scripts 							-->
 <script src="media/js/_.js" type="text/javascript"></script>
-<script src="media/js/constants.js" type="text/javascript"></script>
 <script src="media/js/cookies.js" type="text/javascript"></script>
+<script src="media/js/constants.js" type="text/javascript"></script>
 <script src="media/js/defaults.js" type="text/javascript"></script>
 <script src="media/js/utils.js" type="text/javascript"></script>
 <script src="media/js/search.data.downloader.js" type="text/javascript"></script>
@@ -257,6 +310,7 @@
 <script src="media/js/setup.data.parser.js" type="text/javascript"></script>
 <script src="media/js/state.js" type="text/javascript"></script>
 <script src="media/js/state.manager.js" type="text/javascript"></script>
+<script src="media/js/search.data.sorter.js" type="text/javascript"></script>
 <script src="media/js/view.js" type="text/javascript"></script>
 <script src="media/js/view.renderer.js" type="text/javascript"></script>
 

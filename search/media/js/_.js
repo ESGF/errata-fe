@@ -20,6 +20,9 @@ window.$ = window.$jq = jQuery.noConflict();
         // Name.
         NAME: "Dataset Errata",
 
+        // Subtitle.
+        SUBTITLE: "Search",
+
         // Version.
         VERSION: '0.1.0.0',
 
@@ -36,6 +39,7 @@ window.$ = window.$jq = jQuery.noConflict();
 
         // Triggers an application event.
         trigger: function (eventType, eventArgs) {
+            APP.log("event :: " + eventType);
             return APP.events.trigger(eventType, eventArgs);
         },
 
@@ -45,11 +49,6 @@ window.$ = window.$jq = jQuery.noConflict();
         // Views.
         views: {}
     };
-
-    // Open splash page event handler.
-    $('body > header img').click(function () {
-        APP.utils.openURL(APP.defaults.homepage, true);
-    });
 
     // Commence setup when document has loaded.
     $(document).ready(function () {

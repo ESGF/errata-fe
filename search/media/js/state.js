@@ -10,7 +10,7 @@
     APP.state = {
         APP: APP,
 
-        filters: [
+        filters: _.indexBy([
             {
                 data: {
                     all: [],
@@ -51,7 +51,7 @@
                 label: "Workflow",
                 uiPosition: 2
             }
-        ],
+        ], 'key'),
 
         // Search data returned from server.
         searchData: {
@@ -61,22 +61,21 @@
             total: undefined,
         },
 
-        // Size of grid pages.
-        pageSize: cookies.get('errata-search-page-size'),
-
-        // Set of grid page size options.
-        pageSizeOptions: [25, 50, 100],
-
         // Paging related state.
         paging: {
             current: undefined,
             count: 0,
-            pages: []
+            pages: [],
+            pageSize: 25,
+            pageSizeOptions: [25, 50, 100]
+        },
+
+        // Sorting related state.
+        sorting: {
+            field: "dateUpdated",
+            direction: "desc"
         }
     };
-
-    // Set filter map.
-    APP.state.filters = _.indexBy(APP.state.filters, 'key');
 
 }(
     this.APP,

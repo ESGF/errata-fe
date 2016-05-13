@@ -40,10 +40,19 @@
         doSearch("setup:initialSearchDataDownload");
     });
 
-    // Event handler: search criteria update.
-    APP.on("search:begin", function () {
+    // Update filter & invoke search.
+    APP.updateFilter = function (filterType, filterValue) {
+        var f;
+
+        // Update state.
+        f = APP.state.filters[filterType];
+        f.data.current = _.find(f.data.all, function (i) {
+            return i.key === filterValue;
+        });
+
+        // Execute search.
         doSearch("search:dataDownload");
-    });
+    };
 
 }(
     this.APP,

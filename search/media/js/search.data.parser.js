@@ -15,8 +15,13 @@
                 });
             });
 
-            // Perform initial sort.
-            data.results = _.sortBy(data.results, 'dateCreated');
+            // Set human readable title.
+            _.each(data.results, function (row) {
+                row._title = (row.title || '--').trim();
+                if (row.title.length > 53) {
+                    row._title = row.title.slice(0, 53) + " ...";
+                }
+            });
 
             // Trigger application event.
             APP.trigger(eventType, data);

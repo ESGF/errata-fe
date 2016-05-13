@@ -1,18 +1,17 @@
-// --------------------------------------------------------
-// search/cookies.js - page cookie manager.
-// --------------------------------------------------------
 (function (cookies) {
 
     // ECMAScript 5 Strict Mode
     "use strict";
 
-    // Search result page size.
+    // Search grid page size.
     cookies.set('errata-search-page-size',
-    			cookies.get('errata-search-page-size') || 25);
+                cookies.get('errata-search-page-size') || 25,
+                { expires: 3650 });
 
-    // Filter: status.
-    cookies.set('errata-filter-state',
-    			cookies.get('errata-search-filter-state') || "*");
+    // Search filter: status.
+    cookies.set('errata-search-filter-state',
+                cookies.get('errata-search-filter-state') || "*",
+                { expires: 3650 });
 
 }(
     this.Cookies

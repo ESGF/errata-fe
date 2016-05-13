@@ -1,42 +1,22 @@
 // --------------------------------------------------------
 // search/state.manager.js - Manages page state initialization.
 // --------------------------------------------------------
-(function (APP, _) {
+(function (APP, paging, _) {
     // ECMAScript 5 Strict Mode
     "use strict";
 
-    // Returns number of pages to be rendered.
-    var getPageCount = function (row_count) {
-        var pageCount = 0;
+    var
+        // Update page state after search web-service response.
+        updateSearchState = function (data) {
+            // Cache.
+            APP.state.searchData = data;
 
-        if (row_count) {
-            pageCount = parseInt(row_count / APP.defaults.pageLength, 10);
-            if (row_count / APP.defaults.pageLength > pageCount) {
-                pageCount += 1;
-            }
-        }
+            // Sort.
+            APP.sortIssues();
 
-        return pageCount;
-    };
-
-    // Converts search results into pages for rendering.
-    var getPages = function (rows) {
-        return _.map(_.range(APP.state.pageCount), function (id) {
-            return {
-                id: id + 1,
-                data: this.slice(id * APP.defaults.pageLength,
-                                 ((id + 1) * APP.defaults.pageLength) - 1)
-            };
-        }, rows);
-    };
-
-    // Update page state after search web-service response.
-    var updateSearchState = function (data) {
-        APP.state.searchData = data;
-        APP.state.pageCount = getPageCount(data.count);
-        APP.state.pages = getPages(data.results);
-        APP.state.page = data.results.length > 0 ? APP.state.pages[0] : undefined;
-    };
+            // Initialise paging.
+            APP.paginateIssues();
+        };
 
     // Event handler: page setup data parsed.
     APP.on("setup:setupDataParsed", function (data) {
@@ -66,20 +46,12 @@
         updateSearchState(data);
 
         // Fire events.
-        if (APP.state.page) {
-            APP.trigger('search:resultsPaginationReset');
-            APP.trigger('search:resultsPagination');
-        } else {
-            APP.trigger('search:nullSearch');
-        }
+        APP.trigger('state:pageUpdate');
         APP.trigger('search:complete');
     });
 
-    APP.updateFilter = function (filterType, filterValue) {
-        console.log("Update filter: " + filterType + " :: " + filterValue);
-    };
-
 }(
     this.APP,
+    this.APP.state.paging,
     this._
 ));

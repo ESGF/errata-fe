@@ -1,4 +1,4 @@
-thead span.search-summary {
+span.summary-main {
 	font-weight: normal;
 	padding-top: 5px
 }
@@ -6,6 +6,17 @@ thead span.search-summary {
 thead tr.column-headers {
     background-color:#eceeef;
 }
+
+tbody tr.null-search {
+    background-color:#eceeef;
+	text-align: center;
+	font-size: 2.4em;
+}
+
+tfoot tr {
+    background-color:#eceeef;
+}
+
 
 input.pagination-info {
 	width: 170px;

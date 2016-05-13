@@ -1,7 +1,7 @@
 // --------------------------------------------------------
 // core.utils.js - misceallaneous helper functions used across applications.
 // --------------------------------------------------------
-(function (APP, _, $, console, window) {
+(function (APP, constants, _, $, console, window) {
 
     // ECMAScript 5 Strict Mode
     "use strict";
@@ -28,7 +28,7 @@
 
     // Opens the homepage.
     APP.utils.openHomepage = function () {
-        APP.utils.openURL(APP.defaults.homepage, true);
+        APP.utils.openURL(APP.constants.URLS.HOME_PAGE, true);
     };
 
     // Opens the target email.
@@ -130,8 +130,36 @@
         return (results[1] || defaultValue).toUpperCase();
     };
 
+    // Returns number of pages to be rendered.
+    APP.utils.getPageCount = function (row_count) {
+        var pageSize = APP.state.paging.pageSize,
+            pageCount = 0;
+
+        if (row_count) {
+            pageCount = parseInt(row_count / pageSize, 10);
+            if (row_count / pageSize > pageCount) {
+                pageCount += 1;
+            }
+        }
+
+        return pageCount;
+    };
+
+    // Converts search results into pages for rendering.
+    APP.utils.getPages = function (data) {
+        var pageSize = APP.state.paging.pageSize;
+
+        return _.map(_.range(APP.utils.getPageCount(data.length)), function (id) {
+            return {
+                id: id + 1,
+                data: this.slice(id * pageSize, ((id + 1) * pageSize) - 1)
+            };
+        }, data);
+    };
+
 }(
     this.APP,
+    this.APP.constants,
     this._,
     this.$,
     this.console,
