@@ -49,7 +49,7 @@
 
 <!-- BEGIN: filter panel -->
 <script type="underscore/template" id="template-filter">
-<div class="filter col-md-12 bg-primary">
+<div class="container-fluid bg-primary filter">
     <div class="row">
         <% _.each(_.sortBy(APP.state.filters, 'uiPosition'), function(f) { %>
         <label class='col-md-2'>
@@ -76,7 +76,7 @@
 
 <!-- BEGIN: grid -->
 <script type="underscore/template" id="template-grid">
-<table class='table table-hover table-bordered table-condensed table-striped monitoring-table'>
+<table class='container-fluid table table-hover table-bordered table-condensed table-striped monitoring-table'>
     <%= APP.utils.renderTemplate("template-grid-header", APP.state) %>
     <%= APP.utils.renderTemplate("template-grid-body", APP.state) %>
     <%= APP.utils.renderTemplate("template-grid-footer", APP.state) %>
