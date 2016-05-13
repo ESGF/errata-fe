@@ -23,7 +23,13 @@
         // Initialise filter data.
         _.each(_.values(APP.state.filters), function (f) {
             f.data.all = data[f.key];
-            f.data.current = f.data.all[0];
+            if (f.defaultKey) {
+                f.data.current = _.find(f.data.all, function (i) {
+                    return i.key === f.defaultKey;
+                }) || f.data.all[0];
+            } else {
+                f.data.current = f.data.all[0];
+            }
             f.data.set = _.indexBy(f.data.all, 'key');
         });
 

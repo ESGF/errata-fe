@@ -9,10 +9,12 @@
     APP.on("setup:setupDataDownload", function (data) {
         _.each(APP.state.filters, function (f) {
             // Inject global filter.
-            data[f.key].unshift({
-                key: "*",
-                label: "*"
-            });
+            if (f.hasGlobal) {
+                data[f.key].unshift({
+                    key: "*",
+                    label: "*"
+                });
+            }
 
             // Sort filter data.
             data[f.key] = _.sortBy(data[f.key], 'label');

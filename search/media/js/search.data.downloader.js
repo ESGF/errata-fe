@@ -22,6 +22,7 @@
         });
 
         // Invoke web-service endpoint.
+        APP.trigger(eventType + "ing");
         $.get(url, params)
             .done(function (data) {
                 setTimeout(function () {
@@ -51,6 +52,7 @@
         });
 
         // Execute search.
+        APP.trigger("search:begin");
         doSearch("search:dataDownload");
     };
 

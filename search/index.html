@@ -19,6 +19,7 @@
     <link href="media/css/header.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="media/css/filter.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="media/css/grid.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="media/css/other.css" media="screen" rel="stylesheet" type="text/css" />
 </head>
 
 
@@ -51,17 +52,17 @@
 <div class="filter col-md-12 bg-primary">
     <div class="row">
         <% _.each(_.sortBy(APP.state.filters, 'uiPosition'), function(f) { %>
-        <label class='col-md-3'>
+        <label class='col-md-2'>
             <%- f.label %>:
         </label>
         <% }); %>
     </div>
     <div class="row">
         <% _.each(_.sortBy(APP.state.filters, 'uiPosition'), function(f) { %>
-        <span class="col-md-3">
+        <span class="col-md-2">
             <select id="filter-<%= f.key %>" class="form-control input-sm">
                 <% _.each(f.data.all, function(i) { %>
-                    <option value="<%= i.key %>">
+                    <option value="<%= i.key %>" <%= i === f.data.current ? "selected" : "" %> >
                         <%- i.label %>
                     </option>
                 <% }); %>
@@ -283,6 +284,29 @@
 </script>
 <!-- END: grid footer summary -->
 
+<!-- BEGIN: feedback -->
+<div id="feedbackContainer" class="modal fade feedback-container">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span class="feedback-title">ES-DOC Documentation Search</span>
+                    <small class="feedback-version"></small>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <p><b id="feedbackText">FDSFDSFDSFFDS<b></p>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                    <span class="sr-only">100% Complete</span>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: feedback -->
+
 
 <!-- ---------------------------------------------- -->
 <!-- JS: 3rd party libraries                        -->
@@ -303,6 +327,7 @@
 <script src="media/js/cookies.js" type="text/javascript"></script>
 <script src="media/js/constants.js" type="text/javascript"></script>
 <script src="media/js/defaults.js" type="text/javascript"></script>
+<script src="media/js/feedback.js" type="text/javascript"></script>
 <script src="media/js/utils.js" type="text/javascript"></script>
 <script src="media/js/search.data.downloader.js" type="text/javascript"></script>
 <script src="media/js/search.data.parser.js" type="text/javascript"></script>

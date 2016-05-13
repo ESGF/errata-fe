@@ -14,11 +14,11 @@ window.$ = window.$jq = jQuery.noConflict();
 
     // Root Application module.
     var APP = root.APP = {
-        // Title.
-        title: "ES-DOC Errata Search",
+        // Name.
+        ORGANIZATION: "ES-DOC",
 
         // Name.
-        NAME: "Dataset Errata",
+        NAME: "Errata",
 
         // Subtitle.
         SUBTITLE: "Search",

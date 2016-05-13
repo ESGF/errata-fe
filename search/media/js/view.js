@@ -99,6 +99,7 @@
 
         // Backbone: view initializer.
         initialize: function () {
+            APP.events.on("ui:initialized", this._setSortColumn, this);
             APP.events.on("search:complete", this._updateStatisticsInfo, this);
             APP.events.on("state:pageUpdate", this._updateGrid, this);
             APP.events.on("state:pageUpdate", this._updateGridPager, this);

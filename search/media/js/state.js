@@ -17,6 +17,20 @@
                     current: undefined,
                     set: {}
                 },
+                defaultKey: undefined,
+                hasGlobal: true,
+                key: "institute",
+                label: "Institute",
+                uiPosition: 1
+            },
+            {
+                data: {
+                    all: [],
+                    current: undefined,
+                    set: {}
+                },
+                defaultKey: "cmip6",
+                hasGlobal: false,
                 key: "project",
                 label: "Project",
                 uiPosition: 0
@@ -27,9 +41,11 @@
                     current: undefined,
                     set: {}
                 },
+                defaultKey: undefined,
+                hasGlobal: true,
                 key: "state",
                 label: "State",
-                uiPosition: 3
+                uiPosition: 4
             },
             {
                 data: {
@@ -37,9 +53,11 @@
                     current: undefined,
                     set: {}
                 },
+                defaultKey: undefined,
+                hasGlobal: true,
                 key: "severity",
                 label: "Severity",
-                uiPosition: 1
+                uiPosition: 2
             },
             {
                 data: {
@@ -47,9 +65,11 @@
                     current: undefined,
                     set: {}
                 },
+                defaultKey: undefined,
+                hasGlobal: true,
                 key: "workflow",
                 label: "Workflow",
-                uiPosition: 2
+                uiPosition: 3
             }
         ], 'key'),
 
