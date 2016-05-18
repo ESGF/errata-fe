@@ -27,14 +27,33 @@
             APP.trigger(eventType, data);
         };
 
-    // Setup data parser.
+    // Event handler: setup:initialSearchDataDownload.
     APP.on("setup:initialSearchDataDownload", function (data) {
         doParse("setup:initialSearchDataParsed", data);
     });
 
-    // Setup data parser.
+    // Event handler: search:dataDownload.
     APP.on("search:dataDownload", function (data) {
         doParse("search:dataParsed", data);
+    });
+
+    // Event handler: setup:setupDataDownload.
+    APP.on("setup:setupDataDownload", function (data) {
+        _.each(APP.state.filters, function (f) {
+            // Inject global filter.
+            if (f.hasGlobal) {
+                data[f.key].unshift({
+                    key: "*",
+                    label: "*"
+                });
+            }
+
+            // Sort filter data.
+            data[f.key] = _.sortBy(data[f.key], 'label');
+        });
+
+        // Fire event.
+        APP.trigger("setup:setupDataParsed", data);
     });
 
 }(

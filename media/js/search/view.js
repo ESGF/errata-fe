@@ -165,7 +165,6 @@
         },
 
         _updateStatisticsInfo: function () {
-            console.log("SEX SEX: " + APP.state.searchData.count);
             this._replaceNode('#grid-header-summary', 'template-grid-header-summary');
             this._replaceNode('#grid-footer-summary', 'template-grid-footer-summary');
         },

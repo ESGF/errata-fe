@@ -36,6 +36,19 @@
             });
     };
 
+    // Event handler: setup:begin.
+    APP.on("setup:begin", function () {
+        $.get(APP.defaults.apiBaseURL + APP.constants.URLS.SEARCH_SETUP)
+            .done(function (data) {
+                APP.trigger("setup:setupDataDownload", data);
+            })
+            .fail(function () {
+                setTimeout(function () {
+                    APP.trigger("setup:setupDataDownload:error");
+                }, APP.constants.uiUpdateDelay);
+            });
+    });
+
     // Event handler: setup state initialized.
     APP.on("setup:stateInitialized", function () {
         doSearch("setup:initialSearchDataDownload");
