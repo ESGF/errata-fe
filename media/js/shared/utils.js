@@ -157,6 +157,23 @@
         }, data);
     };
 
+    // Displays feedback modal.
+    APP.utils.displayFeedback = function (text) {
+        $('#feedbackText').text(text + " ... please wait");
+        $('.feedback-title').text(APP.FULLTITLE);
+        $('.feedback-version').text("v" + APP.VERSION);
+        $("#feedbackContainer").modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+        });
+    };
+
+    // Hides feedback modal.
+    APP.utils.hideFeedback = function () {
+        $("#feedbackContainer").modal('hide');
+    };
+
 }(
     this.APP,
     this.APP.constants,

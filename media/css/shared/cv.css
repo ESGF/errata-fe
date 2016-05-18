@@ -1,0 +1,50 @@
+/* Issue states */
+td.issue-state {
+	font-weight: bold;
+}
+td.issue-state.open {
+	background-color: #00ff00;
+}
+td.issue-state.closed {
+	background-color: #ff9900;
+}
+
+
+/* Issue severity */
+td.issue-severity {
+	font-weight: bold;
+}
+td.issue-severity.low {
+	background-color: #00ff00;
+}
+td.issue-severity.medium {
+	background-color: #ff9900;
+}
+td.issue-severity.high {
+	background-color: #0c343d;
+	color: #ffffff;
+}
+td.issue-severity.critical {
+	background-color: #38761d;
+	color: #ffffff;
+}
+
+
+/* Issue workflow */
+td.issue-workflow {
+	font-weight: bold;
+}
+td.issue-workflow.new {
+	background-color: #00ff00;
+}
+td.issue-workflow.onhold {
+	background-color: #ff9900;
+}
+td.issue-workflow.resolved {
+	background-color: #0c343d;
+	color: #ffffff;
+}
+td.issue-workflow.wontfix {
+	background-color: #38761d;
+	color: #ffffff;
+}

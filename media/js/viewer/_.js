@@ -50,6 +50,9 @@ window.$ = window.$jq = jQuery.noConflict();
         views: {}
     };
 
+    // Set derived fields.
+    APP.FULLTITLE = APP.ORGANIZATION + " " + APP.NAME + " " + APP.SUBTITLE;
+
     // Commence setup when document has loaded.
     $(document).ready(function () {
         APP.trigger("setup:begin");

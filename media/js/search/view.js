@@ -120,7 +120,8 @@
             _.each([
                 "template-header",
                 "template-filter",
-                "template-grid"], function (template) {
+                "template-grid"
+                ], function (template) {
                 APP.utils.renderTemplate(template, viewData, this);
             }, this);
 
@@ -178,7 +179,7 @@
         _openDetailPage: function (uid) {
             var url;
 
-            url = window.location.href.replace("search", "view");
+            url = window.location.href.replace("search", "viewer");
             url += "?uid=";
             url += uid;
             APP.utils.openURL(url, true);
