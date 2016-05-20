@@ -3,6 +3,6 @@ article {
     width: 100%;
 }
 
-article > header > h3 {
+h3 {
 	padding: 3px;
 }
