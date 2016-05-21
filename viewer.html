@@ -90,7 +90,7 @@
     </li>
     <% } %>
     <% // TAB NAV: datasets %>
-    <% if (issue.datasets.length) { %>
+    <% if (datasets.length) { %>
     <li role="presentation">
         <a  href="#tab-issue-datasets"
             aria-controls="profile"
@@ -98,7 +98,7 @@
             title="Affected Datasets"
             data-toggle="tab">
             <strong class="text-uppercase">
-                Affected Datasets (<%= issue.datasets.length %>)
+                Affected Datasets (<%= datasets.length %>)
             </strong>
         </a>
     </li>
@@ -121,7 +121,7 @@
     </div>
     <% } %>
     <% // TAB CONTENT: datasets %>
-    <% if (issue.datasets.length) { %>
+    <% if (datasets.length) { %>
     <div role="tabpanel" class="tab-pane" id="tab-issue-datasets">
         <section>
             <%= APP.utils.renderTemplate("template-issue-datasets", APP.state) %>
@@ -260,7 +260,7 @@
         </tr>
     </thead>
     <tbody>
-        <% _.each(issue.datasets, function(dataset, idx) { %>
+        <% _.each(datasets, function(dataset, idx) { %>
         <tr>
             <td class="text-center">
                 <small>
@@ -277,7 +277,7 @@
         <tr class="bg-default">
             <th colspan="2">
                 <span>
-                    Affected Datasets = <%= issue.datasets.length %>
+                    Affected Datasets = <%= datasets.length %>
                 </span>
                 <span class="pull-right">
                     <strong><small>

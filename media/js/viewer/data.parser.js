@@ -18,8 +18,11 @@
     APP.on("setup:issueDataDownload", function (data) {
         var issue;
 
+        // Update state.
+        APP.state.issue = issue = data.issue;
+        APP.state.datasets = data.datasets;
+
         // Set issue full title.
-        issue = APP.state.issue = data.issue;
         issue._fullTitle = issue.project.toUpperCase();
         issue._fullTitle += " - ";
         issue._fullTitle += issue.institute.toUpperCase();
@@ -37,9 +40,6 @@
 
         // Split fields.
         issue._materials = issue.materials ? issue.materials.split(",") : [];
-
-        // Sort fields.
-        issue.datasets = data.datasets;
 
         // Format data fields.
         issue._dateCreated = issue.dateCreated ? issue.dateCreated.slice(0, 10) : "--";

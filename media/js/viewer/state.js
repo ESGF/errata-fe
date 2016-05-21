@@ -10,6 +10,8 @@
     APP.state = {
         APP: APP,
 
+        datasets: [],
+
         issue: undefined,
 
         issueID: APP.utils.getURLParam("uid")
