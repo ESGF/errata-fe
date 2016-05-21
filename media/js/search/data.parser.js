@@ -8,6 +8,9 @@
     var
         // Parses data returned from search web-service endpoint.
         doParse = function (eventType, data) {
+            // Map results.
+            data.results = _.map(data.results, APP.mapIssue);
+
             // Set filter related helper attributes.
             _.each(data.results, function (row) {
                 _.each(_.values(APP.state.filters), function (f) {
