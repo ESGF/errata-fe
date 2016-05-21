@@ -37,10 +37,9 @@
 
         // Split fields.
         issue._materials = issue.materials ? issue.materials.split(",") : [];
-        issue._datasets = issue.datasets ? issue.datasets.split(",") : [];
 
         // Sort fields.
-        issue._datasets = _.sortBy(issue._datasets);
+        issue.datasets = data.datasets;
 
         // Format data fields.
         issue._dateCreated = issue.dateCreated ? issue.dateCreated.slice(0, 10) : "--";
