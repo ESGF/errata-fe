@@ -38,6 +38,10 @@
             issues = _.sortBy(issues, field);
         }
 
+        if (_.contains(['institute'], field)) {
+            issues = _.sortBy(issues, "_" + field);
+        }
+
         if (_.contains(['severity', 'workflow', 'state'], field)) {
             issues = _.sortBy(issues, function (i) {
                 return i["_" + field].label.toLowerCase();

@@ -13,6 +13,7 @@
                 _.each(_.values(APP.state.filters), function (f) {
                     row['_' + f.key] = f.data.set[row[f.key]];
                 });
+                row._institute = row.institute.toUpperCase();
             });
 
             // Set human readable title.
