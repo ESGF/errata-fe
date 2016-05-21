@@ -1,0 +1,6 @@
+header.main img:hover {
+    cursor:pointer;
+}
+header.main h1 small b {
+    color: black;
+}

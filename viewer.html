@@ -17,11 +17,10 @@
     <link href="ext/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="media/css/shared/defaults.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="media/css/shared/cv.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="media/css/viewer/header.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="media/css/shared/header.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="media/css/viewer/title.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="media/css/viewer/details.css" media="screen" rel="stylesheet" type="text/css" />
 </head>
-
 
 <!-- ---------------------------------------------- -->
 <!-- Document body 									-->
@@ -30,7 +29,7 @@
 
 <!-- BEGIN: Page header -->
 <script type="underscore/template" id="template-header">
-<header>
+<header class="main">
     <img src="media/img/logo.png"
          alt="Earth System Documentation"
          title="Earth System Documentation"
@@ -49,43 +48,91 @@
 
 <!-- BEGIN: Issue -->
 <script type="underscore/template" id="template-issue">
-<article>
-    <!-- HEADER -->
-    <%= APP.utils.renderTemplate("template-issue-header", APP.state) %>
-
-    <!-- DETAILS -->
-    <section>
-    <%= APP.utils.renderTemplate("template-issue-details", APP.state) %>
-    </section>
-
-    <!-- MATERIALS -->
-    <% if (issue._materials.length) { %>
-    <section>
-    <%= APP.utils.renderTemplate("template-issue-materials", APP.state) %>
-    </section>
-    <% } %>
-
-    <!-- DATASETS -->
-    <% if (issue._datasets.length) { %>
-    <section>
-    <%= APP.utils.renderTemplate("template-issue-datasets", APP.state) %>
-    </section>
-    <% } %>
+<article class="container-fluid">
+    <header class="bg-primary">
+        <h2>
+            <%= issue._fullTitle %>
+        </h2>
+    </header>
+    <%= APP.utils.renderTemplate("template-issue-tabs", APP.state) %>
 </article>
 </script>
 <!-- END: Issue -->
 
-<!-- BEGIN: Issue -->
-<script type="underscore/template" id="template-issue-header">
-<header class="bg-primary">
-    <h3>
-        <%= issue._fullTitle %>
-    </h3>
-</header>
+<!-- BEGIN: Issue tabs -->
+<script type="underscore/template" id="template-issue-tabs">
+<% // TAB NAV %>
+<ul class="nav nav-tabs" role="tablist">
+    <% // TAB NAV: details %>
+    <li role="presentation" class="active">
+        <a  href="#tab-issue-details"
+            aria-controls="profile"
+            role="tab"
+            title="Details"
+            data-toggle="tab">
+            <strong class="text-uppercase">
+                Details
+            </strong>
+        </a>
+    </li>
+    <% // TAB NAV: materials %>
+    <% if (issue._materials.length) { %>
+    <li role="presentation">
+        <a  href="#tab-issue-materials"
+            aria-controls="profile"
+            role="tab"
+            title="Materials"
+            data-toggle="tab">
+            <strong class="text-uppercase">
+                Materials (<%= issue._materials.length %>)
+            </strong>
+        </a>
+    </li>
+    <% } %>
+    <% // TAB NAV: datasets %>
+    <% if (issue._datasets.length) { %>
+    <li role="presentation">
+        <a  href="#tab-issue-datasets"
+            aria-controls="profile"
+            role="tab"
+            title="Affected Datasets"
+            data-toggle="tab">
+            <strong class="text-uppercase">
+                Affected Datasets (<%= issue._datasets.length %>)
+            </strong>
+        </a>
+    </li>
+    <% } %>
+</ul>
+<% // TAB CONTENT %>
+<div class="tab-content">
+    <% // TAB CONTENT: overview %>
+    <div role="tabpanel" class="tab-pane active" id="tab-issue-details">
+        <section>
+            <%= APP.utils.renderTemplate("template-issue-details", APP.state) %>
+        </section>
+    </div>
+    <% // TAB CONTENT: materials %>
+    <% if (issue._materials.length) { %>
+    <div role="tabpanel" class="tab-pane" id="tab-issue-materials">
+        <section>
+            <%= APP.utils.renderTemplate("template-issue-materials", APP.state) %>
+        </section>
+    </div>
+    <% } %>
+    <% // TAB CONTENT: datasets %>
+    <% if (issue._datasets.length) { %>
+    <div role="tabpanel" class="tab-pane" id="tab-issue-datasets">
+        <section>
+            <%= APP.utils.renderTemplate("template-issue-datasets", APP.state) %>
+        </section>
+    </div>
+    <% } %>
+<div>
 </script>
-<!-- END: Issue -->
+<!-- END: Issue tabs -->
 
-<!-- BEGIN: Issue -->
+<!-- BEGIN: Issue details -->
 <script type="underscore/template" id="template-issue-details">
 <table class="table table-bordered table-striped">
     <tbody>
@@ -122,11 +169,11 @@
         <tr>
             <td class="field-name">Landing Page</td>
             <td class="field-value">
-                <% if (issue.landingPage) { %>
-                <a href="<%= issue.landingPage %>"
+                <% if (issue.url) { %>
+                <a href="<%= issue.url %>"
                    target="blank"
                    title="Link to issue landing page">
-                   <%= issue.landingPage %>
+                   <%= issue.url %>
                 </a>
                 <% } else { %>
                     --
@@ -186,46 +233,64 @@
     </tbody>
 </table>
 </script>
-<!-- END: Issue -->
+<!-- END: Issue details -->
 
-<!-- BEGIN: Issue -->
+<!-- BEGIN: Issue materials -->
 <script type="underscore/template" id="template-issue-materials">
-<header class="bg-primary">
-    <h3>
-        Materials (<%= issue._materials.length %>)
-    </h3>
-</header>
 <% _.each(issue._materials, function(material) { %>
-    <section>
         <img src="<%= material %>"
              alt="TODO"
              title="TODO"
-             class="img" />
-    </section>
+             class="img"/>
 <% }); %>
 </script>
-<!-- END: Issue -->
+<!-- END: Issue materials -->
 
-<!-- BEGIN: Issue -->
+<!-- BEGIN: Issue datasets -->
 <script type="underscore/template" id="template-issue-datasets">
-<header class="bg-primary">
-    <h3>
-        Affected Datasets (<%= issue._datasets.length %>)
-    </h3>
-</header>
 <table class="table table-bordered table-striped">
+    <thead>
+        <tr class="column-headers">
+            <th title='Number' class="text-center">
+                    #
+            </th>
+            <th title='Dataset Identifier'>
+                Dataset ESG-F Identifier
+            </th>
+        </tr>
+    </thead>
     <tbody>
-        <% _.each(issue._datasets, function(dataset) { %>
+        <% _.each(issue._datasets, function(dataset, idx) { %>
         <tr>
-            <td>
+            <td class="text-center">
+                <small>
+                    <%= idx + 1 %>
+                </small>
+            </td>
+            <td class="col-md-12">
                 <%= dataset %>
             </td>
         </tr>
         <% }); %>
     </ tbody>
+    <tfoot>
+        <tr class="bg-default">
+            <th colspan="2">
+                <span>
+                    Affected Datasets = <%= issue._datasets.length %>
+                </span>
+                <span class="pull-right">
+                    <strong><small>
+                        <%- APP.NAME %> v<%- APP.VERSION %> © <%- APP.copyrightYear %>
+                        <a href="<%- APP.defaults.homepage %>" target='_blank'>ES-DOC</a>
+                    </small></strong>
+                </span>
+            </th>
+        </tr>
+    </tfoot>
 </ table>
 </script>
-<!-- END: Issue -->
+<!-- END: Issue datasets -->
 
 <!-- BEGIN: feedback -->
 <div id="feedbackContainer" class="modal fade feedback-container">
@@ -250,7 +315,6 @@
 </div>
 <!-- END: feedback -->
 
-
 <!-- ---------------------------------------------- -->
 <!-- JS: 3rd party libraries                        -->
 <!-- ---------------------------------------------- -->
@@ -270,12 +334,12 @@
 <script src="media/js/shared/constants.js" type="text/javascript"></script>
 <script src="media/js/shared/defaults.js" type="text/javascript"></script>
 <script src="media/js/shared/utils.js" type="text/javascript"></script>
+<script src="media/js/shared/view.renderer.js" type="text/javascript"></script>
 <script src="media/js/viewer/feedback.js" type="text/javascript"></script>
 <script src="media/js/viewer/state.js" type="text/javascript"></script>
 <script src="media/js/viewer/data.downloader.js" type="text/javascript"></script>
 <script src="media/js/viewer/data.parser.js" type="text/javascript"></script>
 <script src="media/js/viewer/view.js" type="text/javascript"></script>
-<script src="media/js/viewer/view.renderer.js" type="text/javascript"></script>
 
 </body>
 

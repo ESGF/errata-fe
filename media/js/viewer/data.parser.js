@@ -37,7 +37,7 @@
 
         // Split fields.
         issue._materials = issue.materials ? issue.materials.split(",") : [];
-        issue._datasets = issue.dsets ? issue.dsets.split(",") : [];
+        issue._datasets = issue.datasets ? issue.datasets.split(",") : [];
 
         // Sort fields.
         issue._datasets = _.sortBy(issue._datasets);

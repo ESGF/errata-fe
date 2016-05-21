@@ -1,3 +1,21 @@
+article.container-fluid {
+    display: inline-block;
+    padding: 0px;
+    width: 100%;
+}
+
+article section {
+	padding-top: 5px;
+}
+
+h2 {
+	margin-top: 10px;
+}
+
 .field-name {
 	font-weight: bold;
+}
+
+thead tr.column-headers {
+    background-color:#eceeef;
 }
