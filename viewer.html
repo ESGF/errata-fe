@@ -252,7 +252,7 @@
     <thead>
         <tr class="column-headers">
             <th title='Number' class="text-center">
-                    #
+                #
             </th>
             <th title='Dataset Identifier'>
                 Dataset ESG-F Identifier
@@ -263,9 +263,7 @@
         <% _.each(datasets, function(dataset, idx) { %>
         <tr>
             <td class="text-center">
-                <small>
-                    <%= idx + 1 %>
-                </small>
+                <%= idx + 1 %>
             </td>
             <td class="col-md-12">
                 <%= dataset %>
@@ -282,7 +280,7 @@
                 <span class="pull-right">
                     <strong><small>
                         <%- APP.NAME %> v<%- APP.VERSION %> © <%- APP.copyrightYear %>
-                        <a href="<%- APP.defaults.homepage %>" target='_blank'>ES-DOC</a>
+                        <a href="<%- APP.constants.URLS.HOME_PAGE %>" target='_blank'>ES-DOC</a>
                     </small></strong>
                 </span>
             </th>
