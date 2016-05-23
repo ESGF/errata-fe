@@ -110,19 +110,12 @@
 
         // Backbone: view renderer.
         render: function () {
-            var viewData;
-
-            viewData = {
-                APP: APP,
-                issues: APP.state.searchData.results
-            };
-
             _.each([
                 "template-header",
                 "template-filter",
                 "template-grid"
                 ], function (template) {
-                APP.utils.renderTemplate(template, viewData, this);
+                APP.utils.renderTemplate(template, APP, this);
             }, this);
 
             return this;
