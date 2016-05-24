@@ -53,7 +53,9 @@
             }
 
             // Sort filter data.
-            data[f.key] = _.sortBy(data[f.key], 'label');
+            data[f.key] = _.sortBy(data[f.key], function (i) {
+                return i.sortOrdinal || i.label;
+            });
         });
 
         // Fire event.

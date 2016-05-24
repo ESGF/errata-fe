@@ -42,9 +42,12 @@
         issue._materials = issue.materials ? issue.materials.split(",") : [];
 
         // Format data fields.
-        issue._dateCreated = issue.dateCreated ? issue.dateCreated : "--";
-        issue._dateUpdated = issue.dateUpdated ? issue.dateUpdated : "--";
-        issue._dateClosed = issue.dateClosed ? issue.dateClosed : "--";
+        issue._dateCreated = issue.dateCreated ?
+                             issue.dateCreated.slice(0, 16) : "--";
+        issue._dateUpdated = issue.dateUpdated ?
+                             issue.dateUpdated.slice(0, 16) : "--";
+        issue._dateClosed = issue.dateClosed ?
+                            issue.dateClosed.slice(0, 16) : "--";
 
         // Fire event.
         APP.trigger("setup:issueDataParsed", data);
