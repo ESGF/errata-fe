@@ -15,17 +15,18 @@ td.issue-severity {
 	font-weight: bold;
 }
 td.issue-severity.low {
-	background-color: #00ff00;
+	background-color: #e6b8af;
 }
 td.issue-severity.medium {
-	background-color: #ff9900;
+	background-color: #dd7e6b;
+	color: #ffffff;
 }
 td.issue-severity.high {
-	background-color: #0c343d;
+	background-color: #cc4125;
 	color: #ffffff;
 }
 td.issue-severity.critical {
-	background-color: #38761d;
+	background-color: #a61c00;
 	color: #ffffff;
 }
 
