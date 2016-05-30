@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<!-- ---------------------------------------------- -->
+<!-- Document head 									-->
+<!-- ---------------------------------------------- -->
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <link rel="shortcut icon" href="media/img/favicon.ico" type="image/x-icon" />
+    <title>ES-DOC - Errata - PID</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- ---------------------------------------------- -->
+	<!-- CSS: 											-->
+	<!-- ---------------------------------------------- -->
+    <link href="ext/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="media/css/shared/defaults.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="media/css/shared/cv.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="media/css/shared/header.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="media/css/pid/filter.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+
+<!-- ---------------------------------------------- -->
+<!-- Document body 									-->
+<!-- ---------------------------------------------- -->
+<body>
+
+<!-- BEGIN: Page header -->
+<script type="underscore/template" id="template-header">
+<header class="main">
+    <img src="media/img/logo.png"
+         alt="Earth System Documentation"
+         title="Earth System Documentation"
+         class="pull-left esdoc-logo" />
+    <h1 class="pull-right">
+        <small>
+            <b><%= APP.NAME %></b>
+            <b><%= APP.SUBTITLE %></b>
+        </small>
+        <strong class="h6"> v<%= APP.VERSION %></strong>
+        <button class="esdoc-support btn btn-primary">Support</button>
+    </h1>
+</header>
+</script>
+<!-- END: page header -->
+
+<!-- BEGIN: filter panel -->
+<script type="underscore/template" id="template-filter">
+<div class="container-fluid bg-primary filter">
+
+    <div class="row">
+        <div class="col-md-12">
+            <label>
+                Get version history of a (list of) file(s) or dataset(s):
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <input id="pid-data" type="text" class="form-control"
+                   placeholder="Enter PID as <prefix>/<uuid>" />
+        </div>
+        <div class="col-md-4 file-selector">
+            <label class="or">
+                <strong>or</strong>
+            </label>
+            <label class="btn btn-default btn-file col-md-11 pull-right">
+                <strong>Choose File</strong>
+                <input id="file-selector" type="file" style="display: none;">
+            </label>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 8px;">
+        <div class="col-md-12">
+            <button id="searchButton" class="btn btn-success col-md-12" type="submit">
+                <strong>
+                    Search Version History
+                </strong>
+            </button>
+        </div>
+    </div>
+</div>
+</script>
+<!-- END: filter panel -->
+
+<!-- BEGIN: feedback -->
+<div id="feedbackContainer" class="modal fade feedback-container">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span class="feedback-title"></span>
+                    <small class="feedback-version"></small>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <p><b id="feedbackText"><b></p>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                    <span class="sr-only">100% Complete</span>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: feedback -->
+
+<!-- ---------------------------------------------- -->
+<!-- JS: 3rd party libraries                        -->
+<!-- ---------------------------------------------- -->
+<script src="ext/jquery-2.2.3.min.js"></script>
+<script src="ext/underscore-1.8.3.min.js"></script>
+<script src="ext/backbone-1.3.3.min.js"></script>
+<script src="ext/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+<script src="ext/js.cookie-2.1.0.js"></script>
+<script src="ext/moment-2.12.0.min.js"></script>
+<script src="ext/numeral-1.5.3.min.js"></script>
+
+<!-- ---------------------------------------------- -->
+<!-- JS: Application scripts                        -->
+<!-- ---------------------------------------------- -->
+<!-- ... shared scripts                             -->
+<script src="media/js/pid/_.js" type="text/javascript"></script>
+<script src="media/js/shared/constants.js" type="text/javascript"></script>
+<script src="media/js/shared/defaults.js" type="text/javascript"></script>
+<script src="media/js/shared/utils.js" type="text/javascript"></script>
+<script src="media/js/shared/view.renderer.js" type="text/javascript"></script>
+<script src="media/js/pid/feedback.js" type="text/javascript"></script>
+<script src="media/js/pid/state.js" type="text/javascript"></script>
+<script src="media/js/pid/data.downloader.js" type="text/javascript"></script>
+<script src="media/js/pid/view.js" type="text/javascript"></script>
+
+</body>
+
+</html>

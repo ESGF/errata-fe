@@ -21,7 +21,7 @@ window.$ = window.$jq = jQuery.noConflict();
         NAME: "Errata",
 
         // Subtitle.
-        SUBTITLE: "Viewer",
+        SUBTITLE: "PID Lookup",
 
         // Version.
         VERSION: '0.1.0.0',
@@ -56,8 +56,9 @@ window.$ = window.$jq = jQuery.noConflict();
     // Commence setup when document has loaded.
     $(document).ready(function () {
         APP.trigger("setup:begin");
-    });
 
+        APP.trigger("setup:complete");
+    });
 
 }(
     this,

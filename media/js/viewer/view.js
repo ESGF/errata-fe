@@ -21,11 +21,6 @@
             }
         },
 
-        // Backbone: view initializer.
-        initialize: function () {
-
-        },
-
         // Backbone: view renderer.
         render: function () {
             _.each([
