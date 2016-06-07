@@ -35,8 +35,6 @@
                     APP.trigger("search:dataDownload:error", data);
                 }, APP.constants.uiUpdateDelay);
             });
-
-        APP.trigger("search:complete");
     });
 
 }(

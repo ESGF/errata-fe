@@ -6,6 +6,8 @@
     // ECMAScript 5 Strict Mode
     "use strict";
 
+    var isFirstGridRender = true;
+
     // Main module level view.
     APP.views.MainView = Backbone.View.extend({
         // Backbone: view event handlers.
@@ -47,15 +49,21 @@
             },
 
             'click #searchButton': function (e) {
-                if (APP.state.handles) {
+                if (APP.state.handles.length) {
                     APP.events.trigger('ui:search');
                 }
+            },
+
+            // Open page: errata detail.
+            'click .issue-link': function (e) {
+                this._openIssueDetailPage($(e.target).parent().parent().attr("id"));
             }
         },
 
         // Backbone: view initializer.
         initialize: function () {
             APP.events.on("ui:pidFileSelected", this._setPIDList, this);
+            APP.events.on("search:complete", this._updateGrid, this);
         },
 
         // Backbone: view renderer.
@@ -70,12 +78,38 @@
             return this;
         },
 
+        // Utility function to replace a page DOM node.
+        _replaceNode: function (nodeSelector, template) {
+            this.$(nodeSelector).replaceWith(APP.utils.renderTemplate(template, APP.state));
+        },
+
         _setPIDList: function (data) {
             // Update state.
             APP.state.handles = data.handles;
 
             // Update UI.
             $("#pid-data").val("file://" + data.file.name);
+        },
+
+        _updateGrid: function () {
+            if (!isFirstGridRender) {
+                this.$('table').remove();
+            }
+            APP.utils.renderTemplate("template-grid", APP, this);
+            isFirstGridRender = false;
+        },
+
+        _openIssueDetailPage: function (uid) {
+            var url;
+
+            if (!uid) {
+                return;
+            }
+
+            url = window.location.href.replace("pid", "viewer");
+            url += "?uid=";
+            url += uid;
+            APP.utils.openURL(url, true);
         }
     });
 

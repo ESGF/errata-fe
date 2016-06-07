@@ -20,9 +20,6 @@
     APP.on("search:begin", function () {
         APP.utils.displayFeedback("Searching PID handle service");
     });
-    APP.on("search:dataDownload", function () {
-        alert("TODO render response from web-service in UI");
-    });
     APP.on("search:dataDownload:error", function () {
         alert("An error occurred whilst calling the PID handle service");
     });

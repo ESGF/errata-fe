@@ -10,7 +10,9 @@
     APP.state = {
         APP: APP,
 
-        handles: []
+        handles: [],
+
+        errata: []
     };
 
 }(

@@ -11,9 +11,17 @@ div.filter label {
 }
 
 div.file-selector {
-	padding-left: 0;
+	margin-left: -10px;
+	padding-left: 0px;
+	margin-right: 5px;
 }
 
-div.file-selector label.or{
-	margin-top: 5px;
+
+label.or {
+	margin-top: 7px;
+	margin-right: 5px;
+}
+
+#searchButton {
+	margin-right: -10px;
 }
