@@ -147,15 +147,17 @@
         _updateGridPager: function () {
             var text;
 
-            this.$('.pagination').removeClass('hidden');
-            if (paging.count < 2) {
-                this.$('.pagination').addClass('hidden');
-            }
             text = "Page ";
             text += paging.current ? paging.current.id : '0';
             text += " of ";
             text += paging.count;
             this.$('.pagination-info').attr('placeholder', text);
+
+            this.$('.pagination-container').removeClass('hidden');
+            if (paging.count < 2 && APP.state.searchData.count < 25) {
+                console.log("# pages: " + paging.count);
+                this.$('.pagination-container').addClass('hidden');
+            }
         },
 
         _updateStatisticsInfo: function () {

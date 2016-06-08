@@ -151,7 +151,7 @@
 
 <!-- BEGIN: grid header pager -->
 <script type="underscore/template" id="template-grid-header-pager">
-<span class="pull-right form-inline <%= paging.count < 2 ? '' : '' %>">
+<span class="pull-right form-inline pagination-container <%= paging.count < 2 ? 'hidden' : '' %>">
     <button type="button"
             class="btn btn-sm btn-default pagination-first">
         <strong class="text-muted"><<</strong>
