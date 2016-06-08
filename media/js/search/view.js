@@ -121,6 +121,7 @@
             return this;
         },
 
+        // Sets new sort column.
         _setSortColumn: function () {
             if (sorting.direction === 'asc') {
                 this.$('.glyphicon.sort-target-' + sorting.field).addClass('glyphicon-menu-up');
@@ -129,11 +130,13 @@
             }
         },
 
+        // Toggles current sort column.
         _toggleSortColumn: function () {
             this._clearSortColumn();
             this._setSortColumn();
         },
 
+        // Clears current sort column.
         _clearSortColumn: function () {
             this.$('.glyphicon.sort-target-' + sorting.field).removeClass('glyphicon-menu-up');
             this.$('.glyphicon.sort-target-' + sorting.field).removeClass('glyphicon-menu-down');
@@ -144,6 +147,7 @@
             this._replaceNode('tbody', 'template-grid-body');
         },
 
+        // Updates grid pagination.
         _updateGridPager: function () {
             var text;
 
@@ -160,17 +164,18 @@
             }
         },
 
+        // Updates search statistics.
         _updateStatisticsInfo: function () {
             this._replaceNode('#grid-header-summary', 'template-grid-header-summary');
             this._replaceNode('#grid-footer-summary', 'template-grid-footer-summary');
         },
 
-        // Utility function to replace a page DOM node.
+        // Replaces a page DOM node.
         _replaceNode: function (nodeSelector, template) {
             this.$(nodeSelector).replaceWith(APP.utils.renderTemplate(template, APP.state));
         },
 
-        // Open errata detail page.
+        // Opens errata detail page.
         _openDetailPage: function (uid) {
             var url;
 
