@@ -53,14 +53,14 @@
 <div class="container-fluid bg-primary filter">
     <div class="row">
         <% _.each(_.sortBy(APP.state.filters, 'uiPosition'), function(f) { %>
-        <label class='col-md-2'>
+        <label>
             <%- f.label %>:
         </label>
         <% }); %>
     </div>
     <div class="row">
         <% _.each(_.sortBy(APP.state.filters, 'uiPosition'), function(f) { %>
-        <span class="col-md-2">
+        <span>
             <select id="filter-<%= f.key %>" class="form-control input-sm">
                 <% _.each(f.data.all, function(i) { %>
                     <option value="<%= i.key %>" <%= i === f.data.current ? "selected" : "" %> >

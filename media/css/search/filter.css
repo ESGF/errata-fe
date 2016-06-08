@@ -7,5 +7,15 @@ div.filter {
 }
 
 div.filter label {
+	float: left;
 	font-weight: normal;
+	width: 18%;
+	margin-left: 16px;
+}
+
+div.filter span {
+	float: left;
+	font-weight: normal;
+	width: 18%;
+	margin-left: 16px;
 }
