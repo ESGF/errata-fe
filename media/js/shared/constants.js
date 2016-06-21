@@ -87,7 +87,7 @@
 
         // Logging related.
         logging: {
-            PREFIX: "ERRATA :: "
+            PREFIX: "ES-DOC-ERRATA :: "
         },
 
         // Text to display in lieu of null value.

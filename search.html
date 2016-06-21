@@ -38,8 +38,7 @@
          class="pull-left esdoc-logo" />
     <h1 class="pull-right">
         <small>
-            <b><%= APP.NAME %></b>
-            <b><%= APP.SUBTITLE %></b>
+            <b><%= APP.LONG_NAME %></b>
         </small>
         <strong class="h6"> v<%= APP.VERSION %></strong>
         <button class="esdoc-support btn btn-primary">Support</button>
@@ -264,7 +263,7 @@
             <%= APP.utils.renderTemplate("template-grid-footer-summary", APP.state) %>
             <span class="pull-right">
                 <strong><small>
-                    <%- APP.NAME %> <%= APP.SUBTITLE %> v<%- APP.VERSION %> © <%- APP.copyrightYear %>
+                    <%- APP.G_NAME %> v<%- APP.VERSION %> © <%- APP.copyrightYear %>
                     <a href="<%- APP.constants.URLS.HOME_PAGE %>" target='_blank'>ES-DOC</a>
                 </small></strong>
             </span>

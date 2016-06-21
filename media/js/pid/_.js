@@ -20,8 +20,8 @@ window.$ = window.$jq = jQuery.noConflict();
         // Name.
         NAME: "Errata",
 
-        // Subtitle.
-        SUBTITLE: "PID Lookup",
+        // Long name
+        LONG_NAME: "Errata PID Lookup",
 
         // Version.
         VERSION: '0.1.0.0',
@@ -51,7 +51,7 @@ window.$ = window.$jq = jQuery.noConflict();
     };
 
     // Set derived fields.
-    APP.FULLTITLE = APP.ORGANIZATION + " " + APP.NAME + " " + APP.SUBTITLE;
+    APP.FULLTITLE = APP.ORGANIZATION + " " + APP.LONG_NAME;
 
     // Commence setup when document has loaded.
     $(document).ready(function () {

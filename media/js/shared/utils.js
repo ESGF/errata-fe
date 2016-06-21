@@ -12,7 +12,7 @@
     // Outputs message to brwoser logging console.
     // @msg          Logging message.
     APP.log = APP.utils.log = function (msg) {
-        console.log(new Date() + " :: " + APP.constants.logging.PREFIX + msg);
+        console.log(new Date() + " :: " + constants.logging.PREFIX + msg);
     };
 
     // Opens the target url.
@@ -28,7 +28,7 @@
 
     // Opens the homepage.
     APP.utils.openHomepage = function () {
-        APP.utils.openURL(APP.constants.URLS.HOME_PAGE, true);
+        APP.utils.openURL(constants.URLS.HOME_PAGE, true);
     };
 
     // Opens the target email.
@@ -37,8 +37,8 @@
     APP.utils.openEmail = function (address, subject, message) {
         var email = "mailto:{0}?subject={1}&body={2}";
 
-        subject = subject || APP.constants.EMAIL.SUBJECT;
-        message = message || APP.constants.EMAIL.MESSAGE;
+        subject = subject || constants.EMAIL.SUBJECT;
+        message = message || constants.EMAIL.MESSAGE;
 
         email = email.replace('{0}', address);
         email = email.replace('{1}', subject);
@@ -52,9 +52,10 @@
     APP.utils.openSupportEmail = function () {
         var subject;
 
-        subject = "ES-DOC :: SUPPORT :: ERRATA (v{0}) :: support question";
-        subject = subject.replace("{0}", APP.VERSION);
-        APP.utils.openEmail(APP.constants.EMAIL.SUPPORT, subject);
+        subject = "ES-DOC :: SUPPORT :: {0} (v{1})";
+        subject = subject.replace("{0}", APP.NAME.toUpperCase());
+        subject = subject.replace("{1}", APP.VERSION);
+        APP.utils.openEmail(constants.EMAIL.SUPPORT, subject);
     };
 
     // Renders a view.

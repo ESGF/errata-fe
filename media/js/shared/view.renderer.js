@@ -8,7 +8,6 @@
 
     // Event handler: setup complete.
     APP.events.on("setup:complete", function () {
-
         // Render main view.
         APP.view = new APP.views.MainView();
         APP.view.render();

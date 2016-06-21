@@ -54,7 +54,7 @@
 
             // Sort filter data.
             data[f.key] = _.sortBy(data[f.key], function (i) {
-                return i.sortOrdinal || i.label;
+                return i.sortOrdinal || i.label || i.name;
             });
         });
 
