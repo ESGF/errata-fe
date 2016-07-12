@@ -19,7 +19,7 @@
         // Set web-service endpoint query parameters.
         params = {
             timestamp: new Date().getTime(),
-            handles: APP.state.handles.join(",")
+            pids: APP.state.pids.join(",")
         };
 
         // Invoke web-service endpoint.

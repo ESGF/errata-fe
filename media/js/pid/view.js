@@ -31,7 +31,7 @@
                     if (e.target.result.trim()) {
                         APP.events.trigger("ui:pidFileSelected", {
                             file: file,
-                            handles: e.target.result.trim().split("\n")
+                            pids: e.target.result.trim().split("\n")
                         });
                     }
                 };
@@ -39,17 +39,17 @@
             },
 
             'change #pid-data': function (e) {
-                var handle;
-                handle = $(e.target).val().trim();
-                if (handle) {
-                    APP.state.handles = [handle];
+                var pid;
+                pid = $(e.target).val().trim();
+                if (pid) {
+                    APP.state.pids = [pid];
                 } else {
-                    APP.state.handles = [];
+                    APP.state.pids = [];
                 }
             },
 
             'click #searchButton': function (e) {
-                if (APP.state.handles.length) {
+                if (APP.state.pids.length) {
                     APP.events.trigger('ui:search');
                 }
             },
@@ -85,7 +85,7 @@
 
         _setPIDList: function (data) {
             // Update state.
-            APP.state.handles = data.handles;
+            APP.state.pids = data.pids;
 
             // Update UI.
             $("#pid-data").val("file://" + data.file.name);
