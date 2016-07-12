@@ -14,9 +14,9 @@
                 handle: i[0],
                 issues: _.map(i[1], function (j) {
                     return {
-                        artefact: j[0],
-                        uid: j[1],
-                        sortOrdinal: j[2]
+                        artefact: j[1] + "#" + j[2],
+                        sortOrdinal: j[3],
+                        uid: j[0]
                     };
                 })
             };
