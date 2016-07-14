@@ -13,10 +13,8 @@
         // Trigger event.
         APP.trigger("search:begin");
 
-        // Set web-service endpoint url.
+        // Set web-service endpoint url + params.
         url = APP.defaults.apiBaseURL + APP.constants.URLS.PID_RESOLVE;
-
-        // Set web-service endpoint query parameters.
         params = {
             timestamp: new Date().getTime(),
             pids: APP.state.pids.join(",")
