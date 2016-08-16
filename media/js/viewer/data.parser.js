@@ -20,14 +20,14 @@
 
         // Update state.
         APP.state.issue = issue = data.issue;
-        APP.state.datasets = data.datasets;
+        APP.state.datasets = issue.datasets;
 
         // Set issue full title.
         issue._fullTitle = issue.project.toUpperCase();
         issue._fullTitle += " - ";
         issue._fullTitle += issue.institute.toUpperCase();
-        issue._fullTitle += " - Issue #";
-        issue._fullTitle += issue.id;
+        issue._fullTitle += " - ";
+        issue._fullTitle += issue.title;
 
         // Reformat fields.
         issue._project = issue.project.toUpperCase();
@@ -37,9 +37,6 @@
         issue._state = APP.state.state[issue.state];
         issue._severity = APP.state.severity[issue.severity];
         issue._workflow = APP.state.workflow[issue.workflow];
-
-        // Split fields.
-        issue._materials = issue.materials ? issue.materials.split(",") : [];
 
         // Format data fields.
         issue._dateCreated = issue.dateCreated ?

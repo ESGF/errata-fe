@@ -75,7 +75,7 @@
         </a>
     </li>
     <% // TAB NAV: materials %>
-    <% if (issue._materials.length) { %>
+    <% if (issue.materials.length) { %>
     <li role="presentation">
         <a  href="#tab-issue-materials"
             aria-controls="profile"
@@ -83,7 +83,7 @@
             title="Materials"
             data-toggle="tab">
             <strong class="text-uppercase">
-                Materials (<%= issue._materials.length %>)
+                Materials (<%= issue.materials.length %>)
             </strong>
         </a>
     </li>
@@ -112,7 +112,7 @@
         </section>
     </div>
     <% // TAB CONTENT: materials %>
-    <% if (issue._materials.length) { %>
+    <% if (issue.materials.length) { %>
     <div role="tabpanel" class="tab-pane" id="tab-issue-materials">
         <section>
             <%= APP.utils.renderTemplate("template-issue-materials", APP.state) %>
@@ -120,7 +120,7 @@
     </div>
     <% } %>
     <% // TAB CONTENT: datasets %>
-    <% if (datasets.length) { %>
+    <% if (issue.datasets.length) { %>
     <div role="tabpanel" class="tab-pane" id="tab-issue-datasets">
         <section>
             <%= APP.utils.renderTemplate("template-issue-datasets", APP.state) %>
@@ -150,7 +150,7 @@
         <tr>
             <td class="field-name">ESG-F ID</td>
             <td class="field-value">
-                <%= issue.uid %>
+                <%= issue.id %>
             </td>
         </tr>
         <tr>
@@ -236,7 +236,7 @@
 
 <!-- BEGIN: Issue materials -->
 <script type="underscore/template" id="template-issue-materials">
-<% _.each(issue._materials, function(material) { %>
+<% _.each(issue.materials, function(material) { %>
         <img src="<%= material %>"
              alt="TODO"
              title="TODO"
@@ -259,7 +259,7 @@
         </tr>
     </thead>
     <tbody>
-        <% _.each(datasets, function(dataset, idx) { %>
+        <% _.each(issue.datasets, function(dataset, idx) { %>
         <tr>
             <td class="text-center">
                 <%= idx + 1 %>
@@ -274,7 +274,7 @@
         <tr class="bg-default">
             <th colspan="2">
                 <span>
-                    Affected Datasets = <%= datasets.length %>
+                    Affected Datasets = <%= issue.datasets.length %>
                 </span>
                 <span class="pull-right">
                     <strong><small>
