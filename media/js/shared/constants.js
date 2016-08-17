@@ -65,8 +65,8 @@
             // Base viewer url in various modes.
             VIEWER: {
                 dev: "http://localhost:5001/static/viewer",
-                prod: "http://errata.api.es-doc.org/static/viewer",
-                test: "http://test.errata.api.es-doc.org/static/viewer"
+                prod: "http://errata.es-doc.org/viewer.html",
+                test: "http://test.errata.es-doc.org/viewer.html"
             }
         },
 
