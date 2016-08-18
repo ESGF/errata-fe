@@ -51,7 +51,7 @@
             HOME_PAGE: "http://es-doc.org",
 
             // pid resolve.
-            PID_RESOLVE: "/1/pid/resolve",
+            PID_RESOLVE: "/1/resolve/pid",
 
             // issue retrieve.
             RETRIEVE: "/1/issue/retrieve",
