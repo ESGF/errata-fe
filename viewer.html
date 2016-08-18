@@ -148,12 +148,6 @@
             </td>
         </tr>
         <tr>
-            <td class="field-name">ESG-F ID</td>
-            <td class="field-value">
-                <%= issue.id %>
-            </td>
-        </tr>
-        <tr>
             <td class="field-name">Title</td>
             <td class="field-value">
                 <%= issue.title %>
@@ -163,6 +157,12 @@
             <td class="field-name">Description</td>
             <td class="field-value">
                 <%= issue.description %>
+            </td>
+        </tr>
+        <tr>
+            <td class="field-name">Affected Models</td>
+            <td class="field-value">
+                <%= issue._models %>
             </td>
         </tr>
         <tr>
@@ -229,6 +229,12 @@
                 <%= issue._dateClosed %>
             </td>
         </tr>
+        <tr>
+            <td class="field-name">ESG-F Errata Unique Identifier</td>
+            <td class="field-value">
+                <%= issue.uid %>
+            </td>
+        </tr>
     </tbody>
 </table>
 </script>
@@ -254,7 +260,7 @@
                 #
             </th>
             <th title='Dataset Identifier'>
-                Dataset ESG-F Identifier
+                ESG-F Dataset Identifier
             </th>
         </tr>
     </thead>

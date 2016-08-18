@@ -30,8 +30,9 @@
         issue._fullTitle += issue.title;
 
         // Reformat fields.
-        issue._project = issue.project.toUpperCase();
         issue._institute = issue.institute.toUpperCase();
+        issue._models = issue.models.join(", ").toUpperCase();
+        issue._project = issue.project.toUpperCase();
 
         // Set cv derived fields.
         issue._state = APP.state.state[issue.state];
