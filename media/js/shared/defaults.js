@@ -27,6 +27,7 @@
 
     // Set viewerBaseURL.
     APP.defaults.viewerBaseURL = APP.constants.URLS.VIEWER[APP.defaults.mode];
+    alert(APP.defaults.viewerBaseURL);
 
 }(
     this.APP,
