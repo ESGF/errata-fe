@@ -1,7 +1,7 @@
 // --------------------------------------------------------
 // app.constants.js - constants used across application.
 // --------------------------------------------------------
-(function(APP) {
+(function (APP, window) {
 
     // ECMAScript 5 Strict Mode
     "use strict";
@@ -64,7 +64,7 @@
 
             // Base viewer url in various modes.
             VIEWER: {
-                dev: "http://localhost:5001/static/viewer",
+                dev: window.location.href.replace("search", "viewer"),
                 prod: "http://errata.es-doc.org/viewer.html",
                 test: "http://test.errata.es-doc.org/viewer.html"
             }
@@ -98,5 +98,6 @@
     };
 
 }(
-    this.APP
+    this.APP,
+    this.window
 ));

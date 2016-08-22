@@ -179,7 +179,7 @@
         _openDetailPage: function (uid) {
             var url;
 
-            url = window.location.href.replace("search", "viewer");
+            url = APP.defaults.viewerBaseURL;
             url += "?uid=";
             url += uid;
             APP.utils.openURL(url, true);
