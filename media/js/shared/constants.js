@@ -60,7 +60,7 @@
             SEARCH: "/1/issue/search",
 
             // issue search setup.
-            SEARCH_SETUP: "/1/issue/search/setup",
+            SEARCH_SETUP: "/1/issue/search-setup",
 
             // Base viewer url in various modes.
             VIEWER: {
