@@ -9,10 +9,10 @@
             institute: i[1],
             uid: i[2],
             title: i[3],
-            state: i[4],
-            severity: i[5],
-            workflow: i[6],
-            dateCreated: i[7],
+            severity: i[4],
+            workflow: i[5],
+            dateCreated: i[6],
+            dateClosed: i[7],
             dateUpdated: i[8]
         };
     };

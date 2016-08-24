@@ -35,18 +35,7 @@
                 label: "Project",
                 uiPosition: 0
             },
-            {
-                data: {
-                    all: [],
-                    current: undefined,
-                    set: {}
-                },
-                defaultKey: undefined,
-                hasGlobal: true,
-                key: "state",
-                label: "State",
-                uiPosition: 4
-            },
+
             {
                 data: {
                     all: [],

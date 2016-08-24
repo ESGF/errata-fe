@@ -137,12 +137,6 @@
             </small>
             <span class='pull-right glyphicon sort-target-workflow' />
         </th>
-        <th title='State' class="text-center sort-target sort-target-state">
-            <small class="sort-target-state">
-                State
-            </small>
-            <span class='pull-right glyphicon sort-target-state' />
-        </th>
     </tr>
 </thead>
 </script>
@@ -244,11 +238,6 @@
     <td class="issue-workflow <%= issue.workflow %> text-center" title="issue workflow">
         <small>
             <%= issue._workflow.label %>
-        </small>
-    </td>
-    <td class="issue-state <%= issue.state %> text-center" title="issue state">
-        <small>
-            <%= issue._state.label %>
         </small>
     </td>
 </tr>

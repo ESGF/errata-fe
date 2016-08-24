@@ -6,7 +6,6 @@
     // Event handler: setup:cvDataDownload.
     APP.on("setup:cvDataDownload", function (data) {
         // Cache setup data.
-        APP.state.state = _.indexBy(data.state, 'key');
         APP.state.severity = _.indexBy(data.severity, 'key');
         APP.state.workflow = _.indexBy(data.workflow, 'key');
 
@@ -35,7 +34,6 @@
         issue._project = issue.project.toUpperCase();
 
         // Set cv derived fields.
-        issue._state = APP.state.state[issue.state];
         issue._severity = APP.state.severity[issue.severity];
         issue._workflow = APP.state.workflow[issue.workflow];
 
