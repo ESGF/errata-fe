@@ -131,11 +131,11 @@
             </small>
             <span class='pull-right glyphicon sort-target-severity' />
         </th>
-        <th title='Workflow' class="text-center sort-target sort-target-workflow">
-            <small class="sort-target-workflow">
-                Workflow
+        <th title='Status' class="text-center sort-target sort-target-status">
+            <small class="sort-target-status">
+                Status
             </small>
-            <span class='pull-right glyphicon sort-target-workflow' />
+            <span class='pull-right glyphicon sort-target-status' />
         </th>
     </tr>
 </thead>
@@ -235,9 +235,9 @@
             <%= issue._severity.label %>
         </small>
     </td>
-    <td class="issue-workflow <%= issue.workflow %> text-center" title="issue workflow">
+    <td class="issue-status <%= issue.status %> text-center" title="issue status">
         <small>
-            <%= issue._workflow.label %>
+            <%= issue._status.label %>
         </small>
     </td>
 </tr>

@@ -42,7 +42,7 @@
             issues = _.sortBy(issues, "_" + field);
         }
 
-        if (_.contains(['severity', 'workflow'], field)) {
+        if (_.contains(['severity', 'status'], field)) {
             issues = _.sortBy(issues, function (i) {
                 return i["_" + field].label.toLowerCase();
             });

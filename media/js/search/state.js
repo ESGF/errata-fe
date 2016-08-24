@@ -56,8 +56,8 @@
                 },
                 defaultKey: undefined,
                 hasGlobal: true,
-                key: "workflow",
-                label: "Workflow",
+                key: "status",
+                label: "Status",
                 uiPosition: 3
             }
         ], 'key'),

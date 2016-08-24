@@ -24,7 +24,7 @@ window.$ = window.$jq = jQuery.noConflict();
         LONG_NAME: "Errata Search",
 
         // Version.
-        VERSION: '0.2.5.0',
+        VERSION: '0.2.6.0',
 
         // Copyright statement.
         copyrightYear: new Date().getFullYear(),

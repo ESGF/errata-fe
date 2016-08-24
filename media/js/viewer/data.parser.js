@@ -7,7 +7,7 @@
     APP.on("setup:cvDataDownload", function (data) {
         // Cache setup data.
         APP.state.severity = _.indexBy(data.severity, 'key');
-        APP.state.workflow = _.indexBy(data.workflow, 'key');
+        APP.state.status = _.indexBy(data.status, 'key');
 
         // Fire event.
         APP.trigger("setup:cvDataParsed", data);
@@ -35,7 +35,7 @@
 
         // Set cv derived fields.
         issue._severity = APP.state.severity[issue.severity];
-        issue._workflow = APP.state.workflow[issue.workflow];
+        issue.status = APP.state.status[issue.status];
 
         // Format data fields.
         issue._dateCreated = issue.dateCreated ?

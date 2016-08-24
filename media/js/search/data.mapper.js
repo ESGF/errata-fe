@@ -10,7 +10,7 @@
             uid: i[2],
             title: i[3],
             severity: i[4],
-            workflow: i[5],
+            status: i[5],
             dateCreated: i[6],
             dateClosed: i[7],
             dateUpdated: i[8]

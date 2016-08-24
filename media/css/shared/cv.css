@@ -31,21 +31,21 @@ td.issue-severity.critical {
 }
 
 
-/* Issue workflow */
-td.issue-workflow {
+/* Issue status */
+td.issue-status {
 	font-weight: bold;
 }
-td.issue-workflow.new {
+td.issue-status.new {
 	background-color: #00ff00;
 }
-td.issue-workflow.onhold {
+td.issue-status.onhold {
 	background-color: #ff9900;
 }
-td.issue-workflow.resolved {
+td.issue-status.resolved {
 	background-color: #0c343d;
 	color: #ffffff;
 }
-td.issue-workflow.wontfix {
+td.issue-status.wontfix {
 	background-color: #38761d;
 	color: #ffffff;
 }
