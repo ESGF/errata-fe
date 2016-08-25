@@ -35,7 +35,7 @@
 
         // Set cv derived fields.
         issue._severity = APP.state.severity[issue.severity];
-        issue.status = APP.state.status[issue.status];
+        issue._status = APP.state.status[issue.status];
 
         // Format data fields.
         issue._dateCreated = issue.dateCreated ?

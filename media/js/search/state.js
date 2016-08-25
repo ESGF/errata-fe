@@ -66,7 +66,6 @@
         searchData: {
             count: undefined,
             results: undefined,
-            timestamp: undefined,
             total: undefined,
         },
 

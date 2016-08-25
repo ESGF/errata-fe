@@ -14,9 +14,7 @@
         url = APP.defaults.apiBaseURL + APP.constants.URLS.SEARCH;
 
         // Set web-service endpoint query parameters.
-        params = {
-            timestamp: new Date().getTime()
-        };
+        params = {};
         _.each(_.values(APP.state.filters), function (f) {
             params[f.key] = f.data.current.key;
         });

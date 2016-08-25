@@ -16,7 +16,6 @@
         // Set web-service endpoint url + params.
         url = APP.defaults.apiBaseURL + APP.constants.URLS.PID_RESOLVE;
         params = {
-            timestamp: new Date().getTime(),
             pids: APP.state.pids.join(",")
         };
 
