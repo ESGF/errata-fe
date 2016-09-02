@@ -32,11 +32,11 @@
         issue._institute = issue.institute.toUpperCase();
         issue._project = issue.project.toUpperCase();
         issue._experiments = issue.experiments.length ?
-                             issue.experiments.join(", ").toUpperCase() : "--";
+                             issue.experiments.join(", ") : "--";
         issue._models = issue.models.length ?
                         issue.models.join(", ").toUpperCase() : "--";
         issue._variables = issue.variables.length ?
-                           issue.variables.join(", ").toUpperCase() : "--";
+                           issue.variables.join(", ") : "--";
 
         // Set cv derived fields.
         issue._severity = APP.state.severity[issue.severity];
