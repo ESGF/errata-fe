@@ -29,11 +29,14 @@
         issue._fullTitle += issue.title;
 
         // Reformat fields.
-        issue._experiments = issue.experiments.join(", ");
         issue._institute = issue.institute.toUpperCase();
-        issue._models = issue.models.join(", ").toUpperCase();
         issue._project = issue.project.toUpperCase();
-        issue._variables = issue.variables.join(", ");
+        issue._experiments = issue.experiments.length ?
+                             issue.experiments.join(", ").toUpperCase() : "--";
+        issue._models = issue.models.length ?
+                        issue.models.join(", ").toUpperCase() : "--";
+        issue._variables = issue.variables.length ?
+                           issue.variables.join(", ").toUpperCase() : "--";
 
         // Set cv derived fields.
         issue._severity = APP.state.severity[issue.severity];
