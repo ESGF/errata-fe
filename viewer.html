@@ -30,7 +30,7 @@
 <!-- BEGIN: Page header -->
 <script type="underscore/template" id="template-header">
 <header class="main">
-    <img src="media/img/logo.png"
+    <img src="media/img/logo-1.png"
          alt="Earth System Documentation"
          title="Earth System Documentation"
          class="pull-left esdoc-logo" />
@@ -160,9 +160,21 @@
             </td>
         </tr>
         <tr>
+            <td class="field-name">Affected Experiments</td>
+            <td class="field-value">
+                <%= issue._experiments %>
+            </td>
+        </tr>
+        <tr>
             <td class="field-name">Affected Models</td>
             <td class="field-value">
                 <%= issue._models %>
+            </td>
+        </tr>
+        <tr>
+            <td class="field-name">Affected Variables</td>
+            <td class="field-value">
+                <%= issue._variables %>
             </td>
         </tr>
         <tr>
