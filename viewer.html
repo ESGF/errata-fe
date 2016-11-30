@@ -218,21 +218,39 @@
             </td>
         </tr>
         <tr>
-            <td class="field-name">Date Created</td>
+            <td class="field-name">Created Date</td>
             <td class="field-value">
-                <%= issue._dateCreated %>
+                <%= issue._createdAt %>
             </td>
         </tr>
         <tr>
-            <td class="field-name">Date Last Updated</td>
+            <td class="field-name">Created By</td>
             <td class="field-value">
-                <%= issue._dateUpdated %>
+                <%= issue._createdBy %>
             </td>
         </tr>
         <tr>
-            <td class="field-name">Date Closed</td>
+            <td class="field-name">Last Updated Date</td>
             <td class="field-value">
-                <%= issue._dateClosed %>
+                <%= issue._updatedAt %>
+            </td>
+        </tr>
+        <tr>
+            <td class="field-name">Last Updated By</td>
+            <td class="field-value">
+                <%= issue._updatedBy %>
+            </td>
+        </tr>
+        <tr>
+            <td class="field-name">Closed Date</td>
+            <td class="field-value">
+                <%= issue._closedAt %>
+            </td>
+        </tr>
+        <tr>
+            <td class="field-name">Closed By</td>
+            <td class="field-value">
+                <%= issue._closedBy %>
             </td>
         </tr>
         <tr>

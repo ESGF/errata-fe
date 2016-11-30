@@ -43,12 +43,16 @@
         issue._status = APP.state.status[issue.status];
 
         // Format data fields.
-        issue._dateCreated = issue.dateCreated ?
-                             issue.dateCreated.slice(0, 16) : "--";
-        issue._dateUpdated = issue.dateUpdated ?
-                             issue.dateUpdated.slice(0, 16) : "--";
-        issue._dateClosed = issue.dateClosed ?
-                            issue.dateClosed.slice(0, 16) : "--";
+        issue._createdAt = issue.createdAt ?
+                             issue.createdAt.slice(0, 16) : "--";
+        issue._updatedAt = issue.updatedAt ?
+                             issue.updatedAt.slice(0, 16) : "--";
+        issue._closedAt = issue.closedAt ?
+                            issue.closedAt.slice(0, 16) : "--";
+
+        issue._closedBy = issue.closedBy ? issue.closedBy : "--";
+        issue._createdBy = issue.createdBy ? issue.createdBy : "--";
+        issue._updatedBy = issue.updatedBy ? issue.updatedBy : "--";
 
         // Fire event.
         APP.trigger("setup:issueDataParsed", data);

@@ -80,7 +80,7 @@
 
         // Sorting related state.
         sorting: {
-            field: "dateUpdated",
+            field: "updatedAt",
             direction: "desc"
         }
     };
