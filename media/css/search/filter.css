@@ -2,20 +2,24 @@ div.filter {
     display: inline-block;
     margin-bottom: 0px;
     margin-top: 10px;
-    padding: 10px;
+    padding: 10px 0 10px 0;
     width: 100%;
+}
+
+div.filter div.row {
+	margin-left: 10px;
 }
 
 div.filter label {
 	float: left;
 	font-weight: normal;
-	width: 23%;
-	margin-left: 16px;
+	width: 13.5%;
+	margin: 2px;
 }
 
 div.filter span {
 	float: left;
 	font-weight: normal;
-	width: 23%;
-	margin-left: 16px;
+	width: 13.5%;
+	margin: 2px;
 }

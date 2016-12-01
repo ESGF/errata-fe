@@ -43,6 +43,26 @@
 
     // Event handler: setup:setupDataDownload.
     APP.on("setup:setupDataDownload", function (data) {
+        // Map facets.
+        data.facet = _.map(data.facet, function (f) {
+            return {
+                'key': f[0],
+                'label': f[0],
+                'typeof': f[1],
+            }
+        });
+
+        // Set facet collections.
+        data.model = _.filter(data.facet, function (f) {
+            return f.typeof === 'model';
+        });
+        data.experiment = _.filter(data.facet, function (f) {
+            return f.typeof === 'experiment';
+        });
+        data.variable = _.filter(data.facet, function (f) {
+            return f.typeof === 'variable';
+        });
+
         _.each(APP.state.filters, function (f) {
             // Inject global filter.
             if (f.hasGlobal) {

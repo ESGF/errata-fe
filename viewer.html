@@ -218,43 +218,33 @@
             </td>
         </tr>
         <tr>
-            <td class="field-name">Created Date</td>
+            <td class="field-name">Created</td>
             <td class="field-value">
-                <%= issue._createdAt %>
+                <%= issue.createdAt %> <strong>by</strong> <%= issue._createdBy %>
             </td>
         </tr>
         <tr>
-            <td class="field-name">Created By</td>
+            <td class="field-name">Last Updated</td>
             <td class="field-value">
-                <%= issue._createdBy %>
+                <% if (issue.updatedAt) { %>
+                    <%= issue.updatedAt %> <strong>by</strong> <%= issue._updatedBy %>
+                <% } else { %>
+                    --
+                <% } %>
             </td>
         </tr>
         <tr>
-            <td class="field-name">Last Updated Date</td>
+            <td class="field-name">Closed</td>
             <td class="field-value">
-                <%= issue._updatedAt %>
+                <% if (issue.closedAt) { %>
+                    <%= issue.closedAt %> <strong>by</strong> <%= issue._closedBy %>
+                <% } else { %>
+                    --
+                <% } %>
             </td>
         </tr>
         <tr>
-            <td class="field-name">Last Updated By</td>
-            <td class="field-value">
-                <%= issue._updatedBy %>
-            </td>
-        </tr>
-        <tr>
-            <td class="field-name">Closed Date</td>
-            <td class="field-value">
-                <%= issue._closedAt %>
-            </td>
-        </tr>
-        <tr>
-            <td class="field-name">Closed By</td>
-            <td class="field-value">
-                <%= issue._closedBy %>
-            </td>
-        </tr>
-        <tr>
-            <td class="field-name">ESG-F Errata Unique Identifier</td>
+            <td class="field-name">ESG-F Errata Identifier</td>
             <td class="field-value">
                 <%= issue.uid %>
             </td>
