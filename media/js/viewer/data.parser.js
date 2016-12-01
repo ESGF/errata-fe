@@ -26,7 +26,10 @@
         issue._fullTitle += " - ";
         issue._fullTitle += issue.institute.toUpperCase();
         issue._fullTitle += " - ";
-        issue._fullTitle += issue.title;
+        issue._fullTitle += issue.title.slice(0, 48);
+        if (issue.title.length > 48) {
+            issue._fullTitle += "...";
+        }
 
         // Reformat fields.
         issue._institute = issue.institute.toUpperCase();
