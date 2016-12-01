@@ -192,20 +192,6 @@
             </td>
         </tr>
         <tr>
-            <td class="field-name">Responsible Party</td>
-            <td class="field-value">
-                <% if (issue.responsibleParty) { %>
-                <a href="mailto:<%= issue.responsibleParty %>"
-                   subject="ES-DOC :: errata support"
-                   title="Link to issue responsible party">
-                   <%= issue.responsibleParty %>
-                </a>
-                <% } else { %>
-                    --
-                <% } %>
-            </td>
-        </tr>
-        <tr>
             <td class="field-name">Severity</td>
             <td class="field-value issue-severity <%= issue._severity.key %>">
                 <%= issue._severity.label %>
