@@ -11,9 +11,9 @@
             title: i[3],
             severity: i[4],
             status: i[5],
-            createdAt: i[6],
-            closedAt: i[7],
-            updatedAt: i[8]
+            dateCreated: i[6],
+            dateClosed: i[7],
+            dateUpdated: i[8]
         };
     };
 

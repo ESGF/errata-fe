@@ -220,14 +220,14 @@
         <tr>
             <td class="field-name">Created</td>
             <td class="field-value">
-                <%= issue.createdAt %> <strong>by</strong> <%= issue._createdBy %>
+                <%= issue.dateCreated %> <strong>by</strong> <%= issue._createdBy %>
             </td>
         </tr>
         <tr>
             <td class="field-name">Last Updated</td>
             <td class="field-value">
-                <% if (issue.updatedAt) { %>
-                    <%= issue.updatedAt %> <strong>by</strong> <%= issue._updatedBy %>
+                <% if (issue.dateUpdated) { %>
+                    <%= issue.dateUpdated %> <strong>by</strong> <%= issue._updatedBy %>
                 <% } else { %>
                     --
                 <% } %>
@@ -236,8 +236,8 @@
         <tr>
             <td class="field-name">Closed</td>
             <td class="field-value">
-                <% if (issue.closedAt) { %>
-                    <%= issue.closedAt %> <strong>by</strong> <%= issue._closedBy %>
+                <% if (issue.dateClosed) { %>
+                    <%= issue.dateClosed %> <strong>by</strong> <%= issue._closedBy %>
                 <% } else { %>
                     --
                 <% } %>

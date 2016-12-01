@@ -116,7 +116,7 @@
 
         // Sorting related state.
         sorting: {
-            field: "updatedAt",
+            field: "dateUpdated",
             direction: "desc"
         }
     };

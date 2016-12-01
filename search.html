@@ -113,17 +113,17 @@
             </small>
             <span class='pull-right glyphicon sort-target-title' />
         </th>
-        <th title='Date Created' class="text-center sort-target sort-target-createdAt">
-            <small class="sort-target-createdAt">
+        <th title='Date Created' class="text-center sort-target sort-target-dateCreated">
+            <small class="sort-target-dateCreated">
                 Created
             </small>
-            <span class='pull-right glyphicon sort-target-createdAt' />
+            <span class='pull-right glyphicon sort-target-dateCreated' />
         </th>
-        <th title='Date Last Updated' class="text-center sort-target sort-target-updatedAt">
-            <small class="sort-target-updatedAt">
+        <th title='Date Last Updated' class="text-center sort-target sort-target-dateUpdated">
+            <small class="sort-target-dateUpdated">
                 Last Updated
             </small>
-            <span class='pull-right glyphicon sort-target-updatedAt' />
+            <span class='pull-right glyphicon sort-target-dateUpdated' />
         </th>
         <th title='Severity' class="text-center sort-target sort-target-severity">
             <small class="sort-target-severity">
@@ -222,12 +222,12 @@
     </td>
     <td class="issue-date-created text-center" title="issue creation date">
         <small>
-            <%= issue.createdAt.slice(0, 10) %>
+            <%= issue.dateCreated.slice(0, 10) %>
         </small>
     </td>
     <td class="issue-date-updated text-center" title="issue last updated date">
         <small>
-            <%= issue.updatedAt ? issue.updatedAt.slice(0, 10) : '--' %>
+            <%= issue.dateUpdated ? issue.dateUpdated.slice(0, 10) : '--' %>
         </small>
     </td>
     <td class="issue-severity <%= issue.severity %>  text-center" title="issue severity">
