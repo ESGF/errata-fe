@@ -13,7 +13,7 @@
         } else {
             APP.events.trigger('state:sortFieldChanging');
             sorting.field = field;
-            if (_.contains(['dateCreated', 'dateUpdated'], field)) {
+            if (_.contains(['dateClosed', 'dateCreated', 'dateUpdated'], field)) {
                 sorting.direction = 'desc';
             } else {
                 sorting.direction = 'asc';
@@ -48,13 +48,13 @@
             });
         }
 
-        if (_.contains(['dateCreated', 'dateUpdated'], field)) {
+        if (_.contains(['dateClosed', 'dateCreated', 'dateUpdated'], field)) {
             issues = _.sortBy(issues, function (i) {
                 return i[field] ? i[field].valueOf() : '--';
             });
         }
 
-        if (_.contains(['dateCreated', 'dateUpdated'], field)) {
+        if (_.contains(['dateClosed', 'dateCreated', 'dateUpdated'], field)) {
             if (direction === 'desc') {
                 issues = issues.reverse();
             }

@@ -46,14 +46,12 @@
         issue._status = APP.state.status[issue.status];
 
         // Format data fields.
-        if (issue.dateCreated) {
-            issue.dateCreated = issue.dateCreated.slice(0, 16);
-        }
+        issue.dateCreated = issue.dateCreated.slice(0, 19);
         if (issue.dateUpdated) {
-            issue.dateUpdated = issue.dateUpdated.slice(0, 16);
+            issue.dateUpdated = issue.dateUpdated.slice(0, 19);
         }
         if (issue.dateClosed) {
-            issue.dateClosed = issue.dateClosed.slice(0, 16);
+            issue.dateClosed = issue.dateClosed.slice(0, 19);
         }
         issue._closedBy = issue.closedBy ? issue.closedBy : "--";
         issue._createdBy = issue.createdBy ? issue.createdBy : "--";
