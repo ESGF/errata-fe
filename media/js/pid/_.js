@@ -21,7 +21,7 @@ window.$ = window.$jq = jQuery.noConflict();
         NAME: "Errata",
 
         // Long name
-        LONG_NAME: "Errata PID Lookup",
+        LONG_NAME: "Dataset Errata PID",
 
         // Version.
         VERSION: '0.2.8.0',

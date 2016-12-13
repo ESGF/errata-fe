@@ -21,7 +21,7 @@ window.$ = window.$jq = jQuery.noConflict();
         NAME: "Errata",
 
         // Long name
-        LONG_NAME: "Errata Search",
+        LONG_NAME: "Dataset Errata Search",
 
         // Version.
         VERSION: '0.2.8.0',
