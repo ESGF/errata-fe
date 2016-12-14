@@ -13,7 +13,7 @@
         } else {
             APP.events.trigger('state:sortFieldChanging');
             sorting.field = field;
-            if (_.contains(['dateClosed', 'dateCreated', 'dateUpdated'], field)) {
+            if (_.contains(['dateClosed', 'dateCreated', 'dateUpdated', 'severity'], field)) {
                 sorting.direction = 'desc';
             } else {
                 sorting.direction = 'asc';
@@ -42,9 +42,15 @@
             issues = _.sortBy(issues, "_" + field);
         }
 
-        if (_.contains(['severity', 'status'], field)) {
+        if (_.contains(['status'], field)) {
             issues = _.sortBy(issues, function (i) {
                 return i["_" + field].label.toLowerCase();
+            });
+        }
+
+        if (_.contains(['severity'], field)) {
+            issues = _.sortBy(issues, function (i) {
+                return i["_" + field].sortOrdinal;
             });
         }
 
