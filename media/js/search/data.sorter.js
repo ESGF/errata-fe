@@ -34,32 +34,26 @@
             field = sorting.field,
             direction = sorting.direction;
 
-        if (_.contains(['title'], field)) {
-            issues = _.sortBy(issues, field);
-        }
-
-        if (_.contains(['institute'], field)) {
-            issues = _.sortBy(issues, "_" + field);
-        }
-
-        if (_.contains(['status'], field)) {
+        // Sort issues by field.
+        if (field === 'title') {
+            issues = _.sortBy(issues, 'title');
+        } else if (field === 'institute') {
+            issues = _.sortBy(issues, '_institute');
+        } else if (field === 'status') {
             issues = _.sortBy(issues, function (i) {
                 return i["_" + field].label.toLowerCase();
             });
-        }
-
-        if (_.contains(['severity'], field)) {
+        } else if (field === 'severity') {
             issues = _.sortBy(issues, function (i) {
                 return i["_" + field].sortOrdinal;
             });
-        }
-
-        if (_.contains(['dateClosed', 'dateCreated', 'dateUpdated'], field)) {
+        } else if (_.contains(['dateClosed', 'dateCreated', 'dateUpdated'], field)) {
             issues = _.sortBy(issues, function (i) {
                 return i[field] ? i[field].valueOf() : '--';
             });
         }
 
+        // Apply sort direction.
         if (_.contains(['dateClosed', 'dateCreated', 'dateUpdated'], field)) {
             if (direction === 'desc') {
                 issues = issues.reverse();
