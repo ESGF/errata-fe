@@ -138,7 +138,11 @@
         <tr>
             <td class="field-name">Project</td>
             <td class="field-value">
-                <%= issue._project %>
+                <a href="<%= issue._projectDocURL %>"
+                   target="blank"
+                   title="Link to project documentation page">
+                   <%= issue._project %>
+                </a>
             </td>
         </tr>
         <tr>
@@ -162,13 +166,25 @@
         <tr>
             <td class="field-name">Affected Experiments</td>
             <td class="field-value">
-                <%= issue._experiments %>
+                <% _.each(issue._experimentDocURLs, function(url, idx) { %>
+                <a href="<%= url.hyperlink %>"
+                   target="blank"
+                   title="Link to experiment documentation page">
+                   <%= url.label %></a>
+                   <%= idx + 1 !== issue._experimentDocURLs.length ? "|" : "" %>
+                <% }); %>
             </td>
         </tr>
         <tr>
             <td class="field-name">Affected Models</td>
             <td class="field-value">
-                <%= issue._models %>
+                <% _.each(issue._modelDocURLs, function(url, idx) { %>
+                <a href="<%= url.hyperlink %>"
+                   target="blank"
+                   title="Link to model documentation page">
+                   <%= url.label %></a>
+                   <%= idx + 1 !== issue._modelDocURLs.length ? "|" : "" %>
+                <% }); %>
             </td>
         </tr>
         <tr>

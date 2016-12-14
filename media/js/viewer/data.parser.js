@@ -45,6 +45,23 @@
         issue._severity = APP.state.severity[issue.severity];
         issue._status = APP.state.status[issue.status];
 
+        // Set documentation viewer links.
+        issue._projectDocURL = "http://documentation.es-doc.org/" + issue.project;
+        issue._experimentDocURLs = issue.experiments.length === 0 ? [] :
+            _.map(issue.experiments.sort(), function (i) {
+                return {
+                    label: i,
+                    hyperlink: "http://documentation.es-doc.org/" + issue.project + "/experiments/" + i
+                };
+            });
+        issue._modelDocURLs = issue.models.length === 0 ? [] :
+            _.map(issue.models.sort(), function (i) {
+                return {
+                    label: i,
+                    hyperlink: "http://documentation.es-doc.org/" + issue.project + "/models/" + i
+                };
+            });
+
         // Format data fields.
         issue.dateCreated = issue.dateCreated.slice(0, 19);
         if (issue.dateUpdated) {
