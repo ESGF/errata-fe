@@ -43,8 +43,8 @@
             // Base API url in various modes.
             API: {
                 dev: "http://localhost:5001",
-                prod: "http://errata.api.es-doc.org",
-                test: "http://test.errata.api.es-doc.org"
+                prod: "https://errata.api.es-doc.org",
+                test: "https://test.errata.api.es-doc.org"
             },
 
             // ES-DOC homepage.
