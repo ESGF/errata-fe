@@ -65,8 +65,8 @@
             // Base viewer url in various modes.
             VIEWER: {
                 dev: window.location.href.replace("search", "viewer"),
-                prod: "http://errata.es-doc.org/viewer.html",
-                test: "http://test.errata.es-doc.org/viewer.html"
+                prod: "https://errata.es-doc.org/viewer.html",
+                test: "https://test.errata.es-doc.org/viewer.html"
             }
         },
 
