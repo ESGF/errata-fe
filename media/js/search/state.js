@@ -21,7 +21,7 @@
                 hasGlobal: true,
                 key: "institute",
                 label: "Institute",
-                uiPosition: 3
+                uiPosition: 1
             },
             {
                 data: {
@@ -46,7 +46,7 @@
                 hasGlobal: true,
                 key: "severity",
                 label: "Severity",
-                uiPosition: 1
+                uiPosition: 5
             },
             {
                 data: {
@@ -58,7 +58,7 @@
                 hasGlobal: true,
                 key: "status",
                 label: "Status",
-                uiPosition: 2
+                uiPosition: 6
             },
             {
                 data: {
@@ -70,7 +70,7 @@
                 hasGlobal: true,
                 key: "experiment",
                 label: "Experiment",
-                uiPosition: 5
+                uiPosition: 3
             },
             {
                 data: {
@@ -82,7 +82,7 @@
                 hasGlobal: true,
                 key: "model",
                 label: "Model",
-                uiPosition: 4
+                uiPosition: 2
             },
             {
                 data: {
@@ -94,7 +94,7 @@
                 hasGlobal: true,
                 key: "variable",
                 label: "Variable",
-                uiPosition: 6
+                uiPosition: 4
             }
         ], 'key'),
 
