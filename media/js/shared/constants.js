@@ -43,8 +43,8 @@
             // Base API url in various modes.
             API: {
                 dev: "http://localhost:5001",
-                prod: "https://errata.api.es-doc.org",
-                test: "https://test.errata.api.es-doc.org"
+                prod: "https://errata-api.es-doc.org",
+                test: "https://test-errata-api.es-doc.org"
             },
 
             // ES-DOC homepage.
@@ -66,7 +66,7 @@
             VIEWER: {
                 dev: window.location.href.replace("search", "viewer"),
                 prod: "https://errata.es-doc.org/viewer.html",
-                test: "https://test.errata.es-doc.org/viewer.html"
+                test: "https://test-errata.es-doc.org/viewer.html"
             }
         },
 
