@@ -48,7 +48,7 @@
             },
 
             // ES-DOC homepage.
-            HOME_PAGE: "http://es-doc.org",
+            HOME_PAGE: "https://es-doc.org",
 
             // pid resolve.
             PID_RESOLVE: "/1/resolve/pid",
