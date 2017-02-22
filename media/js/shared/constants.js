@@ -50,6 +50,12 @@
             // ES-DOC homepage.
             HOME_PAGE: "https://es-doc.org",
 
+            // pid page.
+            PID_PAGE: "pid.html",
+
+            // search page.
+            SEARCH_PAGE: "search.html",
+
             // pid resolve.
             PID_RESOLVE: "/1/resolve/pid",
 

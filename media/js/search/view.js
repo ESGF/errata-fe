@@ -1,7 +1,7 @@
 // --------------------------------------------------------
 // search/view._.js - Main page view.
 // --------------------------------------------------------
-(function (APP, paging, sorting, _, $, Backbone, window) {
+(function (APP, paging, sorting, constants, _, $, Backbone, window) {
 
     // ECMAScript 5 Strict Mode
     "use strict";
@@ -10,14 +10,19 @@
     APP.views.MainView = Backbone.View.extend({
         // Backbone: view event handlers.
         events: {
+            // Open page: home.
+            'click img.esdoc-logo': function () {
+                APP.utils.openHomepage();
+            },
+
             // Open email: support.
             'click button.esdoc-support': function () {
                 APP.utils.openSupportEmail();
             },
 
-            // Open page: home.
-            'click img.esdoc-logo': function () {
-                APP.utils.openHomepage();
+            // Open page: pid lookup.
+            'click button.esdoc-pid-lookup': function () {
+                APP.utils.openURL(constants.URLS.PID_PAGE, true);
             },
 
             // Open page: errata detail.
@@ -190,6 +195,7 @@
     this.APP,
     this.APP.state.paging,
     this.APP.state.sorting,
+    this.APP.constants,
     this._,
     this.$,
     this.Backbone,

@@ -1,7 +1,7 @@
 // --------------------------------------------------------
 // search/view._.js - Main page view.
 // --------------------------------------------------------
-(function (APP, _, $, Backbone, window) {
+(function (APP, constants, _, $, Backbone, window) {
 
     // ECMAScript 5 Strict Mode
     "use strict";
@@ -12,14 +12,19 @@
     APP.views.MainView = Backbone.View.extend({
         // Backbone: view event handlers.
         events: {
+            // Open page: home.
+            'click img.esdoc-logo': function () {
+                APP.utils.openHomepage();
+            },
+
             // Open email: support.
             'click button.esdoc-support': function () {
                 APP.utils.openSupportEmail();
             },
 
-            // Open page: home.
-            'click img.esdoc-logo': function () {
-                APP.utils.openHomepage();
+            // Open page: search.
+            'click button.esdoc-errata-search': function () {
+                APP.utils.openURL(constants.URLS.SEARCH_PAGE, true);
             },
 
             'change .btn-file :file': function (e) {
@@ -115,6 +120,7 @@
 
 }(
     this.APP,
+    this.APP.constants,
     this._,
     this.$,
     this.Backbone,
