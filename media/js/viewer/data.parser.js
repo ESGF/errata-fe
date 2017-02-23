@@ -34,12 +34,12 @@
         // Reformat fields.
         issue._institute = issue.institute.toUpperCase();
         issue._project = issue.project.toUpperCase();
-        issue._experiments = issue.experiments.length ?
-                             issue.experiments.sort().join(", ") : "--";
-        issue._models = issue.models.length ?
-                        issue.models.sort().join(", ").toUpperCase() : "--";
-        issue._variables = issue.variables.length ?
-                           issue.variables.sort().join(", ") : "--";
+        issue._experiments = issue.experiment.length ?
+                             issue.experiment.sort().join(", ") : "--";
+        issue._models = issue.model.length ?
+                        issue.model.sort().join(", ").toUpperCase() : "--";
+        issue._variables = issue.variable.length ?
+                           issue.variable.sort().join(", ") : "--";
 
         // Set cv derived fields.
         issue._severity = APP.state.severity[issue.severity];
@@ -47,15 +47,15 @@
 
         // Set documentation viewer links.
         issue._projectDocURL = "https://documentation.es-doc.org/" + issue.project;
-        issue._experimentDocURLs = issue.experiments.length === 0 ? [] :
-            _.map(issue.experiments.sort(), function (i) {
+        issue._experimentDocURLs = issue.experiment.length === 0 ? [] :
+            _.map(issue.experiment.sort(), function (i) {
                 return {
                     label: i,
                     hyperlink: "https://documentation.es-doc.org/" + issue.project + "/experiments/" + i
                 };
             });
-        issue._modelDocURLs = issue.models.length === 0 ? [] :
-            _.map(issue.models.sort(), function (i) {
+        issue._modelDocURLs = issue.model.length === 0 ? [] :
+            _.map(issue.model.sort(), function (i) {
                 return {
                     label: i,
                     hyperlink: "https://documentation.es-doc.org/" + issue.project + "/models/" + i

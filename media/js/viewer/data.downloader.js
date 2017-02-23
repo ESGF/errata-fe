@@ -24,7 +24,7 @@
         url = APP.defaults.apiBaseURL;
         url += APP.constants.URLS.RETRIEVE;
         url += "?uid=";
-        url += APP.state.issueID
+        url += APP.state.issueID;
 
         // Download.
         $.get(url)
