@@ -24,7 +24,7 @@ window.$ = window.$jq = jQuery.noConflict();
         LONG_NAME: "Dataset Errata PID",
 
         // Version.
-        VERSION: '0.2.8.0',
+        VERSION: '0.2.9.0',
 
         // Copyright statement.
         copyrightYear: new Date().getFullYear(),
