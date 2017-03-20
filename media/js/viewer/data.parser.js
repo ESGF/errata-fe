@@ -8,7 +8,7 @@
         // Cache setup data.
         APP.state.severity = _.indexBy(data.severity, 'key');
         APP.state.status = _.indexBy(data.status, 'key');
-
+        console.log(data)
         // Fire event.
         APP.trigger("setup:cvDataParsed", data);
     });
@@ -20,7 +20,8 @@
         // Update state.
         APP.state.issue = issue = data.issue;
         APP.state.datasets = issue.datasets;
-
+        console.log(data.issue)
+        console.log(data.issue.experimentID)
         // Set issue full title.
         issue._fullTitle = issue.project.toUpperCase();
         issue._fullTitle += " - ";
@@ -34,12 +35,12 @@
         // Reformat fields.
         issue._institute = issue.institute.toUpperCase();
         issue._project = issue.project.toUpperCase();
-        issue._experiments = issue.experiment.length ?
-                             issue.experiment.sort().join(", ") : "--";
-        issue._models = issue.model.length ?
-                        issue.model.sort().join(", ").toUpperCase() : "--";
-        issue._variables = issue.variable.length ?
-                           issue.variable.sort().join(", ") : "--";
+        issue._experiments = issue.experimentID.length ?
+                             issue.experimentID.sort().join(", ") : "--";
+        issue._models = issue.sourceID.length ?
+                        issue.sourceID.sort().join(", ").toUpperCase() : "--";
+        issue._variables = issue.variableID.length ?
+                           issue.variableID.sort().join(", ") : "--";
 
         // Set cv derived fields.
         issue._severity = APP.state.severity[issue.severity];
@@ -47,15 +48,15 @@
 
         // Set documentation viewer links.
         issue._projectDocURL = "https://documentation.es-doc.org/" + issue.project;
-        issue._experimentDocURLs = issue.experiment.length === 0 ? [] :
-            _.map(issue.experiment.sort(), function (i) {
+        issue._experimentDocURLs = issue.experimentID.length === 0 ? [] :
+            _.map(issue.experimentID.sort(), function (i) {
                 return {
                     label: i,
                     hyperlink: "https://documentation.es-doc.org/" + issue.project + "/experiments/" + i
                 };
             });
-        issue._modelDocURLs = issue.model.length === 0 ? [] :
-            _.map(issue.model.sort(), function (i) {
+        issue._modelDocURLs = issue.sourceID.length === 0 ? [] :
+            _.map(issue.sourceID.sort(), function (i) {
                 return {
                     label: i,
                     hyperlink: "https://documentation.es-doc.org/" + issue.project + "/models/" + i

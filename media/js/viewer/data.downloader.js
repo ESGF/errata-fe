@@ -7,6 +7,7 @@
     APP.on("setup:begin", function () {
         $.get(APP.defaults.apiBaseURL + APP.constants.URLS.SEARCH_SETUP)
             .done(function (data) {
+                console.log(data);
                 APP.trigger("setup:cvDataDownload", data);
             })
             .fail(function () {
@@ -31,6 +32,7 @@
             .done(function (data) {
                 setTimeout(function () {
                     APP.trigger("setup:issueDataDownload", data);
+                    //APP.log(data)
                 }, APP.constants.uiUpdateDelay);
             })
             .fail(function () {
