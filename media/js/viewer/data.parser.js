@@ -8,7 +8,7 @@
         // Cache setup data.
         APP.state.severity = _.indexBy(data.severity, 'key');
         APP.state.status = _.indexBy(data.status, 'key');
-        console.log(data)
+
         // Fire event.
         APP.trigger("setup:cvDataParsed", data);
     });
@@ -20,8 +20,7 @@
         // Update state.
         APP.state.issue = issue = data.issue;
         APP.state.datasets = issue.datasets;
-        console.log(data.issue)
-        console.log(data.issue.experimentID)
+
         // Set issue full title.
         issue._fullTitle = issue.mipEra.toUpperCase();
         issue._fullTitle += " - ";
@@ -33,8 +32,8 @@
         }
 
         // Reformat fields.
-        issue._institute = issue.institutionID.toUpperCase();
-        issue._project = issue.mipEra.toUpperCase();
+        issue._institutionID = issue.institutionID.toUpperCase();
+        issue._mipEra = issue.mipEra.toUpperCase();
         issue._experiments = issue.experimentID.length ?
                              issue.experimentID.sort().join(", ") : "--";
         issue._models = issue.sourceID.length ?
@@ -47,7 +46,7 @@
         issue._status = APP.state.status[issue.status];
 
         // Set documentation viewer links.
-        issue._projectDocURL = "https://documentation.es-doc.org/" + issue.mipEra;
+        issue._mipEraDocURL = "https://documentation.es-doc.org/" + issue.mipEra;
         issue._experimentDocURLs = issue.experimentID.length === 0 ? [] :
             _.map(issue.experimentID.sort(), function (i) {
                 return {

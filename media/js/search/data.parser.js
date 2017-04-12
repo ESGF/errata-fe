@@ -16,7 +16,7 @@
                 _.each(_.values(APP.state.filters), function (f) {
                     row['_' + f.key] = f.data.set[row[f.key]];
                 });
-                row._institute = row.institute.toUpperCase();
+                row._institutionID = row.institutionID.toUpperCase();
             });
 
             // Set human readable title.
@@ -49,7 +49,7 @@
                 'key': f[0],
                 'label': f[0],
                 'typeof': f[1],
-            }
+            };
         });
 
         // Set facet collections.

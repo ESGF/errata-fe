@@ -19,7 +19,7 @@
                 },
                 defaultKey: undefined,
                 hasGlobal: true,
-                key: "institute",
+                key: "institutionID",
                 label: "Institute",
                 uiPosition: 1
             },
@@ -31,11 +31,10 @@
                 },
                 defaultKey: "cmip6",
                 hasGlobal: false,
-                key: "project",
-                label: "Project",
+                key: "mipEra",
+                label: "MIP Era",
                 uiPosition: 0
             },
-
             {
                 data: {
                     all: [],

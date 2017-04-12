@@ -37,8 +37,8 @@
         // Sort issues by field.
         if (field === 'title') {
             issues = _.sortBy(issues, 'title');
-        } else if (field === 'institute') {
-            issues = _.sortBy(issues, '_institute');
+        } else if (field === 'institutionID') {
+            issues = _.sortBy(issues, '_institutionID');
         } else if (field === 'status') {
             issues = _.sortBy(issues, function (i) {
                 return i["_" + field].label.toLowerCase();
