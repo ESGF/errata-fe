@@ -95,10 +95,24 @@
 
             // Sorting: change sort field / order.
             'click .sort-target' : function (e) {
-                APP.updateSortField(_.find($(e.target).attr('class').split(' '), function (cls) {
-                    return cls.startsWith('sort-target-');
-                }).slice(12));
-                APP.events.trigger('state:pageUpdate');
+                var target;
+
+                // Derive sort field column header css class, e.g. sort-target-status.
+                target = $(e.target).attr('class');
+                if (target) {
+                    target = target.split(' ');
+                    target = _.find(target, function (cls) {
+                        return cls.startsWith('sort-target-');
+                    });
+                    target = target.slice(12);
+
+                }
+
+                // Apply sort.
+                if (target) {
+                    APP.updateSortField(target);
+                    APP.events.trigger('state:pageUpdate');
+                }
             }
         },
 
@@ -164,7 +178,6 @@
 
             this.$('.pagination-container').removeClass('hidden');
             if (paging.count < 2 && APP.state.searchData.count < 25) {
-                console.log("# pages: " + paging.count);
                 this.$('.pagination-container').addClass('hidden');
             }
         },

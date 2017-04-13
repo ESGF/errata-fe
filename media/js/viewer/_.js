@@ -24,7 +24,7 @@ window.$ = window.$jq = jQuery.noConflict();
         LONG_NAME: "Dataset Errata Viewer",
 
         // Version.
-        VERSION: '0.3.0.0',
+        VERSION: '0.4.0.0',
 
         // Copyright statement.
         copyrightYear: new Date().getFullYear(),
