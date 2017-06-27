@@ -128,7 +128,7 @@
                 else if(issue.uid!==null) { %>
                     <!--<% var list_of_uids = issue.uid.split(";"); %>-->
                     <% _.each(issue.uid.split(";"), function(issue){ %>
-                    <span id="issueButton" class="glyphicon glyphicon-list-alt" title="issue uid: <%=  issue %>"/>
+                    <span id="issueButton" class="glyphicon glyphicon-list-alt" title="<%=  issue %>"/>
                     <% }); %>
                 <% } %>
             </td>
