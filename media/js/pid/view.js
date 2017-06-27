@@ -60,8 +60,8 @@
             },
 
             // Open page: errata detail.
-            'click .issue-link': function (e) {
-                this._openIssueDetailPage($(e.target).parent().parent().attr("id"));
+            'click #issueButton': function (e) {
+                this._openIssueDetailPage($(e.target).attr("title"));
             }
         },
 

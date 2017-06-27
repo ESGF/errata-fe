@@ -116,13 +116,20 @@
                 <%= issue.artefact %>
                 <% } %>
             </td>
-            <td class="text-center issue-link" title="issue link: <%= issue.uid %>">
+            <td class="text-center issue-link">
                 <% if (issue.uid === "") { %>
                 <strong>
-                --
+                    --
                 </strong>
-                <% } else { %>
-                <span class="glyphicon glyphicon-list-alt">
+                <% }else if (issue.uid===null){%>
+                    <span class="glyphicon glyphicon-ok"/>
+                <%}
+
+                else if(issue.uid!==null) { %>
+                    <!--<% var list_of_uids = issue.uid.split(";"); %>-->
+                    <% _.each(issue.uid.split(";"), function(issue){ %>
+                    <span id="issueButton" class="glyphicon glyphicon-list-alt" title="issue uid: <%=  issue %>"/>
+                    <% }); %>
                 <% } %>
             </td>
         </tr>
