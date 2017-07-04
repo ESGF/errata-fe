@@ -16,7 +16,10 @@
                     return {
                         artefact: j[1] + "#" + j[2],
                         sortOrdinal: j[3],
-                        uid: j[0]
+                        uid: j[0],
+                        is_first: j[4],
+                        is_latest: j[5],
+                        unchanged_file: j[6]
                     };
                 })
             };
