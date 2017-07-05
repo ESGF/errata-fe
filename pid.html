@@ -87,7 +87,7 @@
             <th title='Handle' colspan="3">
                 <%= data.handle %>
                 <% if (data.incomplete_search===1) { %>
-                <span title="File search is incomplete probably due to filename change" class="label label-danger">Search incomplete</span>
+                <span title="File search is incomplete due to filename change or file deletion" class="label label-danger">Search incomplete</span>
                 <% } %>
             </th>
         </tr>
@@ -120,7 +120,7 @@
                 <%= issue.artefact %>
                 <% } %>
                 <% if (issue.unchanged_file === 1){%>
-                <span title="File hasn't changed across datasets"class="label label-warning">SAME</span>
+                <span title="File hasn't changed across datasets"class="label label-warning">Duplicate</span>
                 <% } %>
                 <% if (issue.is_first === 1){%>
                 <span title='First version of dataset or appearance of file under this filename'class="label label-primary">First</span>
