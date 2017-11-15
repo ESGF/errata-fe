@@ -1,7 +1,4 @@
-// --------------------------------------------------------
-// search/state._.js - search state.
-// --------------------------------------------------------
-(function (APP, _, cookies) {
+(function (APP, _) {
 
     // ECMAScript 5 Strict Mode
     "use strict";
@@ -10,103 +7,69 @@
     APP.state = {
         APP: APP,
 
-        filters: _.indexBy([
+        filters: [
             {
                 data: {
                     all: [],
-                    current: undefined,
-                    set: {}
-                },
-                defaultKey: undefined,
-                hasGlobal: true,
-                key: "institutionID",
-                label: "Institute",
-                uiPosition: 1
-            },
-            {
-                data: {
-                    all: [],
-                    current: undefined,
+                    current: null,
                     set: {}
                 },
                 defaultKey: "cmip6",
-                hasGlobal: false,
-                key: "mipEra",
-                label: "MIP Era",
+                key: "project",
+                label: "Project",
+                project: null,
                 uiPosition: 0
             },
             {
                 data: {
                     all: [],
-                    current: undefined,
+                    current: null,
                     set: {}
                 },
-                defaultKey: undefined,
-                hasGlobal: true,
+                defaultKey: null,
                 key: "severity",
                 label: "Severity",
-                uiPosition: 5
+                project: null,
+                uiPosition: 1000
             },
             {
                 data: {
                     all: [],
-                    current: undefined,
+                    current: null,
                     set: {}
                 },
-                defaultKey: undefined,
-                hasGlobal: true,
+                defaultKey: null,
                 key: "status",
                 label: "Status",
-                uiPosition: 6
-            },
-            {
-                data: {
-                    all: [],
-                    current: undefined,
-                    set: {}
-                },
-                defaultKey: undefined,
-                hasGlobal: true,
-                key: "experiment",
-                label: "Experiment",
-                uiPosition: 3
-            },
-            {
-                data: {
-                    all: [],
-                    current: undefined,
-                    set: {}
-                },
-                defaultKey: undefined,
-                hasGlobal: true,
-                key: "model",
-                label: "Model",
-                uiPosition: 2
-            },
-            {
-                data: {
-                    all: [],
-                    current: undefined,
-                    set: {}
-                },
-                defaultKey: undefined,
-                hasGlobal: true,
-                key: "variable",
-                label: "Variable",
-                uiPosition: 4
+                project: null,
+                uiPosition: 1001
             }
-        ], 'key'),
+        ],
+
+        // Set active filter flag.
+        setActiveFilters: function () {
+            _.each(APP.state.filters, function (f) {
+                f.isActive = _.isNull(f.project) || f.project === APP.state.filters[0].data.current.key;
+            });
+        },
+
+        // Gets active filters.
+        getActiveFilters: function () {
+            return _.filter(APP.state.filters, function (f) {
+                return f.isActive;
+            });
+        },
 
         // Search data returned from server.
         searchData: {
-            count: undefined,
-            results: undefined,
-            total: undefined,
+            count: null,
+            results: null,
+            total: null,
         },
 
         // Paging related state.
         paging: {
-            current: undefined,
+            current: null,
             count: 0,
             pages: [],
             pageSize: 25,
@@ -122,6 +85,5 @@
 
 }(
     this.APP,
-    this._,
-    this.Cookies
+    this._
 ));

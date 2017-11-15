@@ -125,6 +125,10 @@
             APP.events.on("state:sortFieldChanging", this._clearSortColumn, this);
             APP.events.on("state:sortFieldChanged", this._setSortColumn, this);
             APP.events.on("state:sortDirectionToggled", this._toggleSortColumn, this);
+            APP.events.on("project:changed", function () {
+                this._replaceNode('div.filter', 'template-filter');
+                // APP.utils.renderTemplate("template-filter", APP, this);;
+            }, this);
         },
 
         // Backbone: view renderer.

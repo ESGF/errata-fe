@@ -137,19 +137,19 @@
 <table class="table table-bordered table-striped">
     <tbody>
         <tr>
-            <td class="field-name">MIP Era</td>
+            <td class="field-name">Project</td>
             <td class="field-value">
-                <a href="<%= issue._mipEraDocURL %>?client=esdoc-errata-fe"
+                <a href="<%= issue._projectDocURL %>?client=esdoc-errata-fe"
                    target="blank"
-                   title="Link to MIP era documentation page">
-                   <%= issue._mipEra %>
+                   title="Link to project documentation page">
+                   <%= issue._project %>
                 </a>
             </td>
         </tr>
         <tr>
-            <td class="field-name">Institution ID</td>
+            <td class="field-name">Institute</td>
             <td class="field-value">
-                <%= issue._institutionID %>
+                <%= issue._institute %>
             </td>
         </tr>
         <tr>
@@ -174,6 +174,7 @@
                    <%= url.label %></a>
                    <%= idx + 1 !== issue._experimentDocURLs.length ? "|" : "" %>
                 <% }); %>
+                <%= issue._experiments %>
             </td>
         </tr>
         <tr>
@@ -186,6 +187,7 @@
                    <%= url.label %></a>
                    <%= idx + 1 !== issue._modelDocURLs.length ? "|" : "" %>
                 <% }); %>
+                <%= issue._models %>
             </td>
         </tr>
         <tr>
@@ -195,14 +197,17 @@
             </td>
         </tr>
         <tr>
-            <td class="field-name">Landing Page</td>
+            <td class="field-name">Further Info</td>
             <td class="field-value">
-                <% if (issue.url) { %>
-                <a href="<%= issue.url %>"
-                   target="blank"
-                   title="Link to issue landing page">
-                   <%= issue.url %>
-                </a>
+                <% if (issue.urls) { %>
+                    <% _.each(issue.urls, function(url, idx) { %>
+                        <a href="<%= url %>"
+                           target="blank"
+                           title="Links to pages documenting issue">
+                           <%= url %>
+                        </a>
+                        <%= idx + 1 !== issue.urls ? "<br />" : "" %>
+                    <% }); %>
                 <% } else { %>
                     --
                 <% } %>

@@ -5,9 +5,11 @@
 
     // Event handler: setup:begin.
     APP.on("setup:begin", function () {
-        $.get(APP.defaults.apiBaseURL + APP.constants.URLS.SEARCH_SETUP)
+        var url;
+
+        url = APP.defaults.apiBaseURL + APP.constants.URLS.SEARCH_SETUP;
+        $.get(url)
             .done(function (data) {
-                console.log(data);
                 APP.trigger("setup:cvDataDownload", data);
             })
             .fail(function () {
@@ -26,13 +28,13 @@
         url += APP.constants.URLS.RETRIEVE;
         url += "?uid=";
         url += APP.state.issueID;
+        console.log(url);
 
         // Download.
         $.get(url)
             .done(function (data) {
                 setTimeout(function () {
                     APP.trigger("setup:issueDataDownload", data);
-                    //APP.log(data)
                 }, APP.constants.uiUpdateDelay);
             })
             .fail(function () {

@@ -17,6 +17,10 @@
         };
     };
 
+    APP.mapProject = function (p) {
+        return p;
+    };
+
 }(
     this.APP
 ));

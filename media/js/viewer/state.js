@@ -1,7 +1,4 @@
-// --------------------------------------------------------
-// search/state._.js - search state.
-// --------------------------------------------------------
-(function (APP, _, cookies) {
+(function (APP) {
 
     // ECMAScript 5 Strict Mode
     "use strict";
@@ -18,7 +15,5 @@
     };
 
 }(
-    this.APP,
-    this._,
-    this.Cookies
+    this.APP
 ));

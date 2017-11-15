@@ -18,25 +18,6 @@
             APP.paginateIssues();
         };
 
-    // Event handler: page setup data parsed.
-    APP.on("setup:setupDataParsed", function (data) {
-        // Initialise filter data.
-        _.each(_.values(APP.state.filters), function (f) {
-            f.data.all = data[f.key];
-            if (f.defaultKey) {
-                f.data.current = _.find(f.data.all, function (i) {
-                    return i.key === f.defaultKey;
-                }) || f.data.all[0];
-            } else {
-                f.data.current = f.data.all[0];
-            }
-            f.data.set = _.indexBy(f.data.all, 'key');
-        });
-
-        // Fire event.
-        APP.trigger("setup:stateInitialized");
-    });
-
     // Event handler: initial search completed.
     APP.on("setup:initialSearchDataParsed", function (data) {
         // Update page state.

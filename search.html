@@ -52,14 +52,14 @@
 <script type="underscore/template" id="template-filter">
 <div class="container-fluid bg-primary filter">
     <div class="row">
-        <% _.each(_.sortBy(APP.state.filters, 'uiPosition'), function(f) { %>
+        <% _.each(_.sortBy(APP.state.getActiveFilters(), 'uiPosition'), function(f) { %>
         <label>
             <%- f.label %>:
         </label>
         <% }); %>
     </div>
     <div class="row">
-        <% _.each(_.sortBy(APP.state.filters, 'uiPosition'), function(f) { %>
+        <% _.each(_.sortBy(APP.state.getActiveFilters(), 'uiPosition'), function(f) { %>
         <span>
             <select id="filter-<%= f.key %>" class="form-control input-sm">
                 <% _.each(f.data.all, function(i) { %>

@@ -19,12 +19,14 @@
 
         // Update state.
         APP.state.issue = issue = data.issue;
-        APP.state.datasets = issue.datasets;
+        APP.state.datasets = issue.datasets.sort();
+
+        console.log(issue);
 
         // Set issue full title.
-        issue._fullTitle = issue.mipEra.toUpperCase();
+        issue._fullTitle = issue.project.toUpperCase();
         issue._fullTitle += " - ";
-        issue._fullTitle += issue.institutionID.toUpperCase();
+        issue._fullTitle += issue.institute.toUpperCase();
         issue._fullTitle += " - ";
         issue._fullTitle += issue.title.slice(0, 48);
         if (issue.title.length > 48) {
@@ -32,35 +34,38 @@
         }
 
         // Reformat fields.
-        issue._institutionID = issue.institutionID.toUpperCase();
-        issue._mipEra = issue.mipEra.toUpperCase();
-        issue._experiments = issue.experimentID.length ?
-                             issue.experimentID.sort().join(", ") : "--";
-        issue._models = issue.sourceID.length ?
-                        issue.sourceID.sort().join(", ").toUpperCase() : "--";
-        issue._variables = issue.variableID.length ?
-                           issue.variableID.sort().join(", ") : "--";
-
-        // Set cv derived fields.
+        issue._institute = issue.institute.toUpperCase();
+        issue._project = issue.project.toUpperCase();
         issue._severity = APP.state.severity[issue.severity];
         issue._status = APP.state.status[issue.status];
 
+        // Set facet fields.
+        issue._experiments = issue.facets.experiment.length ? issue.facets.experiment.sort().join(", ") : "--";
+        issue._models = issue.facets.model.length ? issue.facets.model.sort().join(", ") : "--";
+        issue._variables = issue.facets.variable.length ? issue.facets.variable.sort().join(", ") : "--";
+
         // Set documentation viewer links.
-        issue._mipEraDocURL = "https://documentation.es-doc.org/" + issue.mipEra;
-        issue._experimentDocURLs = issue.experimentID.length === 0 ? [] :
-            _.map(issue.experimentID.sort(), function (i) {
-                return {
-                    label: i,
-                    hyperlink: "https://documentation.es-doc.org/" + issue.mipEra + "/experiments/" + i
-                };
-            });
-        issue._modelDocURLs = issue.sourceID.length === 0 ? [] :
-            _.map(issue.sourceID.sort(), function (i) {
-                return {
-                    label: i,
-                    hyperlink: "https://documentation.es-doc.org/" + issue.mipEra + "/models/" + i
-                };
-            });
+        issue._projectDocURL = '';
+        issue._experimentDocURLs = [];
+        issue._modelDocURLs = [];
+
+        issue.urls.push(issue.urls[0]);
+
+        issue._projectDocURL = "https://documentation.es-doc.org/" + issue.project;
+        // issue._experimentDocURLs = issue.experimentID.length === 0 ? [] :
+        //     _.map(issue.experimentID.sort(), function (i) {
+        //         return {
+        //             label: i,
+        //             hyperlink: "https://documentation.es-doc.org/" + issue.project + "/experiments/" + i
+        //         };
+        //     });
+        // issue._modelDocURLs = issue.sourceID.length === 0 ? [] :
+        //     _.map(issue.sourceID.sort(), function (i) {
+        //         return {
+        //             label: i,
+        //             hyperlink: "https://documentation.es-doc.org/" + issue.project + "/models/" + i
+        //         };
+        //     });
 
         // Format data fields.
         issue.dateCreated = issue.dateCreated.slice(0, 19);

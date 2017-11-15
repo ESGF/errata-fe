@@ -1,6 +1,3 @@
-// --------------------------------------------------------
-// search/search.data.parser.js - Parses search data returned from web-service.
-// --------------------------------------------------------
 (function (APP, _) {
     // ECMAScript 5 Strict Mode
     "use strict";
@@ -43,43 +40,69 @@
 
     // Event handler: setup:setupDataDownload.
     APP.on("setup:setupDataDownload", function (data) {
-        // Map facets.
-        data.facet = _.map(data.facet, function (f) {
-            return {
-                'key': f[0],
-                'label': f[0],
-                'typeof': f[1],
-            };
+        var filters = APP.state.filters;
+
+        // Core filters: set data.
+        filters[0].data.all = data.project;
+        filters[1].data.all = data.severity;
+        filters[2].data.all = data.status;
+
+        // Project filters: initialise.
+        _.each(data.project, function (p) {
+            _.each(p.facets, function (f, index) {
+                filters.push({
+                    data: {
+                        all: _.map(f.values, function (v) {
+                            return {
+                                key: v,
+                                label: v
+                            };
+                        }),
+                        current: undefined,
+                        set: {}
+                    },
+                    defaultKey: undefined,
+                    key: p.key + ':' + f.key,
+                    label: f.label,
+                    project: p.key,
+                    uiPosition: index + 1
+                });
+            });
         });
 
-        // Set facet collections.
-        data.model = _.filter(data.facet, function (f) {
-            return f.typeof === 'model';
-        });
-        data.experiment = _.filter(data.facet, function (f) {
-            return f.typeof === 'experiment';
-        });
-        data.variable = _.filter(data.facet, function (f) {
-            return f.typeof === 'variable';
-        });
-
-        _.each(APP.state.filters, function (f) {
-            // Inject global filter.
-            if (f.hasGlobal) {
-                data[f.key].unshift({
+        // Non project filters: set default data.
+        _.each(filters, function (f, index) {
+            if (index > 0) {
+                f.data.all.unshift({
                     key: "*",
                     label: "*"
                 });
             }
+        });
 
-            // Sort filter data.
+        // All filters: sort data.
+        _.each(filters, function (f) {
             data[f.key] = _.sortBy(data[f.key], function (i) {
                 return i.sortOrdinal || i.label || i.name;
             });
         });
 
-        // Fire event.
-        APP.trigger("setup:setupDataParsed", data);
+        // All filters: set current.
+        _.each(filters, function (f) {
+            if (f.defaultKey) {
+                f.data.current = _.find(f.data.all, function (i) {
+                    return i.key === f.defaultKey;
+                }) || f.data.all[0];
+            } else {
+                f.data.current = f.data.all[0];
+            }
+            f.data.set = _.indexBy(f.data.all, 'key');
+        });
+
+        // Set active state.
+        APP.state.setActiveFilters();
+
+        APP.trigger("setup:setupDataParsed");
     });
 
 }(

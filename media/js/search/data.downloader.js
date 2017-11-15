@@ -14,10 +14,15 @@
         url = APP.defaults.apiBaseURL + APP.constants.URLS.SEARCH;
 
         // Set web-service endpoint query parameters.
-        params = {};
-        _.each(_.values(APP.state.filters), function (f) {
-            params[f.key] = f.data.current.key;
+        params = [];
+        _.each(_.values(APP.state.getActiveFilters()), function (f) {
+            if (f.data.current.key !== "*") {
+                params.push((f.key.split(':')[1] || f.key) + ":" + f.data.current.key);
+            }
         });
+        params = {
+            criteria: params.join(",")
+        };
 
         // Invoke web-service endpoint.
         APP.trigger(eventType + "ing");
@@ -48,7 +53,7 @@
     });
 
     // Event handler: setup state initialized.
-    APP.on("setup:stateInitialized", function () {
+    APP.on("setup:setupDataParsed", function () {
         doSearch("setup:initialSearchDataDownload");
     });
 
@@ -57,14 +62,24 @@
         var f;
 
         // Update state.
-        f = APP.state.filters[filterType];
+        f = _.find(APP.state.filters, function (filter) {
+            return filter.key === filterType;
+        });
         f.data.current = _.find(f.data.all, function (i) {
             return i.key === filterValue;
         });
+        if (f.key === 'project') {
+            APP.state.setActiveFilters();
+        }
 
         // Execute search.
         APP.trigger("search:begin");
         doSearch("search:dataDownload");
+
+        // Raise project change event (when relevant).
+        if (f.key === 'project') {
+            APP.trigger("project:changed");
+        }
     };
 
 }(
