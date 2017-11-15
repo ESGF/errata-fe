@@ -49,8 +49,6 @@
         issue._experimentDocURLs = [];
         issue._modelDocURLs = [];
 
-        issue.urls.push(issue.urls[0]);
-
         issue._projectDocURL = "https://documentation.es-doc.org/" + issue.project;
         // issue._experimentDocURLs = issue.experimentID.length === 0 ? [] :
         //     _.map(issue.experimentID.sort(), function (i) {
