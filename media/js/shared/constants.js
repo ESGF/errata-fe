@@ -70,7 +70,7 @@
 
             // Base viewer url in various modes.
             VIEWER: {
-                dev: window.location.href.replace("search", "viewer"),
+                dev: window.location.href.replace("index", "viewer"),
                 prod: "https://errata.es-doc.org/viewer.html",
                 test: "https://test-errata.es-doc.org/viewer.html"
             }

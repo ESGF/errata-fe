@@ -8,6 +8,7 @@
         // Cache setup data.
         APP.state.severity = _.indexBy(data.severity, 'key');
         APP.state.status = _.indexBy(data.status, 'key');
+        APP.state.projects = _.indexBy(data.project, 'key');
 
         // Fire event.
         APP.trigger("setup:cvDataParsed", data);
@@ -21,9 +22,7 @@
         APP.state.issue = issue = data.issue;
         APP.state.datasets = issue.datasets.sort();
 
-        console.log(issue);
-
-        // Set issue full title.
+        // Set display field: issue full title.
         issue._fullTitle = issue.project.toUpperCase();
         issue._fullTitle += " - ";
         issue._fullTitle += issue.institute.toUpperCase();
@@ -33,23 +32,48 @@
             issue._fullTitle += "...";
         }
 
-        // Reformat fields.
+        // Set display field: standard attributes.
         issue._institute = issue.institute.toUpperCase();
         issue._project = issue.project.toUpperCase();
         issue._severity = APP.state.severity[issue.severity];
         issue._status = APP.state.status[issue.status];
 
-        // Set facet fields.
-        issue._experiments = issue.facets.experiment.length ? issue.facets.experiment.sort().join(", ") : "--";
-        issue._models = issue.facets.model.length ? issue.facets.model.sort().join(", ") : "--";
-        issue._variables = issue.facets.variable.length ? issue.facets.variable.sort().join(", ") : "--";
+
+        // Normalize facet keys.
+        _.each(APP.state.projects[issue.project].facets, function (f) {
+            f._key = f.key.toLowerCase().replace('_', '');
+        });
+        issue.__facets = _.indexBy(_.map(_.keys(issue.facets), function (key) {
+            return {
+                key: key,
+                _key: key.toLowerCase(),
+                values: issue.facets[key]
+            };
+        }), '_key');
+
+
+        // Set issue facets.
+        issue._facets = [];
+        _.each(APP.state.projects[issue.project].facets, function (f) {
+            if (_.has(issue.__facets, f._key)) {
+                issue._facets.push({
+                    key: f.key,
+                    label: f.label,
+                    values: issue.facets[f.key]
+                });
+            }
+        });
+
+        console.log(APP.state.projects[issue.project].facets);
+        console.log(issue);
+
+
 
         // Set documentation viewer links.
-        issue._projectDocURL = '';
+        issue._projectDocURL = "https://documentation.es-doc.org/" + issue.project;
         issue._experimentDocURLs = [];
         issue._modelDocURLs = [];
 
-        issue._projectDocURL = "https://documentation.es-doc.org/" + issue.project;
         // issue._experimentDocURLs = issue.experimentID.length === 0 ? [] :
         //     _.map(issue.experimentID.sort(), function (i) {
         //         return {
@@ -65,7 +89,7 @@
         //         };
         //     });
 
-        // Format data fields.
+        // Set display fields: provenance fields.
         issue.dateCreated = issue.dateCreated.slice(0, 19);
         if (issue.dateUpdated) {
             issue.dateUpdated = issue.dateUpdated.slice(0, 19);

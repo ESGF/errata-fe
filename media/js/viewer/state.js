@@ -11,7 +11,15 @@
 
         issue: undefined,
 
-        issueID: APP.utils.getURLParam("uid")
+        issueID: APP.utils.getURLParam("uid"),
+
+        severity: {},
+
+        status: {},
+
+        projects: {},
+
+        project: undefined
     };
 
 }(
