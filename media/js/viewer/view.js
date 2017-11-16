@@ -1,7 +1,7 @@
 // --------------------------------------------------------
 // search/view._.js - Main page view.
 // --------------------------------------------------------
-(function (APP, paging, sorting, _, $, Backbone, window) {
+(function (APP, constants, paging, sorting, _, $, Backbone, window) {
 
     // ECMAScript 5 Strict Mode
     "use strict";
@@ -15,7 +15,12 @@
                 APP.utils.openSupportEmail();
             },
 
-            // Open page: home.
+            // Open page: search.
+            'click button.esdoc-errata-search': function () {
+                APP.utils.openURL(constants.URLS.SEARCH_PAGE, false);
+            },
+
+            // Open page: es-doc home.
             'click img.esdoc-logo': function () {
                 APP.utils.openHomepage();
             }
@@ -36,6 +41,7 @@
 
 }(
     this.APP,
+    this.APP.constants,
     this.APP.state.paging,
     this.APP.state.sorting,
     this._,

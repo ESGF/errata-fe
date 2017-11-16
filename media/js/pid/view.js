@@ -24,7 +24,7 @@
 
             // Open page: search.
             'click button.esdoc-errata-search': function () {
-                APP.utils.openURL(constants.URLS.SEARCH_PAGE, true);
+                APP.utils.openURL(constants.URLS.SEARCH_PAGE, false);
             },
 
             'change .btn-file :file': function (e) {

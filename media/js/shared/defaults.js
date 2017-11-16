@@ -26,7 +26,7 @@
     APP.defaults.apiBaseURL = APP.constants.URLS.API[APP.defaults.mode];
 
     // Set viewerBaseURL.
-    APP.defaults.viewerBaseURL = APP.constants.URLS.VIEWER[APP.defaults.mode];
+    APP.defaults.viewerBaseURL = APP.constants.URLS.VIEWER_PAGE[APP.defaults.mode];
 
 }(
     this.APP,

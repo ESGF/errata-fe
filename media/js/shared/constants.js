@@ -53,9 +53,6 @@
             // pid page.
             PID_PAGE: "pid.html",
 
-            // search page.
-            SEARCH_PAGE: "search.html",
-
             // pid resolve.
             PID_RESOLVE: "/1/resolve/pid",
 
@@ -65,11 +62,14 @@
             // issue search.
             SEARCH: "/1/issue/search",
 
+            // search page.
+            SEARCH_PAGE: "index.html",
+
             // issue search setup.
             SEARCH_SETUP: "/1/issue/search-setup",
 
-            // Base viewer url in various modes.
-            VIEWER: {
+            // Viewer page url in various modes.
+            VIEWER_PAGE: {
                 dev: window.location.href.replace("index", "viewer"),
                 prod: "https://errata.es-doc.org/viewer.html",
                 test: "https://test-errata.es-doc.org/viewer.html"
