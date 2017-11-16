@@ -164,6 +164,17 @@
                 <%= issue.description %>
             </td>
         </tr>
+
+        <% _.each(issue._facets, function(facet) { %>
+        <tr>
+            <td class="field-name">Affected <%= facet.label %>s</td>
+            <td class="field-value">
+                <%= facet.values %>
+            </td>
+        </tr>
+        <% }); %>
+
+<!-- 
         <tr>
             <td class="field-name">Affected Experiments</td>
             <td class="field-value">
@@ -196,6 +207,8 @@
                 <%= issue._variables %>
             </td>
         </tr>
+-->
+
         <tr>
             <td class="field-name">Further Info</td>
             <td class="field-value">
