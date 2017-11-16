@@ -59,7 +59,7 @@
                 issue._facets.push({
                     key: f.key,
                     label: f.label,
-                    values: issue.facets[f.key]
+                    values: issue.__facets[f._key].values
                 });
             }
         });

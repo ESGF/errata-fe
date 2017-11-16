@@ -165,11 +165,11 @@
             </td>
         </tr>
 
-        <% _.each(issue._facets, function(facet) { %>
+        <% _.each(_.sortBy(issue._facets, 'key'), function(facet) { %>
         <tr>
             <td class="field-name">Affected <%= facet.label %>s</td>
             <td class="field-value">
-                <%= facet.values %>
+                <%= facet.values.join(', ') %>
             </td>
         </tr>
         <% }); %>
