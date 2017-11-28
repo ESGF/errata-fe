@@ -170,7 +170,7 @@
         <tr>
             <td class="field-name">Further Info</td>
             <td class="field-value">
-                <% if (issue.urls) { %>
+                <% if (issue.urls.length > 0) { %>
                     <% _.each(issue.urls, function(url, idx) { %>
                         <a href="<%= url %>"
                            target="blank"
