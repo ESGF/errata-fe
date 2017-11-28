@@ -7,49 +7,13 @@
     APP.state = {
         APP: APP,
 
-        filters: [
-            {
-                data: {
-                    all: [],
-                    current: null,
-                    set: {}
-                },
-                defaultKey: "cmip6",
-                key: "project",
-                label: "Project",
-                project: null,
-                uiPosition: 0
-            },
-            {
-                data: {
-                    all: [],
-                    current: null,
-                    set: {}
-                },
-                defaultKey: null,
-                key: "severity",
-                label: "Severity",
-                project: null,
-                uiPosition: 1000
-            },
-            {
-                data: {
-                    all: [],
-                    current: null,
-                    set: {}
-                },
-                defaultKey: null,
-                key: "status",
-                label: "Status",
-                project: null,
-                uiPosition: 1001
-            }
-        ],
+        filters: [],
 
         // Set active filter flag.
         setActiveFilters: function () {
             _.each(APP.state.filters, function (f) {
-                f.isActive = _.isNull(f.project) || f.project === APP.state.filters[0].data.current.key;
+                f.isActive = _.isNull(f.project) ||
+                             f.project === APP.state.filters[0].data.current.key.split(':')[3];
             });
         },
 

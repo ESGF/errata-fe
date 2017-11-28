@@ -7,8 +7,13 @@
     "use strict";
 
     // Performs a search.
-    var doSearch = function (eventType) {
+    var doSearch = function (preEventType, eventType) {
         var url, params;
+
+        // Raise pre event type.
+        if (_.isNull(preEventType) === false) {
+            APP.trigger(preEventType);
+        }
 
         // Set web-service endpoint url.
         url = APP.defaults.apiBaseURL + APP.constants.URLS.SEARCH;
@@ -16,8 +21,8 @@
         // Set web-service endpoint query parameters.
         params = [];
         _.each(_.values(APP.state.getActiveFilters()), function (f) {
-            if (f.data.current.key !== "*") {
-                params.push((f.key.split(':')[1] || f.key) + ":" + f.data.current.key);
+            if (f.data.current.key.endsWith('*') === false) {
+                params.push(f.data.current.key);
             }
         });
         params = {
@@ -54,30 +59,30 @@
 
     // Event handler: setup state initialized.
     APP.on("setup:setupDataParsed", function () {
-        doSearch("setup:initialSearchDataDownload");
+        doSearch(null, "setup:initialSearchDataDownload");
     });
 
     // Update filter & invoke search.
-    APP.updateFilter = function (filterType, filterValue) {
-        var f;
+    APP.updateFilter = function (filterValue) {
+        var filterType, f;
 
         // Update state.
+        filterType = filterValue.split(':').slice(0, 3).join(':');
         f = _.find(APP.state.filters, function (filter) {
             return filter.key === filterType;
         });
         f.data.current = _.find(f.data.all, function (i) {
             return i.key === filterValue;
         });
-        if (f.key === 'project') {
+        if (f.key === 'esdoc:errata:project') {
             APP.state.setActiveFilters();
         }
 
         // Execute search.
-        APP.trigger("search:begin");
-        doSearch("search:dataDownload");
+        doSearch("search:begin", "search:dataDownload");
 
         // Raise project change event (when relevant).
-        if (f.key === 'project') {
+        if (f.key === 'esdoc:errata:project') {
             APP.trigger("project:changed");
         }
     };

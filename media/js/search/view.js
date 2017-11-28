@@ -33,8 +33,7 @@
 
             // Filter: value change.
             'change .filter select': function (e) {
-                APP.updateFilter($(e.target).attr("id").slice(7),
-                                 $(e.target).val());
+                APP.updateFilter($(e.target).val());
             },
 
             // Pager: navigate to manually chosen page.

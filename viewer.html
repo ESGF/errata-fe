@@ -165,49 +165,7 @@
             </td>
         </tr>
 
-        <% _.each(_.sortBy(issue._facets, 'key'), function(facet) { %>
-        <tr>
-            <td class="field-name">Affected <%= facet.label %>s</td>
-            <td class="field-value">
-                <%= facet.values.join(', ') %>
-            </td>
-        </tr>
-        <% }); %>
 
-<!-- 
-        <tr>
-            <td class="field-name">Affected Experiments</td>
-            <td class="field-value">
-                <% _.each(issue._experimentDocURLs, function(url, idx) { %>
-                <a href="<%= url.hyperlink %>?client=esdoc-errata-fe"
-                   target="blank"
-                   title="Link to experiment documentation page">
-                   <%= url.label %></a>
-                   <%= idx + 1 !== issue._experimentDocURLs.length ? "|" : "" %>
-                <% }); %>
-                <%= issue._experiments %>
-            </td>
-        </tr>
-        <tr>
-            <td class="field-name">Affected Models</td>
-            <td class="field-value">
-                <% _.each(issue._modelDocURLs, function(url, idx) { %>
-                <a href="<%= url.hyperlink %>?client=esdoc-errata-fe"
-                   target="blank"
-                   title="Link to model documentation page">
-                   <%= url.label %></a>
-                   <%= idx + 1 !== issue._modelDocURLs.length ? "|" : "" %>
-                <% }); %>
-                <%= issue._models %>
-            </td>
-        </tr>
-        <tr>
-            <td class="field-name">Affected Variables</td>
-            <td class="field-value">
-                <%= issue._variables %>
-            </td>
-        </tr>
--->
 
         <tr>
             <td class="field-name">Further Info</td>
@@ -241,14 +199,14 @@
         <tr>
             <td class="field-name">Created By</td>
             <td class="field-value">
-                <%= issue._createdBy %> @ <%= issue.dateCreated %>
+                <%= issue._createdBy %> @ <%= issue.createdDate %>
             </td>
         </tr>
         <tr>
             <td class="field-name">Last Updated By</td>
             <td class="field-value">
                 <% if (issue.dateUpdated) { %>
-                    <%= issue._updatedBy %> @ <%= issue.dateUpdated %>
+                    <%= issue._updatedBy %> @ <%= issue.updatedDate %>
                 <% } else { %>
                     --
                 <% } %>
@@ -258,7 +216,7 @@
             <td class="field-name">Closed By</td>
             <td class="field-value">
                 <% if (issue.dateClosed) { %>
-                    <%= issue._closedBy %> @ <%= issue.dateClosed %>
+                    <%= issue._closedBy %> @ <%= issue.closedDate %>
                 <% } else { %>
                     --
                 <% } %>

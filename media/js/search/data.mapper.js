@@ -5,7 +5,7 @@
     // Returns an issue object mapped form an array of values.
     APP.mapIssue = function (i) {
         return {
-            mipEra: i[0],
+            project: i[0],
             institutionID: i[1],
             uid: i[2],
             title: i[3],

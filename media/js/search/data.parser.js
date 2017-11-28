@@ -8,21 +8,20 @@
             // Map results.
             data.results = _.map(data.results, APP.mapIssue);
 
-            // Set filter related helper attributes.
+            // Parse results.
             _.each(data.results, function (row) {
-                _.each(_.values(APP.state.filters), function (f) {
-                    row['_' + f.key] = f.data.set[row[f.key]];
-                });
+                row._severity = APP.state.filters[1].data.set['esdoc:errata:severity:' + row.severity];
+                row._status = APP.state.filters[2].data.set['esdoc:errata:status:' + row.status];
                 row._institutionID = row.institutionID.toUpperCase();
-            });
-
-            // Set human readable title.
-            _.each(data.results, function (row) {
                 row._title = (row.title || '--').trim();
                 if (row.title.length > 53) {
                     row._title = row.title.slice(0, 53) + " ...";
                 }
             });
+
+            console.log(data.results[0]);
+            // console.log(APP.state.filters[1].data.set['esdoc:errata:severity:low']);
+            console.log(APP.state.filters);
 
             // Trigger application event.
             APP.trigger(eventType, data);
@@ -40,62 +39,44 @@
 
     // Event handler: setup:setupDataDownload.
     APP.on("setup:setupDataDownload", function (data) {
-        var filters = APP.state.filters;
-
-        // Core filters: set data.
-        filters[0].data.all = data.project;
-        filters[1].data.all = data.severity;
-        filters[2].data.all = data.status;
-
-        // Project filters: initialise.
-        _.each(data.project, function (p) {
-            _.each(p.facets, function (f, index) {
-                filters.push({
-                    data: {
-                        all: _.map(f.values, function (v) {
-                            return {
-                                key: v,
-                                label: v
-                            };
-                        }),
-                        current: undefined,
-                        set: {}
-                    },
-                    defaultKey: undefined,
-                    key: p.key + ':' + f.key,
-                    label: f.label,
-                    project: p.key,
-                    uiPosition: index + 1
-                });
-            });
+        // Initialise filters from vocab collections.
+        APP.state.filters = _.map(data.collections, function (c) {
+            return {
+                data: {
+                    all: _.sortBy(c.terms, function (i) {
+                        return i.sortOrdinal || i.key;
+                    }),
+                    current: null,
+                    set: {}
+                },
+                defaultKey: c.key === "esdoc:errata:project" ? "esdoc:errata:project:cmip6" : null,
+                key: c.key,
+                label: c.label,
+                project: c.key.startsWith('esdoc') ? null : c.key.split(':')[1],
+                uiPosition: c.key === "esdoc:errata:project" ? 0 :
+                            c.key === "esdoc:errata:severity" ? 1000 :
+                            c.key === "esdoc:errata:status" ? 1001 : 100
+            };
         });
 
         // Non project filters: set default data.
-        _.each(filters, function (f, index) {
+        _.each(APP.state.filters, function (f, index) {
             if (index > 0) {
                 f.data.all.unshift({
-                    key: "*",
+                    key: f.key + ":*",
                     label: "*"
                 });
             }
         });
 
-        // All filters: sort data.
-        _.each(filters, function (f) {
-            data[f.key] = _.sortBy(data[f.key], function (i) {
-                return i.sortOrdinal || i.label || i.name;
-            });
-        });
-
         // All filters: set current.
-        _.each(filters, function (f) {
+        _.each(APP.state.filters, function (f) {
             if (f.defaultKey) {
                 f.data.current = _.find(f.data.all, function (i) {
                     return i.key === f.defaultKey;
-                }) || f.data.all[0];
-            } else {
-                f.data.current = f.data.all[0];
+                });
             }
+            f.data.current = f.data.current || f.data.all[0];
             f.data.set = _.indexBy(f.data.all, 'key');
         });
 

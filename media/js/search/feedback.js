@@ -1,7 +1,4 @@
-// --------------------------------------------------------
-// feedback.listener.js - Manages application state updates.
-// --------------------------------------------------------
-(function (APP, $) {
+(function (APP) {
 
     // ECMAScript 5 Strict Mode
     "use strict";
@@ -11,8 +8,7 @@
         APP.utils.displayFeedback("Initializing errata search");
     });
     APP.on("setup:setupDataDownload:error", function () {
-        // TODO handle this scenario.
-    	alert("setup:setupDataDownload:error");
+        alert("setup:setupDataDownload:error");
     });
     APP.on("setup:complete", APP.utils.hideFeedback);
 
@@ -26,4 +22,6 @@
     });
     APP.on("search:complete", APP.utils.hideFeedback);
 
-}(this.APP, this.$));
+}(
+    this.APP
+));
