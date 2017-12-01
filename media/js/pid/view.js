@@ -34,7 +34,7 @@
                 reader = new FileReader();
                 reader.onload = function (e) {
                     if (e.target.result.trim()) {
-                        APP.events.trigger("ui:pidFileSelected", {
+                        APP.trigger("ui:pidFileSelected", {
                             file: file,
                             pids: e.target.result.trim().split("\n")
                         });
@@ -55,7 +55,7 @@
 
             'click #searchButton': function (e) {
                 if (APP.state.pids.length) {
-                    APP.events.trigger('ui:search');
+                    APP.trigger('ui:search');
                 }
             },
 

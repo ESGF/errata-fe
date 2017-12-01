@@ -219,12 +219,12 @@
     </td>
     <td class="issue-institute text-center col-md-1" title="issue institute">
         <small>
-            <%= issue._institutionID %>
+            <%= issue.ext.institutionID %>
         </small>
     </td>
     <td class="issue-title col-md-5" title="issue title">
         <small>
-            <%= issue._title %>
+            <%= issue.ext.title %>
         </small>
     </td>
     <td class="issue-date-created text-center" title="issue creation date">
@@ -244,12 +244,12 @@
     </td>
     <td class="issue-severity <%= issue.severity %>  text-center" title="issue severity">
         <small>
-            <%= issue._severity.label %>
+            <%= issue.ext.severity.label %>
         </small>
     </td>
     <td class="issue-status <%= issue.status %> text-center" title="issue status">
         <small>
-            <%= issue._status.label %>
+            <%= issue.ext.status.label %>
         </small>
     </td>
 </tr>
@@ -323,21 +323,20 @@
 <!-- ---------------------------------------------- -->
 <!-- JS: Application scripts                        -->
 <!-- ---------------------------------------------- -->
-<!-- ... shared scripts 							-->
-<script src="media/js/search/_.js" type="text/javascript"></script>
-<script src="media/js/shared/constants.js" type="text/javascript"></script>
-<script src="media/js/shared/defaults.js" type="text/javascript"></script>
-<script src="media/js/shared/utils.js" type="text/javascript"></script>
-<script src="media/js/shared/view.renderer.js" type="text/javascript"></script>
-<script src="media/js/search/feedback.js" type="text/javascript"></script>
-<script src="media/js/search/cookies.js" type="text/javascript"></script>
-<script src="media/js/search/data.downloader.js" type="text/javascript"></script>
-<script src="media/js/search/data.mapper.js" type="text/javascript"></script>
-<script src="media/js/search/data.parser.js" type="text/javascript"></script>
-<script src="media/js/search/state.js" type="text/javascript"></script>
-<script src="media/js/search/state.manager.js" type="text/javascript"></script>
-<script src="media/js/search/data.sorter.js" type="text/javascript"></script>
-<script src="media/js/search/view.js" type="text/javascript"></script>
+<script defer src="media/js/shared/app.js" type="text/javascript"></script>
+<script defer src="media/js/search/view.model.js" type="text/javascript"></script>
+
+<script defer src="media/js/shared/constants.js" type="text/javascript"></script>
+<script defer src="media/js/shared/defaults.js" type="text/javascript"></script>
+<script defer src="media/js/shared/utils.js" type="text/javascript"></script>
+<script defer src="media/js/shared/view.renderer.js" type="text/javascript"></script>
+
+<script defer src="media/js/search/model.js" type="text/javascript"></script>
+<script defer src="media/js/search/feedback.js" type="text/javascript"></script>
+
+<script defer src="media/js/search/data.downloader.js" type="text/javascript"></script>
+<script defer src="media/js/search/view.js" type="text/javascript"></script>
+
 
 </body>
 

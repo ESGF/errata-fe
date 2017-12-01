@@ -40,7 +40,7 @@ window.$ = window.$jq = jQuery.noConflict();
         // Triggers an application event.
         trigger: function (eventType, eventArgs) {
             APP.log("event :: " + eventType);
-            return APP.events.trigger(eventType, eventArgs);
+            return APP.trigger(eventType, eventArgs);
         },
 
         // Utility functions.

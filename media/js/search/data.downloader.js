@@ -7,7 +7,7 @@
     "use strict";
 
     // Performs a search.
-    var doSearch = function (preEventType, eventType) {
+    const doSearch = (preEventType, eventType) => {
         var url, params;
 
         // Raise pre event type.
@@ -20,7 +20,7 @@
 
         // Set web-service endpoint query parameters.
         params = [];
-        _.each(_.values(APP.state.getActiveFilters()), function (f) {
+        _.each(_.values(APP.state.getActiveFilters()), (f) => {
             if (f.data.current.key.endsWith('*') === false) {
                 params.push(f.data.current.key);
             }
@@ -32,60 +32,74 @@
         // Invoke web-service endpoint.
         APP.trigger(eventType + "ing");
         $.get(url, params)
-            .done(function (data) {
-                setTimeout(function () {
+            .done((data) => {
+                setTimeout(() => {
                     APP.trigger(eventType, data);
                 }, APP.constants.uiUpdateDelay);
             })
-            .fail(function () {
-                setTimeout(function () {
+            .fail(() => {
+                setTimeout(() => {
                     APP.trigger(eventType + ":error");
                 }, APP.constants.uiUpdateDelay);
             });
     };
 
     // Event handler: setup:begin.
-    APP.on("setup:begin", function () {
+    APP.on("setup:begin", () => {
         $.get(APP.defaults.apiBaseURL + APP.constants.URLS.SEARCH_SETUP)
-            .done(function (data) {
+            .done((data) => {
                 APP.trigger("setup:setupDataDownload", data);
             })
-            .fail(function () {
-                setTimeout(function () {
+            .fail(() => {
+                setTimeout(() => {
                     APP.trigger("setup:setupDataDownload:error");
                 }, APP.constants.uiUpdateDelay);
             });
     });
 
-    // Event handler: setup state initialized.
-    APP.on("setup:setupDataParsed", function () {
+    // Event handler: setup:setupDataDownload.
+    APP.on("setup:setupDataDownload", (data) => {
+        // Update state.
+        APP.state.initFilters(data.collections);
+
+        // Execute search.
         doSearch(null, "setup:initialSearchDataDownload");
     });
 
-    // Update filter & invoke search.
-    APP.updateFilter = function (filterValue) {
-        var filterType, f;
-
+    // Event handler: setup:initialSearchDataDownload.
+    APP.on("setup:initialSearchDataDownload", (data) => {
         // Update state.
-        filterType = filterValue.split(':').slice(0, 3).join(':');
-        f = _.find(APP.state.filters, function (filter) {
-            return filter.key === filterType;
-        });
-        f.data.current = _.find(f.data.all, function (i) {
-            return i.key === filterValue;
-        });
-        if (f.key === 'esdoc:errata:project') {
-            APP.state.setActiveFilters();
-        }
+        APP.state.searchData = data;
 
+        // Fire events.
+        APP.trigger("setup:complete");
+    });
+
+    // Event handler: state:filterUpdate.
+    APP.on("state:filterUpdate", (filterValue) => {
+        APP.state.updateFilter(filterValue.split(':').slice(0, 3).join(':'), filterValue);
+    });
+
+    // Event handler: state:filterUpdate.
+    APP.on("state:filterUpdated", (filter) => {
         // Execute search.
         doSearch("search:begin", "search:dataDownload");
 
         // Raise project change event (when relevant).
-        if (f.key === 'esdoc:errata:project') {
+        if (filter.key === 'esdoc:errata:project') {
             APP.trigger("project:changed");
         }
-    };
+    });
+
+    // Event handler: search:dataDownload.
+    APP.on("search:dataDownload", (data) => {
+        // Update state.
+        APP.state.searchData = data;
+
+        // Fire events.
+        APP.trigger('state:pageUpdate');
+        APP.trigger('search:complete');
+    });
 
 }(
     this.APP,

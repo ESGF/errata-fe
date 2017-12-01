@@ -1,6 +1,3 @@
-// --------------------------------------------------------
-// search/view._.js - Main page view.
-// --------------------------------------------------------
 (function (APP, constants, paging, sorting, _, $, Backbone, window) {
 
     // ECMAScript 5 Strict Mode
@@ -11,17 +8,17 @@
         // Backbone: view event handlers.
         events: {
             // Open email: support.
-            'click button.esdoc-support': function () {
+            'click button.esdoc-support': () => {
                 APP.utils.openSupportEmail();
             },
 
             // Open page: search.
-            'click button.esdoc-errata-search': function () {
+            'click button.esdoc-errata-search': () => {
                 APP.utils.openURL(constants.URLS.SEARCH_PAGE, false);
             },
 
             // Open page: es-doc home.
-            'click img.esdoc-logo': function () {
+            'click img.esdoc-logo': () => {
                 APP.utils.openHomepage();
             }
         },

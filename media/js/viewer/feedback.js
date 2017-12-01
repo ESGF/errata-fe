@@ -1,19 +1,19 @@
-// --------------------------------------------------------
-// feedback.listener.js - Manages application state updates.
-// --------------------------------------------------------
 (function (APP, $) {
 
     // ECMAScript 5 Strict Mode
     "use strict";
 
-    // Setup events.
-    APP.on("setup:begin", function () {
+    // Event handler: setup begins.
+    APP.on("setup:begin", () => {
         APP.utils.displayFeedback("Initializing errata viewer");
     });
-    APP.on("setup:setupDataDownload:error", function () {
-        // TODO handle this scenario.
-    	alert("setup:setupDataDownload:error");
-    });
+
+    // Event handler: setup complete.
     APP.on("setup:complete", APP.utils.hideFeedback);
+
+    // Event handler: setup error.
+    APP.on("setup:setupDataDownload:error", () => {
+    	alert("TODO: setup:setupDataDownload:error");
+    });
 
 }(this.APP, this.$));

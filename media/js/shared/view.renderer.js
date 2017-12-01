@@ -7,7 +7,7 @@
     "use strict";
 
     // Event handler: setup complete.
-    APP.events.on("setup:complete", function () {
+    APP.events.on("setup:complete", () => {
         // Render main view.
         APP.view = new APP.views.MainView();
         APP.view.render();
@@ -17,7 +17,7 @@
         APP.log("ui initialized");
 
         // Fire events.
-        APP.events.trigger("ui:initialized");
+        APP.trigger("ui:initialized");
     });
 
 }(

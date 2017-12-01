@@ -4,7 +4,7 @@
     "use strict";
 
     // Event handler: setup:cvDataDownload.
-    APP.on("setup:cvDataDownload", function (data) {
+    APP.on("setup:cvDataDownload", (data) => {
         // Cache setup data.
         APP.state.severity = _.indexBy(data.collections[1].terms, 'key');
         APP.state.status = _.indexBy(data.collections[2].terms, 'key');
@@ -15,7 +15,7 @@
     });
 
     // Event handler: setup:issueDataDownload.
-    APP.on("setup:issueDataDownload", function (data) {
+    APP.on("setup:issueDataDownload", (data) => {
         var issue;
 
         // Update state.
@@ -32,14 +32,37 @@
             issue._fullTitle += "...";
         }
 
-        // Set display field: standard attributes.
+        // Set display fields: standard attributes.
         issue._institute = issue.institute.toUpperCase();
-        issue._project = issue.project.toUpperCase();
+        issue._project = APP.state.projects['esdoc:errata:project:' + issue.project];
         issue._severity = APP.state.severity['esdoc:errata:severity:' + issue.severity];
         issue._status = APP.state.status['esdoc:errata:status:' + issue.status];
 
+        // Set display fields: hyperlinks.
+        if (issue._project.isDocumented === true) {
+            issue._projectDocURL = "https://documentation.es-doc.org/" + issue.project;
+        }
+        issue._experimentDocURLs = [];
+        issue._modelDocURLs = [];
+
+        // Set display fields: provenance fields.
+        if (issue.createdDate) {
+            issue.createdDate = issue.createdDate.slice(0, 19);
+        }
+        if (issue.updatedDate) {
+            issue.updatedDate = issue.updatedDate.slice(0, 19);
+        }
+        if (issue.closedDate) {
+            issue.closedDate = issue.closedDate.slice(0, 19);
+        }
+
+        issue._facets = [];
+        _.each(issue.facets, (facet) => {
+            console.log(facet);
+        });
+
         // Normalize facet keys.
-        // _.each(APP.state.projects[issue.project].facets, function (f) {
+        // _.each(APP.state.project[issue.project].facets, function (f) {
         //     f._key = f.key.toLowerCase().replace('_', '');
         // });
         // issue.__facets = _.indexBy(_.map(_.keys(issue.facets), function (key) {
@@ -52,7 +75,7 @@
 
         // // Set issue facets.
         // issue._facets = [];
-        // _.each(APP.state.projects[issue.project].facets, function (f) {
+        // _.each(APP.state.project[issue.project].facets, function (f) {
         //     if (_.has(issue.__facets, f._key)) {
         //         issue._facets.push({
         //             key: f.key,
@@ -71,10 +94,6 @@
         // var documentedFacets = APP.constants.getDocumentedFacets(issue.project);
         // console.log(documentedFacets);
 
-        issue._projectDocURL = "https://documentation.es-doc.org/" + issue.project;
-        issue._experimentDocURLs = [];
-        issue._modelDocURLs = [];
-
         // issue._experimentDocURLs = issue.experimentID.length === 0 ? [] :
         //     _.map(issue.experimentID.sort(), function (i) {
         //         return {
@@ -90,19 +109,6 @@
         //         };
         //     });
 
-        // Set display fields: provenance fields.
-        issue._createdBy = issue.createdBy ? issue.createdBy : "--";
-        if (issue.createdDate) {
-            issue.createdDate = issue.createdDate.slice(0, 19);
-        }
-        issue._updatedBy = issue.updatedBy ? issue.updatedBy : "--";
-        if (issue.updatedDate) {
-            issue.updatedDate = issue.updatedDate.slice(0, 19);
-        }
-        issue._closedBy = issue.closedBy ? issue.closedBy : "--";
-        if (issue.closedDate) {
-            issue.closedDate = issue.closedDate.slice(0, 19);
-        }
 
         console.log(issue);
 

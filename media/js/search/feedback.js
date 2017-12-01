@@ -3,24 +3,32 @@
     // ECMAScript 5 Strict Mode
     "use strict";
 
-    // Setup events.
-    APP.on("setup:begin", function () {
+    // Event handler: setup begins.
+    APP.on("setup:begin", () => {
         APP.utils.displayFeedback("Initializing errata search");
     });
-    APP.on("setup:setupDataDownload:error", function () {
-        alert("setup:setupDataDownload:error");
-    });
+
+    // Event handler: setup complete.
     APP.on("setup:complete", APP.utils.hideFeedback);
 
+    // Event handler: setup error.
+    APP.on("setup:setupDataDownload:error", () => {
+        alert("setup:setupDataDownload:error");
+    });
 
-    // Search events.
-    APP.on("search:begin", function () {
+
+    // Event handler: search begins.
+    APP.on("search:begin", () => {
         APP.utils.displayFeedback("Searching errata repository");
     });
-    APP.on("search:dataDownload:error", function () {
+
+    // Event handler: search complete.
+    APP.on("search:complete", APP.utils.hideFeedback);
+
+    // Event handler: search error.
+    APP.on("search:dataDownload:error", () => {
     	alert("search:dataDownload:error");
     });
-    APP.on("search:complete", APP.utils.hideFeedback);
 
 }(
     this.APP

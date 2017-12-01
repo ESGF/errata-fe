@@ -1,7 +1,7 @@
 // --------------------------------------------------------
 // search/view._.js - Main page view.
 // --------------------------------------------------------
-(function (APP, paging, sorting, constants, _, $, Backbone, window) {
+(function (APP, constants, _, $, Backbone, window) {
 
     // ECMAScript 5 Strict Mode
     "use strict";
@@ -11,96 +11,101 @@
         // Backbone: view event handlers.
         events: {
             // Open page: home.
-            'click img.esdoc-logo': function () {
+            'click img.esdoc-logo': () => {
                 APP.utils.openHomepage();
             },
 
             // Open email: support.
-            'click button.esdoc-support': function () {
+            'click button.esdoc-support': () => {
                 APP.utils.openSupportEmail();
             },
 
             // Open page: pid lookup.
-            'click button.esdoc-pid-lookup': function () {
+            'click button.esdoc-pid-lookup': () => {
                 APP.utils.openURL(constants.URLS.PID_PAGE, true);
             },
 
             // Open page: errata detail.
-            'click .issue': function (e) {
-                this._openDetailPage($(e.target).parent().attr("id") ||
-                                     $(e.target).parent().parent().attr("id"));
+            'click .issue': (e) => {
+                var url;
+
+                url = APP.defaults.viewerBaseURL;
+                url += "?uid=";
+                url += $(e.target).parent().attr("id") ||
+                       $(e.target).parent().parent().attr("id");
+                APP.utils.openURL(url, true);
             },
 
             // Filter: value change.
-            'change .filter select': function (e) {
-                APP.updateFilter($(e.target).val());
+            'change .filter select': (e) => {
+                APP.trigger('state:filterUpdate', $(e.target).val());
             },
 
             // Pager: navigate to manually chosen page.
-            'change .pagination-info' : function (e) {
+            'change .pagination-info' : (e) => {
                 var pageNumber;
 
                 pageNumber = parseInt($(e.target).val(), 10);
                 $(e.target).val("");
                 if (_.isNaN(pageNumber) === false &&
                     pageNumber > 0 &&
-                    pageNumber <= paging.pages.length &&
-                    paging.current !== paging.pages[pageNumber - 1]) {
-                    paging.current = paging.pages[pageNumber - 1];
-                    APP.events.trigger('state:pageUpdate');
+                    pageNumber <= APP.state.paging.pages.length &&
+                    APP.state.paging.current !== APP.state.paging.pages[pageNumber - 1]) {
+                    APP.state.paging.current = APP.state.paging.pages[pageNumber - 1];
+                    APP.trigger('state:pageUpdate');
                 }
             },
 
             // Pager: navigate to first page.
-            'click .pagination-first' : function () {
-                if (paging.pages.length && paging.current !== _.first(paging.pages)) {
-                    paging.current = _.first(paging.pages);
-                    APP.events.trigger('state:pageUpdate');
+            'click .pagination-first' : () => {
+                if (APP.state.paging.pages.length && APP.state.paging.current !== _.first(APP.state.paging.pages)) {
+                    APP.state.paging.current = _.first(APP.state.paging.pages);
+                    APP.trigger('state:pageUpdate');
                 }
             },
 
             // Pager: navigate to previous page.
-            'click .pagination-previous' : function () {
-                if (paging.pages.length && paging.current !== _.first(paging.pages)) {
-                    paging.current = paging.pages[paging.current.id - 2];
-                    APP.events.trigger('state:pageUpdate');
+            'click .pagination-previous' : () => {
+                if (APP.state.paging.pages.length && APP.state.paging.current !== _.first(APP.state.paging.pages)) {
+                    APP.state.paging.current = APP.state.paging.pages[APP.state.paging.current.id - 2];
+                    APP.trigger('state:pageUpdate');
                 }
             },
 
             // Pager: navigate to next page.
-            'click .pagination-next' : function () {
-                if (paging.pages.length && paging.current !== _.last(paging.pages)) {
-                    paging.current = paging.pages[paging.current.id];
-                    APP.events.trigger('state:pageUpdate');
+            'click .pagination-next' : () => {
+                if (APP.state.paging.pages.length && APP.state.paging.current !== _.last(APP.state.paging.pages)) {
+                    APP.state.paging.current = APP.state.paging.pages[APP.state.paging.current.id];
+                    APP.trigger('state:pageUpdate');
                 }
             },
 
             // Pager: navigate to last page.
-            'click .pagination-last' : function () {
-                if (paging.pages.length && paging.current !== _.last(paging.pages)) {
-                    paging.current = _.last(paging.pages);
-                    APP.events.trigger('state:pageUpdate');
+            'click .pagination-last' : () => {
+                if (APP.state.paging.pages.length && APP.state.paging.current !== _.last(APP.state.paging.pages)) {
+                    APP.state.paging.current = _.last(APP.state.paging.pages);
+                    APP.trigger('state:pageUpdate');
                 }
             },
 
             // Pager: page-size change.
-            'change .pagination-page-size' : function (e) {
-                paging.pageSize = $(e.target).val();
-                paging.pages = APP.utils.getPages(APP.state.searchData.results);
-                paging.count = paging.pages.length;
-                paging.current = paging.count > 0 ? paging.pages[0] : undefined;
-                APP.events.trigger('state:pageUpdate');
+            'change .pagination-page-size' : (e) => {
+                APP.state.paging.pageSize = $(e.target).val();
+                APP.state.paging.pages = APP.utils.getPages(APP.state.searchData.results);
+                APP.state.paging.count = APP.state.paging.pages.length;
+                APP.state.paging.current = APP.state.paging.count > 0 ? APP.state.paging.pages[0] : undefined;
+                APP.trigger('state:pageUpdate');
             },
 
             // Sorting: change sort field / order.
-            'click .sort-target' : function (e) {
+            'click .sort-target' : (e) => {
                 var target;
 
                 // Derive sort field column header css class, e.g. sort-target-status.
                 target = $(e.target).attr('class');
                 if (target) {
                     target = target.split(' ');
-                    target = _.find(target, function (cls) {
+                    target = _.find(target, (cls) => {
                         return cls.startsWith('sort-target-');
                     });
                     target = target.slice(12);
@@ -109,8 +114,8 @@
 
                 // Apply sort.
                 if (target) {
-                    APP.updateSortField(target);
-                    APP.events.trigger('state:pageUpdate');
+                    APP.state.updateSortField(target);
+                    APP.trigger('state:pageUpdate');
                 }
             }
         },
@@ -124,9 +129,8 @@
             APP.events.on("state:sortFieldChanging", this._clearSortColumn, this);
             APP.events.on("state:sortFieldChanged", this._setSortColumn, this);
             APP.events.on("state:sortDirectionToggled", this._toggleSortColumn, this);
-            APP.events.on("project:changed", function () {
+            APP.events.on("project:changed", () => {
                 this._replaceNode('div.filter', 'template-filter');
-                // APP.utils.renderTemplate("template-filter", APP, this);;
             }, this);
         },
 
@@ -136,7 +140,7 @@
                 "template-header",
                 "template-filter",
                 "template-grid"
-                ], function (template) {
+                ], (template) => {
                 APP.utils.renderTemplate(template, APP, this);
             }, this);
 
@@ -145,10 +149,10 @@
 
         // Sets new sort column.
         _setSortColumn: function () {
-            if (sorting.direction === 'asc') {
-                this.$('.glyphicon.sort-target-' + sorting.field).addClass('glyphicon-menu-up');
+            if (APP.state.sorting.direction === 'asc') {
+                this.$('.glyphicon.sort-target-' + APP.state.sorting.field).addClass('glyphicon-menu-up');
             } else {
-                this.$('.glyphicon.sort-target-' + sorting.field).addClass('glyphicon-menu-down');
+                this.$('.glyphicon.sort-target-' + APP.state.sorting.field).addClass('glyphicon-menu-down');
             }
         },
 
@@ -160,8 +164,8 @@
 
         // Clears current sort column.
         _clearSortColumn: function () {
-            this.$('.glyphicon.sort-target-' + sorting.field).removeClass('glyphicon-menu-up');
-            this.$('.glyphicon.sort-target-' + sorting.field).removeClass('glyphicon-menu-down');
+            this.$('.glyphicon.sort-target-' + APP.state.sorting.field).removeClass('glyphicon-menu-up');
+            this.$('.glyphicon.sort-target-' + APP.state.sorting.field).removeClass('glyphicon-menu-down');
         },
 
         // Updates results grid.
@@ -174,13 +178,13 @@
             var text;
 
             text = "Page ";
-            text += paging.current ? paging.current.id : '0';
+            text += APP.state.paging.current ? APP.state.paging.current.id : '0';
             text += " of ";
-            text += paging.count;
+            text += APP.state.paging.count;
             this.$('.pagination-info').attr('placeholder', text);
 
             this.$('.pagination-container').removeClass('hidden');
-            if (paging.count < 2 && APP.state.searchData.count < 25) {
+            if (APP.state.paging.count < 2 && APP.state.searchData.count < 25) {
                 this.$('.pagination-container').addClass('hidden');
             }
         },
@@ -194,23 +198,11 @@
         // Replaces a page DOM node.
         _replaceNode: function (nodeSelector, template) {
             this.$(nodeSelector).replaceWith(APP.utils.renderTemplate(template, APP.state));
-        },
-
-        // Opens errata detail page.
-        _openDetailPage: function (uid) {
-            var url;
-
-            url = APP.defaults.viewerBaseURL;
-            url += "?uid=";
-            url += uid;
-            APP.utils.openURL(url, true);
         }
     });
 
 }(
     this.APP,
-    this.APP.state.paging,
-    this.APP.state.sorting,
     this.APP.constants,
     this._,
     this.$,

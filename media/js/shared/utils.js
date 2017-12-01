@@ -11,14 +11,14 @@
 
     // Outputs message to brwoser logging console.
     // @msg          Logging message.
-    APP.log = APP.utils.log = function (msg) {
+    APP.log = (msg) => {
         console.log(new Date() + " :: " + constants.logging.PREFIX + msg);
     };
 
     // Opens the target url.
     // @url     URL to be opened.
     // @inTab   Flag indicating whether url will be opened in a new browser tab or not.
-    APP.utils.openURL = function (url, inTab) {
+    APP.utils.openURL = (url, inTab) => {
         if (inTab === true) {
             window.open(url);
         } else {
@@ -27,14 +27,14 @@
     };
 
     // Opens the homepage.
-    APP.utils.openHomepage = function () {
+    APP.utils.openHomepage = () => {
         APP.utils.openURL(constants.URLS.HOME_PAGE, true);
     };
 
     // Opens the target email.
     // @address         Target email address.
     // @subject         Target email subject.
-    APP.utils.openEmail = function (address, subject, message) {
+    APP.utils.openEmail = (address, subject, message) => {
         var email = "mailto:{0}?subject={1}&body={2}";
 
         subject = subject || constants.EMAIL.SUBJECT;
@@ -49,7 +49,7 @@
 
     // Opens module support email.
     // @module         Module for which a support email is being sent.
-    APP.utils.openSupportEmail = function () {
+    APP.utils.openSupportEmail = () => {
         var subject;
 
         subject = "ES-DOC :: SUPPORT :: {0} (v{1})";
@@ -62,7 +62,7 @@
     // @type          View type.
     // @options       View options.
     // @container     View container.
-    APP.utils.render = function (types, options, container) {
+    APP.utils.render = (types, options, container) => {
         var typeset, view, rendered = [];
 
         typeset = _.isArray(types) ? types : [types];
@@ -85,7 +85,7 @@
     // @template            View template.
     // @data                View template data.
     // @container           View container.
-    APP.utils.renderHTML = function (template, data, container) {
+    APP.utils.renderHTML = (template, data, container) => {
         var html = data ? template(data) : template();
 
         if (!_.isUndefined(container)) {
@@ -101,7 +101,7 @@
     // @templateID          View template ID.
     // @templateData        View template data.
     // @container           View container.
-    APP.utils.renderTemplate = function (templateID, templateData, view) {
+    APP.utils.renderTemplate = (templateID, templateData, view) => {
         var template, html;
 
         if (!_.has(templateCache, templateID)) {
@@ -122,7 +122,7 @@
     // Returns URL query param value.
     // @name                URL query param name.
     // @defaultValue        URL query param default value.
-    APP.utils.getURLParam = function (name, defaultValue) {
+    APP.utils.getURLParam = (name, defaultValue) => {
         var
             results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
         if (!results) {
@@ -147,7 +147,7 @@
     };
 
     // Converts search results into pages for rendering.
-    APP.utils.getPages = function (data) {
+    APP.utils.getPages = (data) => {
         var pageSize = APP.state.paging.pageSize;
 
         return _.map(_.range(APP.utils.getPageCount(data.length)), function (id) {
@@ -159,7 +159,7 @@
     };
 
     // Displays feedback modal.
-    APP.utils.displayFeedback = function (text) {
+    APP.utils.displayFeedback = (text) => {
         $('#feedbackText').text(text + " ... please wait");
         $('.feedback-title').text(APP.FULLTITLE);
         $('.feedback-version').text("v" + APP.VERSION);
@@ -171,7 +171,7 @@
     };
 
     // Hides feedback modal.
-    APP.utils.hideFeedback = function () {
+    APP.utils.hideFeedback = () => {
         $("#feedbackContainer").modal('hide');
     };
 

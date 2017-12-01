@@ -4,41 +4,40 @@
     "use strict";
 
     // Event handler: setup:begin.
-    APP.on("setup:begin", function () {
+    APP.on("setup:begin", () => {
         var url;
 
         url = APP.defaults.apiBaseURL + APP.constants.URLS.SEARCH_SETUP;
         $.get(url)
-            .done(function (data) {
+            .done((data) => {
                 APP.trigger("setup:cvDataDownload", data);
             })
-            .fail(function () {
-                setTimeout(function () {
+            .fail(() => {
+                setTimeout(() => {
                     APP.trigger("setup:cvDataDownload:error");
                 }, APP.constants.uiUpdateDelay);
             });
     });
 
     // Event handler: setup:cvDataParsed.
-    APP.on("setup:cvDataParsed", function () {
-        var url;
+    APP.on("setup:cvDataParsed", () => {
+        var url, params;
 
         // Set target url.
-        url = APP.defaults.apiBaseURL;
-        url += APP.constants.URLS.RETRIEVE;
-        url += "?uid=";
-        url += APP.state.issueID;
-        console.log(url);
+        url = APP.defaults.apiBaseURL + APP.constants.URLS.RETRIEVE;
+        params = {
+            uid: APP.utils.getURLParam("uid")
+        };
 
         // Download.
-        $.get(url)
-            .done(function (data) {
-                setTimeout(function () {
+        $.get(url, params)
+            .done((data) => {
+                setTimeout(() => {
                     APP.trigger("setup:issueDataDownload", data);
                 }, APP.constants.uiUpdateDelay);
             })
-            .fail(function () {
-                setTimeout(function () {
+            .fail(() => {
+                setTimeout(() => {
                     APP.trigger("setup:issueDataDownload:error");
                 }, APP.constants.uiUpdateDelay);
             });

@@ -136,14 +136,19 @@
 <script type="underscore/template" id="template-issue-details">
 <table class="table table-bordered table-striped">
     <tbody>
+        <!-- core info -->
         <tr>
             <td class="field-name">Project</td>
             <td class="field-value">
-                <a href="<%= issue._projectDocURL %>?client=esdoc-errata-fe"
-                   target="blank"
-                   title="Link to project documentation page">
-                   <%= issue._project %>
-                </a>
+                <% if (issue._projectDocURL) { %>
+                    <a href="<%= issue._projectDocURL %>?client=esdoc-errata-fe"
+                       target="blank"
+                       title="Link to project documentation page">
+                       <%= issue._project.label %>
+                    </a>
+                <% } else { %>
+                   <%= issue._project.label %>
+                <% } %>
             </td>
         </tr>
         <tr>
@@ -164,9 +169,18 @@
                 <%= issue.description %>
             </td>
         </tr>
-
-
-
+        <tr>
+            <td class="field-name">Severity</td>
+            <td class="field-value issue-severity <%= issue.severity %>">
+                <%= issue._severity.label %>
+            </td>
+        </tr>
+        <tr>
+            <td class="field-name">Status</td>
+            <td class="field-value issue-status <%= issue.status %>">
+                <%= issue._status.label %>
+            </td>
+        </tr>
         <tr>
             <td class="field-name">Further Info</td>
             <td class="field-value">
@@ -185,49 +199,36 @@
             </td>
         </tr>
         <tr>
-            <td class="field-name">Severity</td>
-            <td class="field-value issue-severity <%= issue._severity.key %>">
-                <%= issue._severity.label %>
-            </td>
-        </tr>
-        <tr>
-            <td class="field-name">Status</td>
-            <td class="field-value issue-status <%= issue._status.key %>">
-                <%= issue._status.label %>
-            </td>
-        </tr>
-        <tr>
-            <td class="field-name">Created By</td>
-            <td class="field-value">
-                <%= issue._createdBy %> @ <%= issue.createdDate %>
-            </td>
-        </tr>
-        <tr>
-            <td class="field-name">Last Updated By</td>
-            <td class="field-value">
-                <% if (issue.dateUpdated) { %>
-                    <%= issue._updatedBy %> @ <%= issue.updatedDate %>
-                <% } else { %>
-                    --
-                <% } %>
-            </td>
-        </tr>
-        <tr>
-            <td class="field-name">Closed By</td>
-            <td class="field-value">
-                <% if (issue.dateClosed) { %>
-                    <%= issue._closedBy %> @ <%= issue.closedDate %>
-                <% } else { %>
-                    --
-                <% } %>
-            </td>
-        </tr>
-        <tr>
             <td class="field-name">ESG-F Errata Identifier</td>
             <td class="field-value">
                 <%= issue.uid %>
             </td>
         </tr>
+
+        <!-- tracking info -->
+        <tr>
+            <td class="field-name">Tracking Info.</td>
+            <td>
+                Created by <%= issue.createdBy %> @ <%= issue.createdDate %>
+            </td>
+        </tr>
+        <% if (issue.updatedDate) { %>
+            <tr>
+                <td></td>
+                <td>
+                    Last updated by <%= issue.updatedBy %> @ <%= issue.updatedDate %>
+                </td>
+            </tr>
+        <% } %>
+        <% if (issue.closedDate) { %>
+            <tr>
+                <td></td>
+                <td>
+                    Closed by <%= issue.closedBy %> @ <%= issue.closedDate %>
+                </td>
+            </tr>
+        <% } %>
+
     </tbody>
 </table>
 </script>
@@ -326,16 +327,19 @@
 <!-- JS: Application scripts                        -->
 <!-- ---------------------------------------------- -->
 <!-- ... shared scripts 							-->
-<script src="media/js/viewer/_.js" type="text/javascript"></script>
-<script src="media/js/shared/constants.js" type="text/javascript"></script>
-<script src="media/js/shared/defaults.js" type="text/javascript"></script>
-<script src="media/js/shared/utils.js" type="text/javascript"></script>
-<script src="media/js/shared/view.renderer.js" type="text/javascript"></script>
-<script src="media/js/viewer/feedback.js" type="text/javascript"></script>
-<script src="media/js/viewer/state.js" type="text/javascript"></script>
-<script src="media/js/viewer/data.downloader.js" type="text/javascript"></script>
-<script src="media/js/viewer/data.parser.js" type="text/javascript"></script>
-<script src="media/js/viewer/view.js" type="text/javascript"></script>
+<script defer src="media/js/shared/app.js" type="text/javascript"></script>
+<script defer src="media/js/viewer/viewModel.js" type="text/javascript"></script>
+
+<script defer src="media/js/shared/constants.js" type="text/javascript"></script>
+<script defer src="media/js/shared/defaults.js" type="text/javascript"></script>
+<script defer src="media/js/shared/utils.js" type="text/javascript"></script>
+<script defer src="media/js/shared/view.renderer.js" type="text/javascript"></script>
+
+<script defer src="media/js/viewer/model.js" type="text/javascript"></script>
+<script defer src="media/js/viewer/feedback.js" type="text/javascript"></script>
+<script defer src="media/js/viewer/data.downloader.js" type="text/javascript"></script>
+<script defer src="media/js/viewer/data.parser.js" type="text/javascript"></script>
+<script defer src="media/js/viewer/view.js" type="text/javascript"></script>
 
 </body>
 

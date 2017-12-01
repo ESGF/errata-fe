@@ -8,55 +8,6 @@
 
     // Declare constants used within plugin.
     APP.constants = {
-        // Application constants.
-        app: {
-            // Returns title.
-            getTitle: function () {
-                return APP.NAME;
-            },
-
-            // Returns version.
-            getVersion: function () {
-                var result;
-                result = ' (v';
-                result += APP.VERSION;
-                result += ')';
-                return result;
-            },
-
-            // Returns caption.
-            getCaption: function (includeVersion) {
-                var caption;
-                caption = APP.NAME;
-                caption += ' - ';
-                caption += APP.options.activePlugin;
-                if (includeVersion) {
-                    caption += ' (v';
-                    caption += APP.VERSION;
-                    caption += ')';
-                }
-                return caption;
-            }
-        },
-
-        // Sets of facets that are documented (by project)
-        DOCUMENTED_FACETS: [
-            {
-                project: 'cmip5',
-                facets: ['experiment']
-            },
-            {
-                project: 'cmip6',
-                facets: ['experiment']
-            }
-        ],
-
-        getDocumentedFacets: function (project) {
-            return _.find(APP.constants.DOCUMENTED_FACETS, function (f) {
-                return f.project == project;
-            });
-        },
-
         URLS: {
             // Base API url in various modes.
             API: {
