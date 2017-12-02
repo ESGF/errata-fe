@@ -13,21 +13,21 @@
         // Backbone: view event handlers.
         events: {
             // Open page: home.
-            'click img.esdoc-logo': function () {
+            'click img.esdoc-logo': () => {
                 APP.utils.openHomepage();
             },
 
             // Open email: support.
-            'click button.esdoc-support': function () {
+            'click button.esdoc-support': () => {
                 APP.utils.openSupportEmail();
             },
 
             // Open page: search.
-            'click button.esdoc-errata-search': function () {
+            'click button.esdoc-errata-search': () => {
                 APP.utils.openURL(constants.URLS.SEARCH_PAGE, false);
             },
 
-            'change .btn-file :file': function (e) {
+            'change .btn-file :file': (e) => {
                 var file, reader;
 
                 file = $("#file-selector")[0].files[0];
@@ -43,7 +43,7 @@
                 reader.readAsText(file);
             },
 
-            'change #pid-data': function (e) {
+            'change #pid-data': (e) => {
                 var pid;
                 pid = $(e.target).val().trim();
                 if (pid) {
@@ -53,15 +53,23 @@
                 }
             },
 
-            'click #searchButton': function (e) {
+            'click #searchButton': (e) => {
                 if (APP.state.pids.length) {
                     APP.trigger('ui:search');
                 }
             },
 
             // Open page: errata detail.
-            'click #issueButton': function (e) {
-                this._openIssueDetailPage($(e.target).attr("title"));
+            'click #issueButton': (e) => {
+                var uid, url;
+
+                uid = $(e.target).attr("title");
+                if (uid) {
+                    url = window.location.href.replace("pid", "viewer");
+                    url += "?uid=";
+                    url += uid;
+                    APP.utils.openURL(url, true);
+                }
             }
         },
 
@@ -102,19 +110,6 @@
             }
             APP.utils.renderTemplate("template-grid", APP, this);
             isFirstGridRender = false;
-        },
-
-        _openIssueDetailPage: function (uid) {
-            var url;
-
-            if (!uid) {
-                return;
-            }
-
-            url = window.location.href.replace("pid", "viewer");
-            url += "?uid=";
-            url += uid;
-            APP.utils.openURL(url, true);
         }
     });
 

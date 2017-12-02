@@ -54,7 +54,7 @@
 
     // Commence setup when document has loaded.
     root.APP = new root.ErrataApplication(ViewModel, "Viewer");
-    $(document).ready(function () {
+    $(document).ready(() => {
         root.APP.trigger("setup:begin");
     });
 

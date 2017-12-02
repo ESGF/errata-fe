@@ -8,12 +8,14 @@
         // Instance ctor.
         constructor(app) {
             this.APP = app;
+            this.pids = [];
+            this.errata = [];
         }
     }
 
     // Commence setup when document has loaded.
     root.APP = new root.ErrataApplication(ViewModel, "PID");
-    $(document).ready(function () {
+    $(document).ready(() => {
         root.APP.trigger("setup:begin");
         root.APP.trigger("setup:complete");
     });

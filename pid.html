@@ -119,13 +119,13 @@
                 <% } else { %>
                 <%= issue.artefact %>
                 <% } %>
-                <% if (issue.unchanged_file === 1){%>
+                <% if (issue.unchanged_file === 1) {%>
                 <span title="File hasn't changed across datasets"class="label label-warning">Duplicate</span>
                 <% } %>
                 <% if (issue.is_first === 1){%>
                 <span title='First version of dataset or appearance of file under this filename'class="label label-primary">First</span>
 
-                <% } else if (issue.is_latest === 1){%>
+                <% } else if (issue.is_latest === 1) {%>
                 <span title="Latest version of dataset or appearance of file under this filename"class="label label-primary">Latest</span>
                 <% } %>
 
@@ -135,11 +135,9 @@
                 <strong>
                     --
                 </strong>
-                <% }else if (issue.uid===null){%>
+                <% } else if (issue.uid === null) {%>
                     <span class="glyphicon glyphicon-ok" title="No issue reported."/>
-                <%}
-
-                else if(issue.uid!==null) { %>
+                <% } else if(issue.uid !== null) { %>
                     <!--<% var list_of_uids = issue.uid.split(";"); %>-->
                     <% _.each(issue.uid.split(";"), function(issue){ %>
                     <span id="issueButton" class="glyphicon glyphicon-list-alt" title="<%=  issue %>"/>
@@ -206,9 +204,9 @@
 <script defer src="media/js/shared/defaults.js" type="text/javascript"></script>
 <script defer src="media/js/shared/utils.js" type="text/javascript"></script>
 <script defer src="media/js/shared/view.renderer.js" type="text/javascript"></script>
+
+<script defer src="media/js/pid/model.js" type="text/javascript"></script>
 <script defer src="media/js/pid/feedback.js" type="text/javascript"></script>
-<script defer src="media/js/pid/state.js" type="text/javascript"></script>
-<script defer src="media/js/pid/state.manager.js" type="text/javascript"></script>
 <script defer src="media/js/pid/data.downloader.js" type="text/javascript"></script>
 <script defer src="media/js/pid/data.parser.js" type="text/javascript"></script>
 <script defer src="media/js/pid/view.js" type="text/javascript"></script>

@@ -1,13 +1,10 @@
-// --------------------------------------------------------
-// search/search.data.downloader.js - Calls web-service search endpoint.
-// --------------------------------------------------------
 (function (APP, _, $) {
 
     // ECMAScript 5 Strict Mode
     "use strict";
 
     // Event handler: search initiated from ui.
-    APP.on("ui:search", function () {
+    APP.on("ui:search", () => {
         var url, params;
 
         // Trigger event.
@@ -22,13 +19,13 @@
         // Invoke web-service endpoint.
         APP.trigger("search:dataDownloading");
         $.get(url, params)
-            .done(function (data) {
-                setTimeout(function () {
+            .done((data) => {
+                setTimeout(() => {
                     APP.trigger("search:dataDownload", data);
                 }, APP.constants.uiUpdateDelay);
             })
-            .fail(function (data) {
-                setTimeout(function () {
+            .fail((data) => {
+                setTimeout(() => {
                     APP.trigger("search:dataDownload:error", data);
                 }, APP.constants.uiUpdateDelay);
             });

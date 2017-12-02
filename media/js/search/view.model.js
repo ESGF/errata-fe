@@ -139,7 +139,6 @@
         }
     }
 
-
     // Encapsulates a search filter.
     class SearchFilter {
         // Instance ctor.
