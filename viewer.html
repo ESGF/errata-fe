@@ -51,7 +51,7 @@
 <article class="container-fluid">
     <header class="bg-primary">
         <h2>
-            <%= issue._fullTitle %>
+            <%= issue.fullTitle %>
         </h2>
     </header>
     <%= APP.utils.renderTemplate("template-issue-tabs", APP.state) %>
@@ -140,21 +140,21 @@
         <tr>
             <td class="field-name">Project</td>
             <td class="field-value">
-                <% if (issue._projectDocURL) { %>
-                    <a href="<%= issue._projectDocURL %>?client=esdoc-errata-fe"
+                <% if (issue.ext.projectDocURL) { %>
+                    <a href="<%= issue.ext.projectDocURL %>?client=esdoc-errata-fe"
                        target="blank"
                        title="Link to project documentation page">
-                       <%= issue._project.label %>
+                       <%= issue.ext.project.label %>
                     </a>
                 <% } else { %>
-                   <%= issue._project.label %>
+                   <%= issue.ext.project.label %>
                 <% } %>
             </td>
         </tr>
         <tr>
             <td class="field-name">Institute</td>
             <td class="field-value">
-                <%= issue._institute %>
+                <%= issue.ext.institute %>
             </td>
         </tr>
         <tr>
@@ -172,15 +172,35 @@
         <tr>
             <td class="field-name">Severity</td>
             <td class="field-value issue-severity <%= issue.severity %>">
-                <%= issue._severity.label %>
+                <%= issue.ext.severity.label %>
             </td>
         </tr>
         <tr>
             <td class="field-name">Status</td>
             <td class="field-value issue-status <%= issue.status %>">
-                <%= issue._status.label %>
+                <%= issue.ext.status.label %>
             </td>
         </tr>
+
+        <!-- affected facets -->
+        <% _.each(issue.ext.affectedFacets, (i) => { %>
+            <% if (i.terms.length) { %>
+                <tr>
+                    <td class="field-name">Affected <%= i.collection.label.replace(' ID', '') %><%= i.terms.length > 1 ? "s" : "" %></td>
+                    <td>
+                        <% _.each(i.terms, (j, idx) => { %>
+                            <% if (j.documentationURL) { %>
+                                <a href="<%= j.documentationURL %>" target="blank" title="Link to documentation"><%= j.label %></a><%= idx + 1 < i.terms.length ? " | " : "" %>
+                            <% } else { %>
+                                <%= j.label %><%= idx + 1 < i.terms.length ? "," : "" %>
+                            <% } %>
+                        <% }); %>
+                    </td>
+                </tr>
+            <% } %>
+        <% }); %>
+
+        <!-- other info -->
         <tr>
             <td class="field-name">Further Info</td>
             <td class="field-value">
@@ -209,14 +229,14 @@
         <tr>
             <td class="field-name">Tracking Info.</td>
             <td>
-                Created by <%= issue.createdBy %> @ <%= issue.createdDate %>
+                Created by <%= issue.createdBy %> @ <%= issue.createdDate.slice(0, 19) %>
             </td>
         </tr>
         <% if (issue.updatedDate) { %>
             <tr>
                 <td></td>
                 <td>
-                    Last updated by <%= issue.updatedBy %> @ <%= issue.updatedDate %>
+                    Last updated by <%= issue.updatedBy %> @ <%= issue.updatedDate.slice(0, 19) %>
                 </td>
             </tr>
         <% } %>
@@ -224,7 +244,7 @@
             <tr>
                 <td></td>
                 <td>
-                    Closed by <%= issue.closedBy %> @ <%= issue.closedDate %>
+                    Closed by <%= issue.closedBy %> @ <%= issue.closedDate.slice(0, 19) %>
                 </td>
             </tr>
         <% } %>

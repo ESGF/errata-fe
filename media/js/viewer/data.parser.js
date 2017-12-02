@@ -5,13 +5,11 @@
 
     // Event handler: setup:cvDataDownload.
     APP.on("setup:cvDataDownload", (data) => {
-        // Cache setup data.
-        APP.state.severity = _.indexBy(data.collections[1].terms, 'key');
-        APP.state.status = _.indexBy(data.collections[2].terms, 'key');
-        APP.state.projects = _.indexBy(data.collections[0].terms, 'key');
+        // Update state.
+        APP.state.vocabs = data.vocabs;
 
         // Fire event.
-        APP.trigger("setup:cvDataParsed", data);
+        APP.trigger("setup:cvDataParsed");
     });
 
     // Event handler: setup:issueDataDownload.
@@ -19,47 +17,20 @@
         var issue;
 
         // Update state.
-        APP.state.issue = issue = data.issue;
-        APP.state.datasets = issue.datasets.sort();
+        APP.state.issue = issue = new APP.types.Issue(data.issue);
 
-        // Set display field: issue full title.
-        issue._fullTitle = issue.project.toUpperCase();
-        issue._fullTitle += " - ";
-        issue._fullTitle += issue.institute.toUpperCase();
-        issue._fullTitle += " - ";
-        issue._fullTitle += issue.title.slice(0, 48);
-        if (issue.title.length > 48) {
-            issue._fullTitle += "...";
-        }
+        // _.each(issue.facets, (i) => {
+        //     console.log(i);
+        // });
 
-        // Set display fields: standard attributes.
-        issue._institute = issue.institute.toUpperCase();
-        issue._project = APP.state.projects['esdoc:errata:project:' + issue.project];
-        issue._severity = APP.state.severity['esdoc:errata:severity:' + issue.severity];
-        issue._status = APP.state.status['esdoc:errata:status:' + issue.status];
-
-        // Set display fields: hyperlinks.
-        if (issue._project.isDocumented === true) {
-            issue._projectDocURL = "https://documentation.es-doc.org/" + issue.project;
-        }
         issue._experimentDocURLs = [];
         issue._modelDocURLs = [];
 
-        // Set display fields: provenance fields.
-        if (issue.createdDate) {
-            issue.createdDate = issue.createdDate.slice(0, 19);
-        }
-        if (issue.updatedDate) {
-            issue.updatedDate = issue.updatedDate.slice(0, 19);
-        }
-        if (issue.closedDate) {
-            issue.closedDate = issue.closedDate.slice(0, 19);
-        }
-
         issue._facets = [];
-        _.each(issue.facets, (facet) => {
-            console.log(facet);
-        });
+
+        // console.log(data);
+        // console.log(APP.state);
+
 
         // Normalize facet keys.
         // _.each(APP.state.project[issue.project].facets, function (f) {
@@ -113,7 +84,6 @@
         console.log(issue);
 
         // Fire event.
-        APP.trigger("setup:issueDataParsed", data);
         APP.trigger("setup:complete");
     });
 

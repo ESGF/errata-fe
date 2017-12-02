@@ -8,12 +8,41 @@
         // Instance ctor.
         constructor(app) {
             this.APP = app;
-            this.datasets = [];
-            this.issue = undefined;
-            this.severity= {};
-            this.status = {};
-            this.projects = {};
-            this.project = undefined;
+            this.issue = null;
+            this.vocabs = null;
+        }
+
+        get datasets () {
+            return this.issue.datasets;
+        }
+
+        get projects () {
+            return this.vocabs[0];
+        }
+
+        get severity () {
+            return this.vocabs[1];
+        }
+
+        get status () {
+            return this.vocabs[2];
+        }
+
+        getVocabCollection (collectionID) {
+            return _.find(this.vocabs, (i) => {
+                return i.key === collectionID;
+            });
+        }
+
+        getVocabTerm (collectionID, termID) {
+            var collection;
+
+            collection = this.getVocabCollection(collectionID);
+            if (collection) {
+                return _.find(collection.terms, (i) => {
+                    return i.canonicalName === termID;
+                });
+            }
         }
     }
 

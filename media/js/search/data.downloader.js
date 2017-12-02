@@ -60,7 +60,7 @@
     // Event handler: setup:setupDataDownload.
     APP.on("setup:setupDataDownload", (data) => {
         // Update state.
-        APP.state.initFilters(data.collections);
+        APP.state.initFilters(data.vocabs);
 
         // Execute search.
         doSearch(null, "setup:initialSearchDataDownload");
