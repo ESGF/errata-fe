@@ -1,5 +1,5 @@
 // Represents an errata in the system.
-Errata = class Errata {
+class Errata {
     // Instance constructor.
     constructor(i) {
         this.handle = i[0];
@@ -8,7 +8,7 @@ Errata = class Errata {
 }
 
 // Represents an issue.
-Issue = class Issue {
+class Issue {
     // Instance constructor.
     constructor(i) {
         this.artefact = i[1] + "#" + i[2];

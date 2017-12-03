@@ -17,6 +17,12 @@ APP.constants = {
         // pid resolve.
         PID_RESOLVE: "/1/resolve/pid",
 
+        // pid task queeu search.
+        PID_TASK_QUEUE_SEARCH: "/1/pid-queue/search",
+
+        // pid task queeu search setup.
+        PID_TASK_QUEUE_SEARCH_SETUP: "/1/pid-queue/search-setup",
+
         // issue retrieve.
         RETRIEVE: "/1/issue/retrieve",
 

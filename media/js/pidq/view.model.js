@@ -14,7 +14,9 @@ class ViewModel {
         return this._searchData;
     }
     set searchData (data) {
-        data.results = _.map(data.results, (i) => new SearchResult(i));
+        data.results = _.map(data.results, (i) => new Task(i));
+        console.log(data.results[0]);
+
         this._searchData = data;
         this.sortResults();
         this.paginateIssues();
@@ -24,21 +26,6 @@ class ViewModel {
     initFilters (data) {
         this.filters = _.map(data, function (c) {
             return new SearchFilter(c);
-        });
-        this.setActiveFilters();
-    }
-
-    // Sets active filter flag.
-    setActiveFilters() {
-        _.each(this.filters, (f) => {
-            f.isActive = _.isNull(f.project) || f.project === this.filters[0].data.current.key.split(':')[3];
-        });
-    }
-
-    // Gets active filters.
-    getActiveFilters() {
-        return _.filter(this.filters, (f) => {
-            return f.isActive;
         });
     }
 
@@ -52,9 +39,6 @@ class ViewModel {
         filter.data.current = _.find(filter.data.all, (i) => {
             return i.key === filterValue;
         });
-        if (filter.key === 'esdoc:errata:project') {
-            this.setActiveFilters();
-        }
 
         APP.trigger('state:filterUpdated', filter);
     }
@@ -72,15 +56,14 @@ class ViewModel {
 
         // Set sort function.
         field = this.sorting.field;
-        if (field === 'title') {
-            func = (i) => i.title;
-        } else if (field === 'institutionID') {
-            func = (i) => i.ext.institutionID;
+
+        if (field === 'datasetID') {
+            func = (i) => i.datasetID;
         } else if (field === 'status') {
             func = (i) => i.ext.status.label.toLowerCase();
-        } else if (field === 'severity') {
-            func = (i) => i.ext.severity.sortOrdinal;
-        } else if (_.contains(['dateClosed', 'dateCreated', 'dateUpdated'], field)) {
+        } else if (field === 'action') {
+            func = (i) => i.ext.action.label.toLowerCase();
+        } else if (field === 'timestamp') {
             func = (i) => i[field] ? i[field].valueOf() : '--';
         }
 
@@ -99,7 +82,7 @@ class ViewModel {
         } else {
             APP.trigger('state:sortFieldChanging');
             this.sorting.field = field;
-            if (_.contains(['dateClosed', 'dateCreated', 'dateUpdated', 'severity'], field)) {
+            if (field === 'timestamp') {
                 this.sorting.direction = 'desc';
             } else {
                 this.sorting.direction = 'asc';
@@ -117,7 +100,7 @@ class ViewModel {
 class SortState {
     // Instance ctor.
     constructor() {
-        this.field = "dateCreated";
+        this.field = "timestamp";
         this.direction = "desc";
     }
 }
@@ -138,6 +121,9 @@ class PagingState {
 class SearchFilter {
     // Instance ctor.
     constructor(c) {
+        var defaultNamespace;
+
+        // Set core fields.
         this.data = {
             all: _.sortBy(c.terms, (i) => {
                 return i.sortOrdinal || i.key;
@@ -145,23 +131,25 @@ class SearchFilter {
             current: null,
             set: {}
         };
-        this.defaultKey = c.key === "esdoc:errata:project" ? "esdoc:errata:project:cmip6" : null,
         this.key = c.key;
         this.label = c.label;
-        this.project = c.key.startsWith('esdoc') ? null : c.key.split(':')[1];
         this.uiPosition =  c.key === "esdoc:errata:project" ? 0 :
-                           c.key === "esdoc:errata:severity" ? 1000 :
-                           c.key === "esdoc:errata:status" ? 1001 : 100;
+                           c.key === "esdoc:errata:pid-task-action" ? 1000 :
+                           c.key === "esdoc:errata:pid-task-status" ? 1001 : 100;
 
-        if (c.key !== "esdoc:errata:project") {
+        // Set data.
+        if (c.key != "esdoc:errata:project") {
             this.data.all.unshift({
-                key: this.key + ":*",
-                label: "*"
-            });
+                key: c.key + ":*",
+                label: "*",
+                namespace: c.key + ":*",
+            })
         }
-        if (this.defaultKey) {
+        defaultNamespace = c.key === "esdoc:errata:project" ? "esdoc:errata:project:cmip6" :
+                           c.key === "esdoc:errata:pid-task-status" ? "esdoc:errata:pid-task-status:queued" : null;
+        if (defaultNamespace) {
             this.data.current = _.find(this.data.all, (i) => {
-                return i.key === this.defaultKey;
+                return i.key === defaultNamespace;
             });
         }
         this.data.current = this.data.current || this.data.all[0];

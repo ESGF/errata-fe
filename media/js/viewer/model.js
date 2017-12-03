@@ -1,5 +1,5 @@
 // Search result.
-Issue = class Issue {
+class Issue {
     // Instance ctor.
     constructor(i) {
         _.each(_.keys(i), (k) => {
@@ -27,7 +27,7 @@ Issue = class Issue {
 }
 
 // Issue facet information.
-IssueFacet = class IssueFacet {
+class IssueFacet {
     // Instance ctor.
     constructor(namespace) {
         this.namespace = namespace;
@@ -37,7 +37,7 @@ IssueFacet = class IssueFacet {
 }
 
 // Encapsulates information regarding a set of affected facets.
-AffectedFacetSet = class AffectedFacetSet {
+class AffectedFacetSet {
     constructor(project, facets, collectionID) {
         this.collection = APP.state.getVocabCollection(collectionID);
         this.terms = _.filter(this.collection.terms, (i) => {
@@ -54,7 +54,7 @@ AffectedFacetSet = class AffectedFacetSet {
 }
 
 // Extended issue information.
-IssueExtensionInfo = class IssueExtensionInfo {
+class IssueExtensionInfo {
     // Instance ctor.
     constructor(i) {
         this.facets = _.map(i.facets, (j) => new IssueFacet(j));

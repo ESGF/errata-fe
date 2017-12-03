@@ -1,6 +1,6 @@
 // Event handler: setup begins.
 APP.on("setup:begin", () => {
-    APP.utils.displayFeedback("Initializing errata search");
+    APP.utils.displayFeedback("Initializing errata pid task search");
 });
 
 // Event handler: setup complete.

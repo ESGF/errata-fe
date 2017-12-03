@@ -1,5 +1,5 @@
 // Search result.
-SearchResult = class SearchResult {
+class SearchResult {
     // Instance ctor.
     constructor(i) {
         this.project = i[0];
@@ -16,7 +16,7 @@ SearchResult = class SearchResult {
 }
 
 // Extended search result information.
-SearchResultExtensionInfo = class SearchResultExtensionInfo {
+class SearchResultExtensionInfo {
     // Instance ctor.
     constructor(i) {
         this.severity = APP.state.filters[1].data.set['esdoc:errata:severity:' + i.severity];

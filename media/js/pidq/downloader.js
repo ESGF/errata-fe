@@ -3,7 +3,7 @@ APP.on("setup:begin", () => {
     var url;
 
     // Set target.
-    url = APP.constants.API_BASE_URL + APP.constants.URLS.SEARCH_SETUP;
+    url = APP.constants.API_BASE_URL + APP.constants.URLS.PID_TASK_QUEUE_SEARCH_SETUP;
 
     // Download.
     $.get(url)
@@ -30,11 +30,6 @@ APP.on("setup:setupDataDownload", (data) => {
 APP.on("state:filterUpdated", (filter) => {
     // Execute search.
     executeSearch("search:begin", "search:dataDownload");
-
-    // Raise project change event (when relevant).
-    if (filter.key === 'esdoc:errata:project') {
-        APP.trigger("project:changed");
-    }
 });
 
 // Event handler: state:filterUpdate.
@@ -52,9 +47,9 @@ const executeSearch = (preEventType, eventType) => {
     }
 
     // Set target.
-    url = APP.constants.API_BASE_URL + APP.constants.URLS.SEARCH;
+    url = APP.constants.API_BASE_URL + APP.constants.URLS.PID_TASK_QUEUE_SEARCH;
     params = [];
-    _.each(_.values(APP.state.getActiveFilters()), (f) => {
+    _.each(_.values(APP.state.filters), (f) => {
         if (f.data.current.key.endsWith('*') === false) {
             params.push(f.data.current.key);
         }
@@ -62,6 +57,8 @@ const executeSearch = (preEventType, eventType) => {
     params = {
         criteria: params.join(",")
     };
+
+    console.log(params);
 
     // Download.
     APP.trigger(eventType + "ing");

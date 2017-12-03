@@ -18,9 +18,9 @@
     <link href="media/css/shared/defaults.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="media/css/shared/cv.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="media/css/shared/header.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="media/css/search/filter.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="media/css/search/grid.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="media/css/search/other.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="media/css/pidq/filter.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="media/css/pidq/grid.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="media/css/pidq/other.css" media="screen" rel="stylesheet" type="text/css" />
 </head>
 
 
@@ -52,14 +52,14 @@
 <script type="underscore/template" id="template-filter">
 <div class="container-fluid bg-primary filter">
     <div class="row">
-        <% _.each(_.sortBy(APP.state.getActiveFilters(), 'uiPosition'), function(f) { %>
+        <% _.each(_.sortBy(APP.state.filters, 'uiPosition'), function(f) { %>
         <label>
             <%- f.label %>:
         </label>
         <% }); %>
     </div>
     <div class="row">
-        <% _.each(_.sortBy(APP.state.getActiveFilters(), 'uiPosition'), function(f) { %>
+        <% _.each(_.sortBy(APP.state.filters, 'uiPosition'), function(f) { %>
         <span>
             <select id="filter-<%= f.key %>" class="form-control input-sm">
                 <% _.each(f.data.all, function(i) { %>
@@ -102,43 +102,25 @@
                 #
             </small>
         </th>
-        <th title='Institution Identifier' class="text-center sort-target sort-target-institutionID">
-            <small class="sort-target-institutionID">
-                Institute
+        <th title='Dataset ID' class="sort-target sort-target-datasetID">
+            <small class="sort-target-datasetID">
+                Dataset ID
             </small>
-            <span class='pull-right glyphicon sort-target-institutionID' />
+            <span class='pull-right glyphicon sort-target-datasetID' />
         </th>
-        <th title='Title' class="sort-target sort-target-title">
-            <small class="sort-target-title">
-                Title
+        <th title='Timestamp' class="text-center sort-target sort-target-timestamp col-md-2">
+            <small class="sort-target-timestamp">
+                Timestamp
             </small>
-            <span class='pull-right glyphicon sort-target-title' />
+            <span class='pull-right glyphicon sort-target-timestamp' />
         </th>
-        <th title='Date Created' class="text-center sort-target sort-target-dateCreated">
-            <small class="sort-target-dateCreated">
-                Created
+        <th title='Action' class="text-center sort-target sort-target-action col-md-1">
+            <small class="sort-target-action">
+                Action
             </small>
-            <span class='pull-right glyphicon sort-target-dateCreated' />
+            <span class='pull-right glyphicon sort-target-action' />
         </th>
-        <th title='Date Last Updated' class="text-center sort-target sort-target-dateUpdated">
-            <small class="sort-target-dateUpdated">
-                Updated
-            </small>
-            <span class='pull-right glyphicon sort-target-dateUpdated' />
-        </th>
-        <th title='Date Closed' class="text-center sort-target sort-target-dateClosed">
-            <small class="sort-target-dateClosed">
-                Closed
-            </small>
-            <span class='pull-right glyphicon sort-target-dateClosed' />
-        </th>
-        <th title='Severity' class="text-center sort-target sort-target-severity">
-            <small class="sort-target-severity">
-                Severity
-            </small>
-            <span class='pull-right glyphicon sort-target-severity' />
-        </th>
-        <th title='Status' class="text-center sort-target sort-target-status">
+        <th title='Status' class="text-center sort-target sort-target-status col-md-1">
             <small class="sort-target-status">
                 Status
             </small>
@@ -148,6 +130,38 @@
 </thead>
 </script>
 <!-- END: grid header -->
+
+<!-- BEGIN: grid body row -->
+<script type="underscore/template" id="template-grid-body-row">
+<tr id="<%= task.uid %>" class='task'>
+    <td title="task id" class="task-idx text-center">
+        <small>
+            <%= idx %>
+        </small>
+    </td>
+    <td title="task dataset identifier" class="task-datasetID">
+        <small>
+            <%= task.datasetID %>
+        </small>
+    </td>
+    <td title="task timestamp" class="task-timestamp text-center col-md-2">
+        <small>
+            <%= task.timestamp.slice(0, 10) %>
+        </small>
+    </td>
+    <td title="task action" class="task-action <%= task.action %>  text-center col-md-1">
+        <small>
+            <%= task.ext.action.label %>
+        </small>
+    </td>
+    <td title="task status" class="task-status <%= task.status %> text-center col-md-1">
+        <small>
+            <%= task.ext.status.label %>
+        </small>
+    </td>
+</tr>
+</script>
+<!-- END: grid body row -->
 
 <!-- BEGIN: grid header pager -->
 <script type="underscore/template" id="template-grid-header-pager">
@@ -195,8 +209,8 @@
 <script type="underscore/template" id="template-grid-body">
 <tbody>
 <% if (paging.current) { %>
-    <% _.each((paging.current ? paging.current.data : []), function(issue, idx) { %>
-    <%= APP.utils.renderTemplate("template-grid-body-row", {issue: issue, idx:idx + 1}) %>
+    <% _.each((paging.current ? paging.current.data : []), function(task, idx) { %>
+    <%= APP.utils.renderTemplate("template-grid-body-row", {task: task, idx:idx + 1}) %>
     <% }); %>
 <% } else { %>
     <tr class="null-search">
@@ -208,53 +222,6 @@
 </tbody>
 </script>
 <!-- END: grid body -->
-
-<!-- BEGIN: grid body row -->
-<script type="underscore/template" id="template-grid-body-row">
-<tr id="<%= issue.uid %>" class='issue'>
-    <td class="issue-idx text-center" title="issue id">
-        <small>
-            <%= idx %>
-        </small>
-    </td>
-    <td class="issue-institute text-center col-md-1" title="issue institute">
-        <small>
-            <%= issue.ext.institutionID %>
-        </small>
-    </td>
-    <td class="issue-title col-md-5" title="issue title">
-        <small>
-            <%= issue.ext.title %>
-        </small>
-    </td>
-    <td class="issue-date-created text-center" title="issue creation date">
-        <small>
-            <%= issue.dateCreated.slice(0, 10) %>
-        </small>
-    </td>
-    <td class="issue-date-updated text-center" title="issue last updated date">
-        <small>
-            <%= issue.dateUpdated ? issue.dateUpdated.slice(0, 10) : '--' %>
-        </small>
-    </td>
-    <td class="issue-date-closed text-center" title="issue closed date">
-        <small>
-            <%= issue.dateClosed ? issue.dateClosed.slice(0, 10) : '--' %>
-        </small>
-    </td>
-    <td class="issue-severity <%= issue.severity %>  text-center" title="issue severity">
-        <small>
-            <%= issue.ext.severity.label %>
-        </small>
-    </td>
-    <td class="issue-status <%= issue.status %> text-center" title="issue status">
-        <small>
-            <%= issue.ext.status.label %>
-        </small>
-    </td>
-</tr>
-</script>
-<!-- END: grid body row -->
 
 <!-- BEGIN: grid footer -->
 <script type="underscore/template" id="template-grid-footer">
