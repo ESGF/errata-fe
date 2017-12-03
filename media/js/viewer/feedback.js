@@ -1,19 +1,12 @@
-(function (APP, $) {
+// Event handler: setup begins.
+APP.on("setup:begin", () => {
+    APP.utils.displayFeedback("Initializing errata viewer");
+});
 
-    // ECMAScript 5 Strict Mode
-    "use strict";
+// Event handler: setup complete.
+APP.on("setup:complete", APP.utils.hideFeedback);
 
-    // Event handler: setup begins.
-    APP.on("setup:begin", () => {
-        APP.utils.displayFeedback("Initializing errata viewer");
-    });
-
-    // Event handler: setup complete.
-    APP.on("setup:complete", APP.utils.hideFeedback);
-
-    // Event handler: setup error.
-    APP.on("setup:setupDataDownload:error", () => {
-    	alert("TODO: setup:setupDataDownload:error");
-    });
-
-}(this.APP, this.$));
+// Event handler: setup error.
+APP.on("setup:setupDataDownload:error", () => {
+    alert("TODO: setup:setupDataDownload:error");
+});
