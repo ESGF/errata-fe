@@ -145,8 +145,7 @@ class SearchFilter {
                 namespace: c.key + ":*",
             })
         }
-        defaultNamespace = c.key === "esdoc:errata:project" ? "esdoc:errata:project:cmip6" :
-                           c.key === "esdoc:errata:pid-task-status" ? "esdoc:errata:pid-task-status:queued" : null;
+        defaultNamespace = c.key === "esdoc:errata:project" ? "esdoc:errata:project:cmip6" : null;
         if (defaultNamespace) {
             this.data.current = _.find(this.data.all, (i) => {
                 return i.key === defaultNamespace;
