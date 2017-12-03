@@ -3,7 +3,7 @@ APP.on("setup:begin", () => {
     var url;
 
     // Set target.
-    url = APP.defaults.apiBaseURL + APP.constants.URLS.SEARCH_SETUP;
+    url = APP.constants.API_BASE_URL + APP.constants.URLS.SEARCH_SETUP;
 
     // Download.
     $.get(url)
@@ -31,7 +31,7 @@ APP.on("setup:cvDataParsed", () => {
     var url, params;
 
     // Set target.
-    url = APP.defaults.apiBaseURL + APP.constants.URLS.RETRIEVE;
+    url = APP.constants.API_BASE_URL + APP.constants.URLS.RETRIEVE;
     params = {
         uid: APP.utils.getURLParam("uid")
     };

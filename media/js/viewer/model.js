@@ -61,7 +61,7 @@ IssueExtensionInfo = class IssueExtensionInfo {
         this.institute = i.institute.toUpperCase();
         this.project = APP.state.getVocabTerm('esdoc:errata:project', i.project);
         this.projectFacets = _.filter(this.project.facets, (j) => { return j.split(':')[2].startsWith('institut') === false});
-        this.projectDocURL = this.project.isDocumented ? "https://documentation.es-doc.org/" + this.project : null;
+        this.projectDocURL = this.project.isDocumented ? "https://documentation.es-doc.org/" + this.project.canonicalName : null;
         this.severity = APP.state.getVocabTerm('esdoc:errata:severity', i.severity);
         this.status = APP.state.getVocabTerm('esdoc:errata:status', i.status);
         this.affectedFacets = _.map(this.projectFacets, (j) => new AffectedFacetSet(i.project, this.facets, j));

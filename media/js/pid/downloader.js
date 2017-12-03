@@ -6,7 +6,7 @@ APP.on("ui:search", () => {
     APP.trigger("search:begin");
 
     // Set web-service endpoint url + params.
-    url = APP.defaults.apiBaseURL + APP.constants.URLS.PID_RESOLVE;
+    url = APP.constants.API_BASE_URL + APP.constants.URLS.PID_RESOLVE;
     params = {
         pids: APP.state.pids.join(",")
     };
