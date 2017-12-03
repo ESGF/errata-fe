@@ -2,7 +2,7 @@
 APP.on("setup:begin", () => {
     var url;
 
-    // Set target url.
+    // Set target.
     url = APP.defaults.apiBaseURL + APP.constants.URLS.SEARCH_SETUP;
 
     // Download.
@@ -30,7 +30,7 @@ APP.on("setup:cvDataDownload", (data) => {
 APP.on("setup:cvDataParsed", () => {
     var url, params;
 
-    // Set target url.
+    // Set target.
     url = APP.defaults.apiBaseURL + APP.constants.URLS.RETRIEVE;
     params = {
         uid: APP.utils.getURLParam("uid")
