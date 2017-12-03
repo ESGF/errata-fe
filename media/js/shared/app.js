@@ -5,7 +5,7 @@
 window.$ = window.$jq = jQuery.noConflict();
 
 // Application.
-window.ErrataApplication = class Application {
+Application = class Application {
     // Instance ctor.
     constructor(stateCls, subModule) {
         this.LONG_NAME = "Dataset Errata " + subModule;
@@ -16,9 +16,7 @@ window.ErrataApplication = class Application {
         this.events = _.extend({}, Backbone.Events);
         this.state = new stateCls(this);
         this.templateCache = {};
-        this.types = {};
         this.utils = {};
-        this.views = {};
     }
 
     // Full application title..

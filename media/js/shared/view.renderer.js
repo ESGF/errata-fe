@@ -1,7 +1,7 @@
 // Event handler: setup complete.
 APP.events.on("setup:complete", () => {
     // Render main view.
-    APP.view = new APP.views.MainView();
+    APP.view = new APP.View();
     APP.view.render();
 
     // Update DOM.

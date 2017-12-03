@@ -1,12 +1,12 @@
 // Search result.
-APP.types.Issue = class Issue {
+Issue = class Issue {
     // Instance ctor.
     constructor(i) {
         _.each(_.keys(i), (k) => {
             this[k] = i[k];
         })
         this.datasets = this.datasets.sort();
-        this.ext = new APP.types.IssueExtensionInfo(this);
+        this.ext = new IssueExtensionInfo(this);
     }
 
     // Full issue title.
@@ -27,7 +27,7 @@ APP.types.Issue = class Issue {
 }
 
 // Issue facet information.
-APP.types.IssueFacet = class IssueFacet {
+IssueFacet = class IssueFacet {
     // Instance ctor.
     constructor(namespace) {
         this.namespace = namespace;
@@ -37,7 +37,7 @@ APP.types.IssueFacet = class IssueFacet {
 }
 
 // Encapsulates information regarding a set of affected facets.
-APP.types.AffectedFacetSet = class AffectedFacetSet {
+AffectedFacetSet = class AffectedFacetSet {
     constructor(project, facets, collectionID) {
         this.collection = APP.state.getVocabCollection(collectionID);
         this.terms = _.filter(this.collection.terms, (i) => {
@@ -54,16 +54,16 @@ APP.types.AffectedFacetSet = class AffectedFacetSet {
 }
 
 // Extended issue information.
-APP.types.IssueExtensionInfo = class IssueExtensionInfo {
+IssueExtensionInfo = class IssueExtensionInfo {
     // Instance ctor.
     constructor(i) {
-        this.facets = _.map(i.facets, (j) => new APP.types.IssueFacet(j));
+        this.facets = _.map(i.facets, (j) => new IssueFacet(j));
         this.institute = i.institute.toUpperCase();
         this.project = APP.state.getVocabTerm('esdoc:errata:project', i.project);
         this.projectFacets = _.filter(this.project.facets, (j) => { return j.split(':')[2].startsWith('institut') === false});
         this.projectDocURL = this.project.isDocumented ? "https://documentation.es-doc.org/" + this.project : null;
         this.severity = APP.state.getVocabTerm('esdoc:errata:severity', i.severity);
         this.status = APP.state.getVocabTerm('esdoc:errata:status', i.status);
-        this.affectedFacets = _.map(this.projectFacets, (j) => new APP.types.AffectedFacetSet(i.project, this.facets, j));
+        this.affectedFacets = _.map(this.projectFacets, (j) => new AffectedFacetSet(i.project, this.facets, j));
     }
 }

@@ -14,7 +14,7 @@ class ViewModel {
         return this._searchData;
     }
     set searchData (data) {
-        data.results = _.map(data.results, (i) => new APP.types.SearchResult(i));
+        data.results = _.map(data.results, (i) => new SearchResult(i));
         this._searchData = data;
         this.sortResults();
         this.paginateIssues();
@@ -171,7 +171,7 @@ class SearchFilter {
 
 
 // Initialise application.
-window.APP = new window.ErrataApplication(ViewModel, "Search");
+window.APP = new window.Application(ViewModel, "Search");
 
 // Event handler: document ready.
 $(document).ready(() => {

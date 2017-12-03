@@ -1,5 +1,5 @@
 // Search result.
-APP.types.SearchResult = class SearchResult {
+SearchResult = class SearchResult {
     // Instance ctor.
     constructor(i) {
         this.project = i[0];
@@ -11,12 +11,12 @@ APP.types.SearchResult = class SearchResult {
         this.dateCreated = i[6];
         this.dateClosed = i[7];
         this.dateUpdated = i[8];
-        this.ext = new APP.types.SearchResultExtensionInfo(this);
+        this.ext = new SearchResultExtensionInfo(this);
     }
 }
 
 // Extended search result information.
-APP.types.SearchResultExtensionInfo = class SearchResultExtensionInfo {
+SearchResultExtensionInfo = class SearchResultExtensionInfo {
     // Instance ctor.
     constructor(i) {
         this.severity = APP.state.filters[1].data.set['esdoc:errata:severity:' + i.severity];

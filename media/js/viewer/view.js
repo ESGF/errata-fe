@@ -1,5 +1,5 @@
 // Main module level view.
-APP.views.MainView = Backbone.View.extend({
+APP.View = Backbone.View.extend({
     // Backbone: view event handlers.
     events: {
         // Open email: support.

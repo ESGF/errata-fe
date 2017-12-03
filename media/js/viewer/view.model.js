@@ -48,10 +48,9 @@ class ViewModel {
 }
 
 // Initialise application.
-window.APP = new window.ErrataApplication(ViewModel, "Viewer");
+window.APP = new window.Application(ViewModel, "Viewer");
 
 // Event handler: document ready.
 $(document).ready(() => {
     window.APP.trigger("setup:begin");
 });
-

@@ -53,7 +53,7 @@ APP.on("setup:cvDataParsed", () => {
 // Event handler: setup:issueDataDownload.
 APP.on("setup:issueDataDownload", (data) => {
     // Update state.
-    APP.state.issue = new APP.types.Issue(data.issue);
+    APP.state.issue = new Issue(data.issue);
 
     // Fire event.
     APP.trigger("setup:complete");

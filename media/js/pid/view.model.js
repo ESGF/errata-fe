@@ -1,27 +1,18 @@
-(function (root, $, _) {
-
-    // ECMAScript 5 Strict Mode
-    "use strict";
-
-    // View model.
-    class ViewModel {
-        // Instance ctor.
-        constructor(app) {
-            this.APP = app;
-            this.pids = [];
-            this.errata = [];
-        }
+// View model.
+class ViewModel {
+    // Instance ctor.
+    constructor(app) {
+        this.APP = app;
+        this.pids = [];
+        this.errata = [];
     }
+}
 
-    // Commence setup when document has loaded.
-    root.APP = new root.ErrataApplication(ViewModel, "PID");
-    $(document).ready(() => {
-        root.APP.trigger("setup:begin");
-        root.APP.trigger("setup:complete");
-    });
+// Initialise application.
+window.APP = new window.Application(ViewModel, "PID");
 
-}(
-    this,
-    this.$,
-    this._
-));
+// Event handler: document ready.
+$(document).ready(() => {
+    window.APP.trigger("setup:begin");
+    window.APP.trigger("setup:complete");
+});
