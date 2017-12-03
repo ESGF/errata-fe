@@ -77,7 +77,7 @@
 
 <!-- BEGIN: grid -->
 <script type="underscore/template" id="template-grid">
-<table class='container-fluid table table-hover table-bordered table-condensed table-striped monitoring-table'>
+<table class='container-fluid table table-hover table-bordered table-condensed'>
     <%= APP.utils.renderTemplate("template-grid-header", APP.state) %>
     <%= APP.utils.renderTemplate("template-grid-body", APP.state) %>
     <%= APP.utils.renderTemplate("template-grid-footer", APP.state) %>
@@ -133,7 +133,7 @@
 
 <!-- BEGIN: grid body row -->
 <script type="underscore/template" id="template-grid-body-row">
-<tr id="<%= task.uid %>" class='task'>
+<tr id="<%= task.issueUID %>" class='task <%= task.status %>'>
     <td title="task id" class="task-idx text-center">
         <small>
             <%= idx %>
@@ -154,12 +154,22 @@
             <%= task.ext.action.label %>
         </small>
     </td>
-    <td title="task status" class="task-status <%= task.status %> text-center col-md-1">
+    <td title="<%= task.error || 'task status'%>" class="task-status <%= task.status %> text-center col-md-1">
         <small>
             <%= task.ext.status.label %>
         </small>
     </td>
 </tr>
+<% if (task.error) { %>
+<tr class='task <%= task.status %>'>
+    <td title="task id" class="task-idx text-center" />
+    <td title="task error" class="task-error" colspan="4">
+        <small>
+            <%= task.error %>
+        </small>
+    </td>
+</tr>
+<% } %>
 </script>
 <!-- END: grid body row -->
 
