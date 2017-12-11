@@ -1,7 +1,42 @@
-// Search result.
-class SearchResult {
+// Encapsulates a search filter.
+export class SearchFilter {
     // Instance ctor.
-    constructor(i) {
+    constructor(c) {
+        this.data = {
+            all: _.sortBy(c.terms, (i) => {
+                return i.sortOrdinal || i.key;
+            }),
+            current: null,
+            set: {}
+        };
+        this.defaultKey = c.key === "esdoc:errata:project" ? "esdoc:errata:project:cmip6" : null,
+        this.key = c.key;
+        this.label = c.label;
+        this.project = c.key.startsWith('esdoc') ? null : c.key.split(':')[1];
+        this.uiPosition =  c.key === "esdoc:errata:project" ? 0 :
+                           c.key === "esdoc:errata:severity" ? 1000 :
+                           c.key === "esdoc:errata:status" ? 1001 : 100;
+
+        if (c.key !== "esdoc:errata:project") {
+            this.data.all.unshift({
+                key: this.key + ":*",
+                label: "*"
+            });
+        }
+        if (this.defaultKey) {
+            this.data.current = _.find(this.data.all, (i) => {
+                return i.key === this.defaultKey;
+            });
+        }
+        this.data.current = this.data.current || this.data.all[0];
+        this.data.set = _.indexBy(this.data.all, 'key');
+    }
+}
+
+// Search result.
+export class SearchResult {
+    // Instance ctor.
+    constructor(i, filters) {
         this.project = i[0];
         this.institutionID = i[1];
         this.uid = i[2];
@@ -11,16 +46,16 @@ class SearchResult {
         this.dateCreated = i[6];
         this.dateClosed = i[7];
         this.dateUpdated = i[8];
-        this.ext = new SearchResultExtensionInfo(this);
+        this.ext = new SearchResultExtensionInfo(this, filters);
     }
 }
 
 // Extended search result information.
 class SearchResultExtensionInfo {
     // Instance ctor.
-    constructor(i) {
-        this.severity = APP.state.filters[1].data.set['esdoc:errata:severity:' + i.severity];
-        this.status = APP.state.filters[2].data.set['esdoc:errata:status:' + i.status];
+    constructor(i, filters) {
+        this.severity = filters[1].data.set['esdoc:errata:severity:' + i.severity];
+        this.status = filters[2].data.set['esdoc:errata:status:' + i.status];
         this.institutionID = i.institutionID.toUpperCase();
         this.title = (i.title || '--').trim();
         if (i.title.length > 53) {

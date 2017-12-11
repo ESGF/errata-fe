@@ -1,10 +1,14 @@
+// Module imports.
+import * as APP     from    '../shared/application.js';
+import * as UTILS   from    '../shared/utilities.js';
+
 // Event handler: setup begins.
 APP.on("setup:begin", () => {
-    APP.utils.displayFeedback("Initializing errata search");
+    UTILS.displayFeedback("Initializing errata search", APP.FULLTITLE, APP.VERSION);
 });
 
 // Event handler: setup complete.
-APP.on("setup:complete", APP.utils.hideFeedback);
+APP.on("setup:complete", UTILS.hideFeedback);
 
 // Event handler: setup error.
 APP.on("setup:setupDataDownload:error", () => {
@@ -13,11 +17,11 @@ APP.on("setup:setupDataDownload:error", () => {
 
 // Event handler: search begins.
 APP.on("search:begin", () => {
-    APP.utils.displayFeedback("Searching errata repository");
+    UTILS.displayFeedback("Searching errata repository", APP.FULLTITLE, APP.VERSION);
 });
 
 // Event handler: search complete.
-APP.on("search:complete", APP.utils.hideFeedback);
+APP.on("search:complete", UTILS.hideFeedback);
 
 // Event handler: search error.
 APP.on("search:dataDownload:error", () => {

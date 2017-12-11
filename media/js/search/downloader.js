@@ -1,9 +1,14 @@
+// Module imports.
+import * as APP         from  '../shared/application.js';
+import * as constants   from  '../shared/constants.js';
+import * as STATE       from  './state.js';
+
 // Event handler: setup:begin.
 APP.on("setup:begin", () => {
     var url;
 
     // Set target.
-    url = APP.constants.API_BASE_URL + APP.constants.URLS.SEARCH_SETUP;
+    url = constants.URLS.API_BASE_URL + constants.URLS.SEARCH_SETUP;
 
     // Download.
     $.get(url)
@@ -13,14 +18,14 @@ APP.on("setup:begin", () => {
         .fail(() => {
             setTimeout(() => {
                 APP.trigger("setup:setupDataDownload:error");
-            }, APP.constants.uiUpdateDelay);
+            }, constants.MISC.UI_UPDATE_DELAY);
         });
 });
 
 // Event handler: setup:setupDataDownload.
 APP.on("setup:setupDataDownload", (data) => {
     // Update state.
-    APP.state.initFilters(data.vocabs);
+    STATE.initFilters(data.vocabs);
 
     // Execute search.
     executeSearch(null, "setup:initialSearchDataDownload");
@@ -39,7 +44,26 @@ APP.on("state:filterUpdated", (filter) => {
 
 // Event handler: state:filterUpdate.
 APP.on("state:filterUpdate", (filterValue) => {
-    APP.state.updateFilter(filterValue.split(':').slice(0, 3).join(':'), filterValue);
+    STATE.updateFilter(filterValue.split(':').slice(0, 3).join(':'), filterValue);
+});
+
+// Event handler: setup:initialSearchDataDownload.
+APP.on("setup:initialSearchDataDownload", (data) => {
+    // Update state.
+    STATE.setSearchData(data);
+
+    // Fire events.
+    APP.trigger("setup:complete");
+});
+
+// Event handler: search:dataDownload.
+APP.on("search:dataDownload", (data) => {
+    // Update state.
+    STATE.setSearchData(data);
+
+    // Fire events.
+    APP.trigger('state:pageUpdate');
+    APP.trigger('search:complete');
 });
 
 // Executes a search.
@@ -52,9 +76,9 @@ const executeSearch = (preEventType, eventType) => {
     }
 
     // Set target.
-    url = APP.constants.API_BASE_URL + APP.constants.URLS.SEARCH;
+    url = constants.URLS.API_BASE_URL + constants.URLS.SEARCH;
     params = [];
-    _.each(_.values(APP.state.getActiveFilters()), (f) => {
+    _.each(_.values(STATE.getActiveFilters()), (f) => {
         if (f.data.current.key.endsWith('*') === false) {
             params.push(f.data.current.key);
         }
@@ -69,30 +93,11 @@ const executeSearch = (preEventType, eventType) => {
         .done((data) => {
             setTimeout(() => {
                 APP.trigger(eventType, data);
-            }, APP.constants.uiUpdateDelay);
+            }, constants.MISC.UI_UPDATE_DELAY);
         })
         .fail(() => {
             setTimeout(() => {
                 APP.trigger(eventType + ":error");
-            }, APP.constants.uiUpdateDelay);
+            }, constants.MISC.UI_UPDATE_DELAY);
         });
 };
-
-// Event handler: setup:initialSearchDataDownload.
-APP.on("setup:initialSearchDataDownload", (data) => {
-    // Update state.
-    APP.state.searchData = data;
-
-    // Fire events.
-    APP.trigger("setup:complete");
-});
-
-// Event handler: search:dataDownload.
-APP.on("search:dataDownload", (data) => {
-    // Update state.
-    APP.state.searchData = data;
-
-    // Fire events.
-    APP.trigger('state:pageUpdate');
-    APP.trigger('search:complete');
-});

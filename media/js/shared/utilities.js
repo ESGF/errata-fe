@@ -1,10 +1,12 @@
-import * as constants from './constants_.js';
+import * as APP     from    '../shared/application.js';
+import * as constants from './constants.js';
+
 
 
 // Opens the target url.
 // @url     URL to be opened.
 // @inTab   Flag indicating whether url will be opened in a new browser tab or not.
-APP.utils.openURL = (url, inTab) => {
+export const openURL = (url, inTab) => {
     if (inTab === true) {
         window.open(url);
     } else {
@@ -13,14 +15,14 @@ APP.utils.openURL = (url, inTab) => {
 };
 
 // Opens the homepage.
-APP.utils.openHomepage = () => {
-    APP.utils.openURL(constants.URLS.HOME_PAGE, true);
+export const openHomepage = () => {
+    openURL(constants.URLS.HOME_PAGE, true);
 };
 
 // Opens the target email.
 // @address         Target email address.
 // @subject         Target email subject.
-APP.utils.openEmail = (address, subject, message) => {
+export const openEmail = (address, subject, message) => {
     var email = "mailto:{0}?subject={1}&body={2}";
 
     subject = subject || constants.EMAIL.SUBJECT;
@@ -35,20 +37,20 @@ APP.utils.openEmail = (address, subject, message) => {
 
 // Opens module support email.
 // @module         Module for which a support email is being sent.
-APP.utils.openSupportEmail = () => {
+export const openSupportEmail = () => {
     var subject;
 
     subject = "ES-DOC :: SUPPORT :: {0} (v{1})";
     subject = subject.replace("{0}", APP.NAME.toUpperCase());
     subject = subject.replace("{1}", APP.VERSION);
-    APP.utils.openEmail(constants.EMAIL.SUPPORT, subject);
+    openEmail(constants.EMAIL.SUPPORT, subject);
 };
 
 // Renders a view.
 // @type          View type.
 // @options       View options.
 // @container     View container.
-APP.utils.render = (types, options, container) => {
+export const render = (types, options, container) => {
     var typeset, view, rendered = [];
 
     typeset = _.isArray(types) ? types : [types];
@@ -71,7 +73,7 @@ APP.utils.render = (types, options, container) => {
 // @template            View template.
 // @data                View template data.
 // @container           View container.
-APP.utils.renderHTML = (template, data, container) => {
+export const renderHTML = (template, data, container) => {
     var html = data ? template(data) : template();
 
     if (!_.isUndefined(container)) {
@@ -83,17 +85,20 @@ APP.utils.renderHTML = (template, data, container) => {
     }
 };
 
+// Template cache.
+const templateCache = {};
+
 // Returns a rendered template.
 // @templateID          View template ID.
 // @templateData        View template data.
 // @container           View container.
-APP.utils.renderTemplate = (templateID, templateData, view) => {
+export const renderTemplate = (templateID, templateData, view) => {
     var template, html;
 
-    if (!_.has(APP.templateCache, templateID)) {
-        APP.templateCache[templateID] = _.template($('#' + templateID).html());
+    if (!_.has(templateCache, templateID)) {
+        templateCache[templateID] = _.template($('#' + templateID).html());
     }
-    template = APP.templateCache[templateID];
+    template = templateCache[templateID];
     html = template(templateData);
 
     if (view && view.$el) {
@@ -108,7 +113,7 @@ APP.utils.renderTemplate = (templateID, templateData, view) => {
 // Returns URL query param value.
 // @name                URL query param name.
 // @defaultValue        URL query param default value.
-APP.utils.getURLParam = (name, defaultValue) => {
+export const getURLParam = (name, defaultValue) => {
     var
         results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
     if (!results) {
@@ -118,9 +123,8 @@ APP.utils.getURLParam = (name, defaultValue) => {
 };
 
 // Returns number of pages to be rendered.
-APP.utils.getPageCount = function (row_count) {
-    var pageSize = APP.state.paging.pageSize,
-        pageCount = 0;
+export const getPageCount = function (pageSize, row_count) {
+    var pageCount = 0;
 
     if (row_count) {
         pageCount = parseInt(row_count / pageSize, 10);
@@ -133,10 +137,8 @@ APP.utils.getPageCount = function (row_count) {
 };
 
 // Converts search results into pages for rendering.
-APP.utils.getPages = (data) => {
-    var pageSize = APP.state.paging.pageSize;
-
-    return _.map(_.range(APP.utils.getPageCount(data.length)), function (id) {
+export const getPages = (pageSize, data) => {
+    return _.map(_.range(getPageCount(pageSize, data.length)), function (id) {
         return {
             id: id + 1,
             data: this.slice(id * pageSize, ((id + 1) * pageSize) - 1)
@@ -145,7 +147,7 @@ APP.utils.getPages = (data) => {
 };
 
 // Displays feedback modal.
-APP.utils.displayFeedback = (text) => {
+export const displayFeedback = (text) => {
     $('#feedbackText').text(text + " ... please wait");
     $('.feedback-title').text(APP.FULLTITLE);
     $('.feedback-version').text("v" + APP.VERSION);
@@ -157,6 +159,6 @@ APP.utils.displayFeedback = (text) => {
 };
 
 // Hides feedback modal.
-APP.utils.hideFeedback = () => {
+export const hideFeedback = () => {
     $("#feedbackContainer").modal('hide');
 };

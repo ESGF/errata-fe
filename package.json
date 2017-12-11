@@ -1,0 +1,24 @@
+{
+  "name": "esdoc-errata-fe",
+  "version": "0.5.2",
+  "description": "ES-DOC dataset errata front end",
+  "main": "webpack.config.search.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ES-DOC/esdoc-errata-fe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ES-DOC/esdoc-errata-fe/issues"
+  },
+  "homepage": "https://github.com/ES-DOC/esdoc-errata-fe#readme",
+  "devDependencies": {
+    "uglifyjs-webpack-plugin": "^1.1.2",
+    "webpack": "^3.10.0"
+  }
+}
