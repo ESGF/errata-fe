@@ -1,5 +1,5 @@
 // Represents an errata in the system.
-class Errata {
+export default class Errata {
     // Instance constructor.
     constructor(i) {
         this.handle = i[0];

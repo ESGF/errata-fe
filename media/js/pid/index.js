@@ -10,6 +10,7 @@ import './feedback.js';
 // Event handler: document ready.
 $(document).ready(() => {
     APP.trigger("setup:begin");
+    APP.trigger("setup:complete");
 });
 
 // Event handler: setup complete.
@@ -17,14 +18,14 @@ APP.events.on("setup:complete", () => {
 	var view;
 
     // Render main view.
-    var view = new View();
+    view = new View();
     view.render();
 
-    // Update DOM.
+    // // // Update DOM.
     $("body").append(view.el);
     APP.log("ui initialized");
 
-    // Fire events.
+    // // Fire events.
     APP.trigger("ui:initialized");
 });
 

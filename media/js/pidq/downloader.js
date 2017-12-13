@@ -1,9 +1,15 @@
+// Module imports.
+import * as APP         from  '../shared/application.js';
+import * as CONSTANTS   from  '../shared/constants.js';
+import * as UTILS       from    '../shared/utilities.js';
+import * as STATE       from  './state.js';
+
 // Event handler: setup:begin.
 APP.on("setup:begin", () => {
     var url;
 
     // Set target.
-    url = APP.constants.API_BASE_URL + APP.constants.URLS.PID_TASK_QUEUE_SEARCH_SETUP;
+    url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.PID_TASK_QUEUE_SEARCH_SETUP;
 
     // Download.
     $.get(url)
@@ -13,14 +19,14 @@ APP.on("setup:begin", () => {
         .fail(() => {
             setTimeout(() => {
                 APP.trigger("setup:setupDataDownload:error");
-            }, APP.constants.uiUpdateDelay);
+            }, CONSTANTS.MISC.UI_UPDATE_DELAY);
         });
 });
 
 // Event handler: setup:setupDataDownload.
 APP.on("setup:setupDataDownload", (data) => {
     // Update state.
-    APP.state.initFilters(data.vocabs);
+    STATE.initFilters(data.vocabs);
 
     // Execute search.
     executeSearch(null, "setup:initialSearchDataDownload");
@@ -34,7 +40,7 @@ APP.on("state:filterUpdated", (filter) => {
 
 // Event handler: state:filterUpdate.
 APP.on("state:filterUpdate", (filterValue) => {
-    APP.state.updateFilter(filterValue.split(':').slice(0, 3).join(':'), filterValue);
+    STATE.updateFilter(filterValue.split(':').slice(0, 3).join(':'), filterValue);
 });
 
 // Executes a search.
@@ -47,9 +53,9 @@ const executeSearch = (preEventType, eventType) => {
     }
 
     // Set target.
-    url = APP.constants.API_BASE_URL + APP.constants.URLS.PID_TASK_QUEUE_SEARCH;
+    url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.PID_TASK_QUEUE_SEARCH;
     params = [];
-    _.each(_.values(APP.state.filters), (f) => {
+    _.each(_.values(STATE.filters), (f) => {
         if (f.data.current.key.endsWith('*') === false) {
             params.push(f.data.current.key);
         }
@@ -58,27 +64,25 @@ const executeSearch = (preEventType, eventType) => {
         criteria: params.join(",")
     };
 
-    console.log(params);
-
     // Download.
     APP.trigger(eventType + "ing");
     $.get(url, params)
         .done((data) => {
             setTimeout(() => {
                 APP.trigger(eventType, data);
-            }, APP.constants.uiUpdateDelay);
+            }, CONSTANTS.MISC.UI_UPDATE_DELAY);
         })
         .fail(() => {
             setTimeout(() => {
                 APP.trigger(eventType + ":error");
-            }, APP.constants.uiUpdateDelay);
+            }, CONSTANTS.MISC.UI_UPDATE_DELAY);
         });
 };
 
 // Event handler: setup:initialSearchDataDownload.
 APP.on("setup:initialSearchDataDownload", (data) => {
     // Update state.
-    APP.state.searchData = data;
+    STATE.setSearchData(data);
 
     // Fire events.
     APP.trigger("setup:complete");
@@ -87,7 +91,7 @@ APP.on("setup:initialSearchDataDownload", (data) => {
 // Event handler: search:dataDownload.
 APP.on("search:dataDownload", (data) => {
     // Update state.
-    APP.state.searchData = data;
+    STATE.setSearchData(data);
 
     // Fire events.
     APP.trigger('state:pageUpdate');

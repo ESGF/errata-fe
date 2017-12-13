@@ -1,20 +1,26 @@
+// Module imports.
+import * as APP         from  '../shared/application.js';
+import * as UTILS       from  '../shared/utilities.js';
+import * as CONSTANTS   from  '../shared/constants.js';
+import * as STATE       from  './state.js';
+
 // Main module level view.
-APP.View = Backbone.View.extend({
+export default Backbone.View.extend({
     // Backbone: view event handlers.
     events: {
+        // Open page: home.
+        'click img.esdoc-logo': () => {
+            UTILS.openHomepage();
+        },
+
         // Open email: support.
         'click button.esdoc-support': () => {
-            APP.utils.openSupportEmail();
+            UTILS.openSupportEmail();
         },
 
         // Open page: search.
         'click button.esdoc-errata-search': () => {
-            APP.utils.openURL(APP.constants.URLS.SEARCH_PAGE, false);
-        },
-
-        // Open page: es-doc home.
-        'click img.esdoc-logo': () => {
-            APP.utils.openHomepage();
+            UTILS.openURL(CONSTANTS.URLS.SEARCH_PAGE, false);
         }
     },
 
@@ -23,8 +29,8 @@ APP.View = Backbone.View.extend({
         _.each([
             "template-header",
             "template-issue"
-            ], function (template) {
-            APP.utils.renderTemplate(template, APP.state, this);
+            ], (template) => {
+            UTILS.renderTemplate(template, null, this);
         }, this);
 
         return this;

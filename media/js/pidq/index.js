@@ -14,13 +14,13 @@ $(document).ready(() => {
 
 // Event handler: setup complete.
 APP.events.on("setup:complete", () => {
-	var view;
+    var view;
 
     // Render main view.
     var view = new View();
     view.render();
 
-    // Update DOM.
+    // // Update DOM.
     $("body").append(view.el);
     APP.log("ui initialized");
 

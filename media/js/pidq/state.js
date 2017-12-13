@@ -1,8 +1,7 @@
 // Module imports.
-import * as APP     from    '../shared/application.js';
 import * as UTILS   from    '../shared/utilities.js';
 import {
-    SearchResult,
+    Task,
     SearchFilter
     }               from    './model.js';
 
@@ -20,7 +19,7 @@ export const paging = {
 
 // Sort state.
 export const sorting = {
-    field: "dateCreated",
+    field: "timestamp",
     direction: "desc"
 };
 
@@ -30,7 +29,7 @@ export var searchData = null;
 // Set search data.
 export const setSearchData = (data) => {
     searchData = _.defaults({
-        results: _.map(data.results, (i) => new SearchResult(i, filters))
+        results: _.map(data.results, (i) => new Task(i, filters))
     }, data);
     sortResults();
     paginateIssues();
@@ -40,21 +39,6 @@ export const setSearchData = (data) => {
 export const initFilters = (data) => {
     filters = _.map(data, function (c) {
         return new SearchFilter(c);
-    });
-    setActiveFilters();
-};
-
-// Sets active filter flag.
-export const setActiveFilters = () => {
-    _.each(filters, (f) => {
-        f.isActive = _.isNull(f.project) || f.project === filters[0].data.current.key.split(':')[3];
-    });
-};
-
-// Gets active filters.
-export const getActiveFilters = () => {
-    return _.filter(filters, (f) => {
-        return f.isActive;
     });
 };
 
@@ -68,12 +52,10 @@ export const updateFilter = (filterType, filterValue) => {
     filter.data.current = _.find(filter.data.all, (i) => {
         return i.key === filterValue;
     });
-    if (filter.key === 'esdoc:errata:project') {
-        setActiveFilters();
-    }
 
     APP.trigger('state:filterUpdated', filter);
 };
+
 
 // Sets pagination data.
 export const paginateIssues = () => {
@@ -88,15 +70,13 @@ export const sortResults = () => {
 
     // Set sort function.
     field = sorting.field;
-    if (field === 'title') {
-        func = (i) => i.title;
-    } else if (field === 'institutionID') {
-        func = (i) => i.ext.institutionID;
+    if (field === 'datasetID') {
+        func = (i) => i.datasetID;
     } else if (field === 'status') {
         func = (i) => i.ext.status.label.toLowerCase();
-    } else if (field === 'severity') {
-        func = (i) => i.ext.severity.sortOrdinal;
-    } else if (_.contains(['dateClosed', 'dateCreated', 'dateUpdated'], field)) {
+    } else if (field === 'action') {
+        func = (i) => i.ext.action.label.toLowerCase();
+    } else if (field === 'timestamp') {
         func = (i) => i[field] ? i[field].valueOf() : '--';
     }
 
@@ -116,7 +96,7 @@ export const updateSortField = (field) => {
     } else {
         APP.trigger('state:sortFieldChanging');
         sorting.field = field;
-        if (_.contains(['dateClosed', 'dateCreated', 'dateUpdated', 'severity'], field)) {
+        if (field === 'timestamp') {
             sorting.direction = 'desc';
         } else {
             sorting.direction = 'asc';

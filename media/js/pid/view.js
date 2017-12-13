@@ -1,20 +1,26 @@
+// Module imports.
+import * as APP         from  '../shared/application.js';
+import * as UTILS       from  '../shared/utilities.js';
+import * as CONSTANTS   from  '../shared/constants.js';
+import * as STATE       from  './state.js';
+
 // Main module level view.
-APP.View = Backbone.View.extend({
+export default Backbone.View.extend({
     // Backbone: view event handlers.
     events: {
         // Open page: home.
         'click img.esdoc-logo': () => {
-            APP.utils.openHomepage();
+            UTILS.openHomepage();
         },
 
         // Open email: support.
         'click button.esdoc-support': () => {
-            APP.utils.openSupportEmail();
+            UTILS.openSupportEmail();
         },
 
         // Open page: search.
         'click button.esdoc-errata-search': () => {
-            APP.utils.openURL(APP.constants.URLS.SEARCH_PAGE, false);
+            UTILS.openURL(CONSTANTS.URLS.SEARCH_PAGE, false);
         },
 
         'change .btn-file :file': (e) => {
@@ -37,14 +43,14 @@ APP.View = Backbone.View.extend({
             var pid;
             pid = $(e.target).val().trim();
             if (pid) {
-                APP.state.pids = [pid];
+                STATE.setPIDs([pid]);
             } else {
-                APP.state.pids = [];
+                STATE.setPIDs([]);
             }
         },
 
         'click #searchButton': (e) => {
-            if (APP.state.pids.length) {
+            if (STATE.pids.length) {
                 APP.trigger('ui:search');
             }
         },
@@ -58,7 +64,7 @@ APP.View = Backbone.View.extend({
                 url = window.location.href.replace("pid", "viewer");
                 url += "?uid=";
                 url += uid;
-                APP.utils.openURL(url, true);
+                UTILS.openURL(url, true);
             }
         }
     },
@@ -76,7 +82,7 @@ APP.View = Backbone.View.extend({
             "template-header",
             "template-filter"
             ], function (template) {
-            APP.utils.renderTemplate(template, APP, this);
+            UTILS.renderTemplate(template, APP, this);
         }, this);
 
         return this;
@@ -84,12 +90,12 @@ APP.View = Backbone.View.extend({
 
     // Utility function to replace a page DOM node.
     _replaceNode: function (nodeSelector, template) {
-        this.$(nodeSelector).replaceWith(APP.utils.renderTemplate(template, APP.state));
+        this.$(nodeSelector).replaceWith(UTILS.renderTemplate(template, STATE));
     },
 
     _setPIDList: function (data) {
         // Update state.
-        APP.state.pids = data.pids;
+        STATE.setPIDs(data.pids);
 
         // Update UI.
         $("#pid-data").val("file://" + data.file.name);
@@ -99,7 +105,13 @@ APP.View = Backbone.View.extend({
         if (!this.isFirstGridRender) {
             this.$('table').remove();
         }
-        APP.utils.renderTemplate("template-grid", APP, this);
+        UTILS.renderTemplate("template-grid", APP, this);
         this.isFirstGridRender = false;
     }
 });
+
+// Expose to presentation layer.
+window.APP = APP;
+window.STATE = STATE;
+window.UTILS = UTILS;
+window.CONSTANTS = CONSTANTS;

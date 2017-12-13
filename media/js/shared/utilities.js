@@ -1,7 +1,6 @@
+// Module imports.
 import * as APP     from    '../shared/application.js';
 import * as constants from './constants.js';
-
-
 
 // Opens the target url.
 // @url     URL to be opened.

@@ -27,3 +27,7 @@ select.pagination-page-size {
 	width: 100px;
 	color: #999;
 }
+
+td {
+	cursor: pointer;
+}

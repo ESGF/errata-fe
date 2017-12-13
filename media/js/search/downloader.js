@@ -1,6 +1,6 @@
 // Module imports.
 import * as APP         from  '../shared/application.js';
-import * as constants   from  '../shared/constants.js';
+import * as CONSTANTS   from  '../shared/constants.js';
 import * as STATE       from  './state.js';
 
 // Event handler: setup:begin.
@@ -8,7 +8,7 @@ APP.on("setup:begin", () => {
     var url;
 
     // Set target.
-    url = constants.URLS.API_BASE_URL + constants.URLS.SEARCH_SETUP;
+    url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.SEARCH_SETUP;
 
     // Download.
     $.get(url)
@@ -18,7 +18,7 @@ APP.on("setup:begin", () => {
         .fail(() => {
             setTimeout(() => {
                 APP.trigger("setup:setupDataDownload:error");
-            }, constants.MISC.UI_UPDATE_DELAY);
+            }, CONSTANTS.MISC.UI_UPDATE_DELAY);
         });
 });
 
@@ -76,7 +76,7 @@ const executeSearch = (preEventType, eventType) => {
     }
 
     // Set target.
-    url = constants.URLS.API_BASE_URL + constants.URLS.SEARCH;
+    url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.SEARCH;
     params = [];
     _.each(_.values(STATE.getActiveFilters()), (f) => {
         if (f.data.current.key.endsWith('*') === false) {
@@ -93,11 +93,11 @@ const executeSearch = (preEventType, eventType) => {
         .done((data) => {
             setTimeout(() => {
                 APP.trigger(eventType, data);
-            }, constants.MISC.UI_UPDATE_DELAY);
+            }, CONSTANTS.MISC.UI_UPDATE_DELAY);
         })
         .fail(() => {
             setTimeout(() => {
                 APP.trigger(eventType + ":error");
-            }, constants.MISC.UI_UPDATE_DELAY);
+            }, CONSTANTS.MISC.UI_UPDATE_DELAY);
         });
 };

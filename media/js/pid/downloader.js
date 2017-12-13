@@ -1,3 +1,9 @@
+// Module imports.
+import * as APP         from  '../shared/application.js';
+import * as CONSTANTS   from  '../shared/constants.js';
+import * as UTILS       from    '../shared/utilities.js';
+import * as STATE       from  './state.js';
+
 // Event handler: search initiated from ui.
 APP.on("ui:search", () => {
     var url, params;
@@ -6,9 +12,9 @@ APP.on("ui:search", () => {
     APP.trigger("search:begin");
 
     // Set web-service endpoint url + params.
-    url = APP.constants.API_BASE_URL + APP.constants.URLS.PID_RESOLVE;
+    url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.PID_RESOLVE;
     params = {
-        pids: APP.state.pids.join(",")
+        pids: STATE.pids.join(",")
     };
 
     // Invoke web-service endpoint.
@@ -17,12 +23,12 @@ APP.on("ui:search", () => {
         .done((data) => {
             setTimeout(() => {
                 APP.trigger("search:dataDownload", data);
-            }, APP.constants.uiUpdateDelay);
+            }, CONSTANTS.MISC.UI_UPDATE_DELAY);
         })
         .fail((data) => {
             setTimeout(() => {
                 APP.trigger("search:dataDownload:error", data);
-            }, APP.constants.uiUpdateDelay);
+            }, CONSTANTS.MISC.UI_UPDATE_DELAY);
         });
 });
 
@@ -30,8 +36,10 @@ APP.on("ui:search", () => {
 // Event handler: search:dataDownload.
 APP.on("search:dataDownload", (data) => {
     // Cache incoming data as mapped javascript objects.
-    APP.state.errata = _.map(data.errata, (i) => new Errata(i));
+    STATE.setErrata(data.errata);
+
 
     // Trigger application event.
     APP.trigger('search:complete');
 });
+
