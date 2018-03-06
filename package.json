@@ -1,7 +1,7 @@
 {
   "name": "esdoc-errata-fe",
-  "version": "0.5.2",
-  "description": "ES-DOC dataset errata front end",
+  "version": "0.5.3",
+  "description": "ES-DOC Dataset Errata Front End",
   "main": "webpack.config.search.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,15 +10,26 @@
     "type": "git",
     "url": "git+https://github.com/ES-DOC/esdoc-errata-fe.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "dataset",
+    "errata",
+    "es-doc",
+    "cmip6",
+    "cmip5",
+    "cordex"
+  ],
+  "author": "Mark A. Conway-Greenslade",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ES-DOC/esdoc-errata-fe/issues"
   },
   "homepage": "https://github.com/ES-DOC/esdoc-errata-fe#readme",
   "devDependencies": {
-    "uglifyjs-webpack-plugin": "^1.1.2",
-    "webpack": "^3.10.0"
+    "fs": "0.0.1-security",
+    "uglifyjs-webpack-plugin": "^1.2.2"
+  },
+  "dependencies": {
+    "webpack": "^4.1.0",
+    "webpack-cli": "^2.0.10"
   }
 }
