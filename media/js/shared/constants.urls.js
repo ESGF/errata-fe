@@ -1,11 +1,5 @@
-import {EXECUTION_MODE} from './constants.misc.js';
-
 // Set API base url.
-export const API_BASE_URL = {
-    dev: "http://localhost:5001",
-    prod: "https://errata-api.es-doc.org",
-    test: "https://test-errata-api.es-doc.org"
-}[EXECUTION_MODE];
+export const API_BASE_URL = window.origin;
 
 // ES-DOC homepage.
 export const HOME_PAGE = "https://es-doc.org";
@@ -35,8 +29,4 @@ export const SEARCH_PAGE = "index.html";
 export const SEARCH_SETUP = "/1/issue/search-setup";
 
 // Set viewerBaseURL.
-export const VIEWER_BASE_URL = {
-    dev: window.location.href.replace("index", "viewer").replace("pidq", "viewer"),
-    prod: "https://errata.es-doc.org/viewer.html",
-    test: "https://test-errata.es-doc.org/viewer.html"
-}[EXECUTION_MODE];
+export const VIEWER_BASE_URL = window.location.href.replace("index", "viewer").replace("pidq", "viewer");
