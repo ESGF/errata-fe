@@ -18,14 +18,12 @@ export default class Issue {
 
         result = this.project.toUpperCase();
         result += " - ";
-        result += this.institute.toUpperCase();
-        result += " - ";
         result += this.title.slice(0, 48);
         if (this.title.length > 48) {
             result += "...";
         }
 
-        return this.title;
+        return result;
     }
 }
 

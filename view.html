@@ -8,7 +8,7 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
     <link rel="shortcut icon" href="media/img/favicon.ico" type="image/x-icon" />
-    <title>ES-DOC - Errata - Viewer</title>
+    <title>ES-DOC - Errata - View</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- ---------------------------------------------- -->
@@ -18,14 +18,14 @@
     <link href="media/css/shared/defaults.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="media/css/shared/cv.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="media/css/shared/header.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="media/css/viewer/title.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="media/css/viewer/details.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="media/css/view/title.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="media/css/view/details.css" media="screen" rel="stylesheet" type="text/css" />
 
     <!-- ---------------------------------------------- -->
     <!-- JS: 3rd party libraries                        -->
     <!-- ---------------------------------------------- -->
     <script src="ext/jquery-2.2.3.min.js"></script>
-    <script src="ext/underscore-1.8.3.min.js"></script>
+    <script src="ext/underscore-1.9.0.min.js"></script>
     <script src="ext/backbone-1.3.3.min.js"></script>
     <script src="ext/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script src="ext/js.cookie-2.1.0.js"></script>
@@ -35,8 +35,8 @@
     <!-- ---------------------------------------------- -->
     <!-- JS: Application script                         -->
     <!-- ---------------------------------------------- -->
-    <script src="media/js/viewer/index.js" type="module"></script>
-    <script src="dist/viewer.js" defer nomodule></script>
+    <script src="media/js/view/index.js" type="module"></script>
+    <script src="dist/view.js" defer nomodule></script>
 </head>
 
 <!-- ---------------------------------------------- -->
@@ -53,11 +53,13 @@
          class="pull-left esdoc-logo" />
     <h1 class="pull-right">
         <small>
-            <b><%= APP.LONG_NAME %> Viewer</b>
+            <b><%= APP.LONG_NAME %> - View</b>
         </small>
         <strong class="h6"> v<%= APP.VERSION %></strong>
-        <button class="esdoc-support btn btn-primary">Support</button>
-        <button class="esdoc-errata-search btn btn-success">Issue Search</button>
+        <button class="esdoc-support btn btn-success">Support</button>
+        <% if (STATE.isAuthenticated) {%>
+            <button class="esdoc-errata-edit btn btn-primary">Edit</button>
+        <% }; %>
     </h1>
 </header>
 </script>

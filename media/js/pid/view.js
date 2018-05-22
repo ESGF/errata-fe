@@ -18,11 +18,6 @@ export default Backbone.View.extend({
             UTILS.openSupportEmail();
         },
 
-        // Open page: search.
-        'click button.esdoc-errata-search': () => {
-            UTILS.openURL(CONSTANTS.URLS.SEARCH_PAGE, false);
-        },
-
         'change .btn-file :file': (e) => {
             var file, reader;
 

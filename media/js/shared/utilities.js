@@ -161,3 +161,35 @@ export const displayFeedback = (text) => {
 export const hideFeedback = () => {
     $("#feedbackContainer").modal('hide');
 };
+
+// Displays information dialog modal.
+export const displayInfoDialog = (text, callback) => {
+    $('#infoDialogText').text(text);
+    $('.infoDialog-title').text(APP.FULLTITLE);
+    $('.infoDialog-version').text("v" + APP.VERSION);
+    if (callback) {
+        $('#infoDialogContainer').on('hide.bs.modal', callback);
+    }
+    $("#infoDialogContainer").modal({
+        backdrop: 'static',
+        keyboard: false,
+        show: true
+    });
+};
+
+// Hides information dialog modal.
+export const hideInfoDialog = () => {
+    $("#infoDialog").modal('hide');
+};
+
+// Generates a universally unique identifier.
+export const generateUUID = () => {
+    let d = new Date().getTime();
+    const uuid = 'xxxxxxxx-xxxx-xxxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+        const r = (d + Math.random()*16)%16 | 0;
+        d = Math.floor(d/16);
+        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    });
+
+    return uuid;
+};

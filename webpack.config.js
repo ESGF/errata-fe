@@ -3,10 +3,11 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: {
+        edit: './media/js/edit/index.js',
     	pid: './media/js/pid/index.js',
     	pidq: './media/js/pidq/index.js',
     	search: './media/js/search/index.js',
-    	viewer: './media/js/viewer/index.js'
+    	view: './media/js/view/index.js'
     },
     output: {
         filename: '[name].js',

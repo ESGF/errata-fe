@@ -1,8 +1,18 @@
 // Module imports.
 import Issue from  './model.js';
+import * as UTILS from  '../shared/utilities.js';
 
-// issue.
+// OAuth credentials.
+export const OAuthCredentials = Cookies.get('errata-oauth-credentials');
+
+// Flag indicating whether user is authenticated or not.
+export const isAuthenticated = _.isUndefined(OAuthCredentials) === false;
+
+// Issue.
 export var issue = null;
+
+// Issue UID.
+export const issueUID = UTILS.getURLParam("uid");
 
 // Issue datasets.
 export var datasets = [];

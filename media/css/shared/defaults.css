@@ -16,3 +16,7 @@ body > div > header img:hover {
 body > div > header h1 small b {
     color: black;
 }
+
+button {
+    width: 80px;
+}

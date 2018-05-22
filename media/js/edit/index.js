@@ -2,18 +2,23 @@
 import * as APP from '../shared/application.js';
 import * as UTILS from '../shared/utilities.js';
 import * as CONSTANTS from '../shared/constants.js';
+import * as PYESSV from '../shared/pyessv.js';
 import * as STATE from './state.js';
 import View from './view.js';
 import './downloader.js';
 import './feedback.js';
+import './uploader.js';
+import './validator.js';
 
 // Event handler: document ready.
 $(document).ready(() => {
-    APP.trigger("setup:begin");
+    PYESSV.initialise(() => {
+        APP.trigger("setup:begin");
+    })
 });
 
 // Event handler: setup complete.
-APP.events.on("setup:complete", () => {
+APP.on("setup:complete", () => {
 	var view;
 
     // // Render main view.
@@ -22,14 +27,21 @@ APP.events.on("setup:complete", () => {
 
     // // Update DOM.
     $("body").append(view.el);
-    APP.log("ui initialized");
 
     // Fire events.
     APP.trigger("ui:initialized");
 });
 
+APP.on('issue:save:complete', () => {
+    let url = CONSTANTS.URLS.VIEW_PAGE;
+    url += '?uid=';
+    url += STATE.issue.uid;
+    UTILS.openURL(url);
+});
+
 // Expose to presentation layer.
 window.APP = APP;
+window.CONSTANTS = CONSTANTS;
+window.PYESSV = PYESSV;
 window.STATE = STATE;
 window.UTILS = UTILS;
-window.CONSTANTS = CONSTANTS;

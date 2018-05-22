@@ -16,11 +16,11 @@ $(document).ready(() => {
 APP.events.on("setup:complete", () => {
 	var view;
 
-    // Render main view.
+    // // Render main view.
     var view = new View();
     view.render();
 
-    // Update DOM.
+    // // Update DOM.
     $("body").append(view.el);
 
     // Fire events.

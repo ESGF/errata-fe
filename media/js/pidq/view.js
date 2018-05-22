@@ -18,16 +18,11 @@ export default Backbone.View.extend({
             UTILS.openSupportEmail();
         },
 
-        // Open page: pid lookup.
-        'click button.esdoc-pid-lookup': () => {
-            UTILS.openURL(CONSTANTS.URLS.PID_PAGE, true);
-        },
-
         // Open page: errata detail.
         'click .task': (e) => {
             var url;
 
-            url = CONSTANTS.URLS.VIEWER_BASE_URL;
+            url = CONSTANTS.URLS.VIEW_PAGE;
             url += "?uid=";
             url += $(e.target).parent().attr("id") ||
                    $(e.target).parent().parent().attr("id");

@@ -6,6 +6,12 @@ import {
     SearchFilter
     }               from    './model.js';
 
+// OAuth credentials.
+export const OAuthCredentials = Cookies.get('errata-oauth-credentials');
+
+// Flag indicating whether user is authenticated or not.
+export const isAuthenticated = _.isUndefined(OAuthCredentials) === false;
+
 // Collection of search filters.
 export var filters = [];
 

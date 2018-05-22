@@ -18,9 +18,14 @@ export default Backbone.View.extend({
             UTILS.openSupportEmail();
         },
 
-        // Open page: search.
-        'click button.esdoc-errata-search': () => {
-            UTILS.openURL(CONSTANTS.URLS.SEARCH_PAGE, false);
+        // Open email: support.
+        'click button.esdoc-errata-edit': () => {
+            var url;
+
+            url = CONSTANTS.URLS.EDIT_PAGE;
+            url += "?uid=";
+            url += STATE.issueUID;
+            UTILS.openURL(url, false);
         }
     },
 

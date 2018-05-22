@@ -18,6 +18,16 @@ export default Backbone.View.extend({
             UTILS.openSupportEmail();
         },
 
+        // Open login page.
+        'click button.esdoc-errata-login': () => {
+            UTILS.openURL(CONSTANTS.URLS.OAUTH_AUTHORIZE, false);
+        },
+
+        // Open create issue page.
+        'click button.esdoc-errata-create': () => {
+            UTILS.openURL(CONSTANTS.URLS.EDIT_PAGE, true);
+        },
+
         // Open page: pid lookup.
         'click button.esdoc-pid-lookup': () => {
             UTILS.openURL(CONSTANTS.URLS.PID_PAGE, true);
@@ -27,7 +37,7 @@ export default Backbone.View.extend({
         'click .issue': (e) => {
             var url;
 
-            url = CONSTANTS.URLS.VIEWER_BASE_URL;
+            url = CONSTANTS.URLS.VIEW_PAGE;
             url += "?uid=";
             url += $(e.target).parent().attr("id") ||
                    $(e.target).parent().parent().attr("id");

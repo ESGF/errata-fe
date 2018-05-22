@@ -1,0 +1,42 @@
+article {
+    display: inline-block;
+    width: 100%;
+}
+
+h2 {
+	padding: 3px;
+	margin-bottom: 3px;
+}
+
+article.container-fluid {
+    display: inline-block;
+    padding: 0px;
+    width: 100%;
+}
+
+article section {
+	padding-top: 5px;
+}
+
+table.table {
+    margin-top: 15px;
+}
+
+table.table tr td {
+    border-top: 0px;
+}
+
+
+h2 {
+	margin-top: 10px;
+}
+
+.field-name {
+	font-weight: bold;
+    font-size: large;
+	width: 200px;
+}
+
+/* #issueProject, #issueSeverity, #issueStatus {
+    width: 200px;
+} */
