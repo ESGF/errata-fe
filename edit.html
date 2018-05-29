@@ -91,7 +91,7 @@
                         <% if (STATE.issue.isNew) { %>
                             <option value="null">Select Project</option>
                         <% } %>
-                        <% _.each(PYESSV.ESDOC.ERRATA.getProjectTerms(), function(i) { %>
+                        <% _.each(PYESSV.ESDOC.ERRATA.getProject(), function(i) { %>
                             <option value="<%= i.canonicalName %>"
                                     <%= i.isMatch(STATE.issue.project) ? "selected" : "" %> >
                                 <%- i.label %>
@@ -132,7 +132,7 @@
             <td class="field-name">Severity *</td>
             <td class="field-value">
                 <select id=issueSeverity class="form-control">
-                    <% _.each(PYESSV.ESDOC.ERRATA.getSeverityTerms(), function(i) { %>
+                    <% _.each(PYESSV.ESDOC.ERRATA.getSeverity(), function(i) { %>
                         <option value="<%= i.canonicalName %>"
                                 <%= i.isMatch(STATE.issue.severity) ? "selected" : "" %> >
                             <%- i.label %>
@@ -146,7 +146,7 @@
             <td class="field-name">Status *</td>
             <td class="field-value">
                 <select id=issueStatus class="form-control">
-                    <% _.each(PYESSV.ESDOC.ERRATA.getStatusTerms(), function(i) { %>
+                    <% _.each(PYESSV.ESDOC.ERRATA.getStatus(), function(i) { %>
                         <option value="<%= i.canonicalName %>"
                                 <%= i.isMatch(STATE.issue.status) ? "selected" : "" %> >
                             <%- i.label %>
