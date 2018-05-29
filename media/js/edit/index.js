@@ -2,7 +2,6 @@
 import * as APP from '../shared/application.js';
 import * as UTILS from '../shared/utilities.js';
 import * as CONSTANTS from '../shared/constants.js';
-import * as PYESSV from '../shared/pyessv.js';
 import * as STATE from './state.js';
 import View from './view.js';
 import './downloader.js';
@@ -14,7 +13,7 @@ import './validator.js';
 $(document).ready(() => {
     PYESSV.initialise(() => {
         APP.trigger("setup:begin");
-    })
+    });
 });
 
 // Event handler: setup complete.
@@ -42,6 +41,5 @@ APP.on('issue:save:complete', () => {
 // Expose to presentation layer.
 window.APP = APP;
 window.CONSTANTS = CONSTANTS;
-window.PYESSV = PYESSV;
 window.STATE = STATE;
 window.UTILS = UTILS;

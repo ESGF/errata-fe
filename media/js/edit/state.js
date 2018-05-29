@@ -1,6 +1,5 @@
 // Module imports.
 import Issue from  './model.js';
-import * as UTILS from  '../shared/utilities.js';
 
 // OAuth credentials.
 export const OAuthCredentials = Cookies.get('errata-oauth-credentials');
@@ -9,4 +8,4 @@ export const OAuthCredentials = Cookies.get('errata-oauth-credentials');
 export const isAuthenticated = _.isUndefined(OAuthCredentials) === false;
 
 // Issue.
-export const issue = new Issue(UTILS.getURLParam("uid"));
+export const issue = new Issue();

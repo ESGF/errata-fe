@@ -8,17 +8,21 @@ export default class Issue {
     constructor(uid) {
         this.datasets = [];
         this.description = null;
-        this.isNew = uid ? false : true;
         this.materials = [];
         this.project = null;
         this.severity = "low";
         this.status = "new";
         this.title = null;
-        this.uid = uid || UTILS.generateUUID();
+        this.uid = UTILS.getURLParam("uid") || UTILS.generateUUID();
         this.urls = [];
 
         this.ext = new IssueExtensionInfo(this);
         this.previousState = null;
+    }
+
+    // Returns flag indicating wheterh this a new issue or not.
+    get isNew () {
+        return this.uid ? false : true;
     }
 
     // Full issue title.
