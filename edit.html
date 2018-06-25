@@ -31,6 +31,7 @@
     <script src="ext/moment-2.12.0.min.js"></script>
     <script src="ext/numeral-1.5.3.min.js"></script>
     <script src="ext/pyessv.js" type="text/javascript"></script>
+    <script src="ext/validate.min.js" type="text/javascript"></script>
 
     <!-- ---------------------------------------------- -->
     <!-- JS: Application script                         -->
@@ -78,16 +79,21 @@
 
 <!-- BEGIN: Issue details -->
 <script type="underscore/template" id="template-issue-details">
+
 <table class="table">
     <tbody>
+
+        <!-- Field: project -->
         <tr>
             <td class="field-name">Project *</td>
-            <td class="field-value">
+            <td class="field-value project">
                 <% if (!STATE.issue.isNew) { %>
                     <%= STATE.issue.project.toUpperCase() %>
                 <% } else { %>
-                    <select id=issueProject
-                            class="form-control">
+                    <select id="project"
+                            name="project"
+                            class="form-control"
+                            tabindex="1">
                         <% if (STATE.issue.isNew) { %>
                             <option value="null">Select Project</option>
                         <% } %>
@@ -98,40 +104,46 @@
                             </option>
                         <% }); %>
                     </select>
+                    <div id="projectErrorMessage" class="field-error" />
                 <% } %>
             </td>
         </tr>
 
+        <!-- Field: title -->
         <tr>
             <td class="field-name">Title *</td>
-            <td class="field-value">
-                <input type="text"
-                       <% if (!STATE.issue.isNew) { %>
-                       disabled="true"
-                       <% } %>
+            <td class="field-value title">
+                <input id="title"
+                       name="title"
+                       type="text"
+                       tabindex="2"
+                       <% if (!STATE.issue.isNew) { %>disabled="true"<% } %>
                        class="form-control"
-                       id="issueTitle"
-                       placeholder="Enter a unique title."
-                       value="<%= STATE.issue.title %>"
+                       placeholder="Enter a unique title between 16 and 255 characters."
+                       value="<%= STATE.issue.title %>" >
+                <div id="titleErrorMessage" class="field-error" />
             </td>
         </tr>
 
+        <!-- Field: description -->
         <tr>
             <td class="field-name">Description *</td>
-            <td class="field-value">
-                <input type="text"
-                       class="form-control"
-                       id="issueDescription"
-                       placeholder="Enter a brief explanation of the issue."
-                       value="<%= STATE.issue.description %>"
-                />
+            <td class="field-value description">
+                <textarea id="description"
+                          name="description"
+                          class="form-control"
+                          tabindex="3"
+                          placeholder="Enter an explanation of the issue between 16 and 1023 characters."
+                          rows="3"><%= STATE.issue.description%></textarea>
+                  <div id="descriptionErrorMessage" class="field-error" />
             </td>
         </tr>
 
+        <!-- Field: severity -->
         <tr>
             <td class="field-name">Severity *</td>
-            <td class="field-value">
-                <select id=issueSeverity class="form-control">
+            <td class="field-value severity">
+                <select id="severity" name="severity" class="form-control" tabindex="4">
                     <% _.each(PYESSV.ESDOC.ERRATA.getSeverity(), function(i) { %>
                         <option value="<%= i.canonicalName %>"
                                 <%= i.isMatch(STATE.issue.severity) ? "selected" : "" %> >
@@ -139,13 +151,16 @@
                         </option>
                     <% }); %>
                 </select>
+                <div id="severityErrorMessage" class="field-error" />
             </td>
         </tr>
 
+        <!-- Field: status -->
+        <% if (!STATE.issue.isNew) { %>
         <tr>
             <td class="field-name">Status *</td>
-            <td class="field-value">
-                <select id=issueStatus class="form-control">
+            <td class="field-value status">
+                <select id="status" name="status" class="form-control" tabindex="5">
                     <% _.each(PYESSV.ESDOC.ERRATA.getStatus(), function(i) { %>
                         <option value="<%= i.canonicalName %>"
                                 <%= i.isMatch(STATE.issue.status) ? "selected" : "" %> >
@@ -153,32 +168,44 @@
                         </option>
                     <% }); %>
                 </select>
+                <div id="statusErrorMessage" class="field-error" />
             </td>
         </tr>
+        <% } %>
 
+        <!-- Field: materials -->
         <tr>
             <td class="field-name">Materials</td>
-            <td class="field-value">
-                <textarea class="form-control"
-                          id="issueMaterials"
-                          placeholder="Enter URLs of image files (.jpg, .gif, .png, .tiff) that illustrate the issue.  Enter each URL on a separate line."
+            <td class="field-value materials">
+                <textarea id="materials"
+                          name="materials"
+                          tabindex="6"
+                          class="form-control"
+                          placeholder="Enter a comma separated list of image file URLs (.jpg, .gif, .png, .tiff)."
                           rows="6"><%= STATE.issue.ext.materials %></textarea>
+                  <div id="materialsErrorMessage" class="field-error" />
             </td>
         </tr>
 
+        <!-- Field: datasets -->
         <tr>
             <td class="field-name">Datasets *</td>
-            <td class="field-value">
+            <td class="field-value datasets">
                 <textarea class="form-control"
-                          id="issueDatasets"
-                          placeholder="Enter ESG-F datset identifiers affected by the issue.  Enter each identifier on a separate line."
-                          rows="10"><%= STATE.issue.ext.datasets %></textarea>
+                          id="datasets"
+                          name="datasets"
+                          tabindex="7"
+                          placeholder="Enter a comma separated list of ESG-F datset identifiers."
+                          rows="15"><%= STATE.issue.ext.datasets %></textarea>
+                  <div id="datasetsErrorMessage" class="field-error" />
             </td>
         </tr>
 
+        <!-- Footer -->
         <tr>
             <td colspan="2"><em>NOTE: fields marked * are required.</em></td>
         </tr>
+
     </tbody>
 </table>
 </script>

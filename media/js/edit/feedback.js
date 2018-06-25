@@ -1,5 +1,6 @@
 // Module imports.
 import * as APP     from    '../shared/application.js';
+import * as CONSTANTS   from  '../shared/constants.js';
 import * as UTILS   from    '../shared/utilities.js';
 
 // Event handler: setup begins.
@@ -8,15 +9,24 @@ APP.on("setup:begin", () => {
 });
 
 // Event handler: setup complete.
-APP.on("ui:initialized", UTILS.hideFeedback);
+APP.on("setup:complete", () => {
+    setTimeout(() => {
+        UTILS.hideFeedback();
+    }, CONSTANTS.MISC.UI_UPDATE_DELAY);
+});
 
 // Event handler: setup error.
 APP.on("setup:setupDataDownload:error", () => {
     alert("TODO: setup:setupDataDownload:error");
 });
 
+// Event handler: issue save unrequired.
+APP.on("issue:save:unrequired", () => {
+    UTILS.displayInfoDialog("An error occurred whilst saving the issue details - please try again.  If the problem persists then contact support.");
+});
+
 // Event handler: issue save postback.
-APP.on("issue:save:posting", () => {
+APP.on("issue:save:post:starts", () => {
     UTILS.displayFeedback("Saving issue details");
 });
 
@@ -29,7 +39,7 @@ APP.on("issue:save:post:success", () => {
 });
 
 // Event handler: issue save begins.
-APP.on("issue:save:error", () => {
+APP.on("issue:save:post:error", () => {
     UTILS.hideFeedback();
     UTILS.displayInfoDialog("An error occurred whilst saving the issue details - please try again.  If the problem persists then contact support.");
 });

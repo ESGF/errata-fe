@@ -14,15 +14,10 @@ export default class Issue {
         this.status = "new";
         this.title = null;
         this.uid = UTILS.getURLParam("uid") || UTILS.generateUUID();
+        this.isNew = UTILS.getURLParam("uid") ? false : true;
         this.urls = [];
 
         this.ext = new IssueExtensionInfo(this);
-        this.previousState = null;
-    }
-
-    // Returns flag indicating wheterh this a new issue or not.
-    get isNew () {
-        return this.uid ? false : true;
     }
 
     // Full issue title.
@@ -43,22 +38,6 @@ export default class Issue {
         return result;
     }
 
-    // Returns flag indicating whether a state change has occurred.
-    get hasChanged () {
-        if (this.previousState === null) {
-            return true;
-        } else {
-            return this.datasets != this.previousState.datasets ||
-                   this.description != this.previousState.description ||
-                   this.materials != this.previousState.materials ||
-                   this.project != this.previousState.project ||
-                   this.severity != this.previousState.severity ||
-                   this.status != this.previousState.status ||
-                   this.title != this.previousState.title ||
-                   this.urls != this.previousState.urls;
-        }
-    }
-
     // Decodes an instance from data pulled from server.
     decode (i) {
         this.datasets = i.datasets;
@@ -70,8 +49,6 @@ export default class Issue {
         this.title = i.title;
         this.uid = i.uid;
         this.urls = i.urls;
-
-        this.previousState = i;
     }
 
     // Encode an instance to be pushed to server.

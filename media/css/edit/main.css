@@ -26,7 +26,6 @@ table.table tr td {
     border-top: 0px;
 }
 
-
 h2 {
 	margin-top: 10px;
 }
@@ -34,9 +33,16 @@ h2 {
 .field-name {
 	font-weight: bold;
     font-size: large;
-	width: 200px;
+	width: 150px;
 }
 
-/* #issueProject, #issueSeverity, #issueStatus {
-    width: 200px;
-} */
+.field-value {
+	width: 600px;
+}
+
+.field-error {
+    font-weight: bold;
+    text-align: right;
+    font-style: italic;
+    color: red;
+}

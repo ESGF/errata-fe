@@ -3,10 +3,11 @@ import * as APP         from  '../shared/application.js';
 import * as STATE       from  './state.js';
 
 // Event handler: setup:cvDataParsed.
-APP.on("issue:save:confirmed", () => {
+APP.on("issue:save:verified", () => {
     const url = CONSTANTS.URLS.API_BASE_URL +
                 (STATE.issue.isNew ? CONSTANTS.URLS.ISSUE_CREATE : CONSTANTS.URLS.ISSUE_UPDATE);
-    APP.trigger("issue:save:posting");
+
+    APP.trigger("issue:save:post:starts");
     $.ajax({
         method: "POST",
         url: url,
@@ -22,7 +23,7 @@ APP.on("issue:save:confirmed", () => {
             if (r.status === 200) {
                 APP.trigger("issue:save:post:success");
             } else {
-                APP.trigger("issue:save:error", r);
+                APP.trigger("issue:save:post:error", r);
             }
     });
 });
