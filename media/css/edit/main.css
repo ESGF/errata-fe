@@ -43,6 +43,5 @@ h2 {
 .field-error {
     font-weight: bold;
     text-align: right;
-    font-style: italic;
     color: red;
 }

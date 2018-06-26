@@ -11,9 +11,6 @@ export const isAuthenticated = _.isUndefined(OAuthCredentials) === false;
 // Issue.
 export const issue = new Issue();
 
-// Has changed flag.
-export let hasChanged = false;
-
 // Event handler: field:change:aborted.
 APP.on("field:change:aborted", (field) => {
     issue[field.id] = _.isArray(field.value) ? [] : null;
@@ -21,6 +18,14 @@ APP.on("field:change:aborted", (field) => {
 
 // Event handler: field:change:verified.
 APP.on("field:change:verified", (field) => {
-    hasChanged = true;
     issue[field.id] = field.value;
+});
+
+// Event handler: issue:save.
+APP.on("issue:save:start", () => {
+    if (issue.hasChanged) {
+        APP.trigger("issue:save:post");
+    } else {
+        APP.trigger("issue:save:abort");
+    }
 });

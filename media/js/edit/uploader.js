@@ -3,7 +3,9 @@ import * as APP         from  '../shared/application.js';
 import * as STATE       from  './state.js';
 
 // Event handler: setup:cvDataParsed.
-APP.on("issue:save:verified", () => {
+APP.on("issue:save:post", () => {
+    console.log(STATE.issue.encode());
+
     const url = CONSTANTS.URLS.API_BASE_URL +
                 (STATE.issue.isNew ? CONSTANTS.URLS.ISSUE_CREATE : CONSTANTS.URLS.ISSUE_UPDATE);
 

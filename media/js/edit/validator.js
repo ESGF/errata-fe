@@ -5,42 +5,66 @@
 // Module imports.
 import * as APP from '../shared/application.js';
 
-// Override staandard messages.
+// Message literals.
+const ERR_REQUIRED_FIELD = "Required field - you must enter a value.";
+const ERR_INVALID_MATERIALS = "Must be a list of valid image file links (.jpg, .gif, .png, .tiff).";
+const ERR_INVALID_LINKS = "Must be a list of valid links.";
+const ERR_INVALID_DATASETS = "Must be a list of valid dataset identifiers.";
+const ERR_INVALID_TITLE = "Must be 16 to 255 characters.";
+const ERR_INVALID_DESCRIPTION = "Must be 16 to 1023 characters.";
+
+// Override staandard error messages.
 validate.validators.presence.options = {
-    message: "Must enter a value."
+    message: ERR_REQUIRED_FIELD
 };
 
 // Custom validator: materials.
 validate.validators.materialsValidator = function(urls) {
-    const errMessage = "Issue materials must be a list of valid image URLs (.jpg, .gif, .png, .tiff)";
-
-    // Invalid if undefined.
+    // Field is not required.
     if (urls.length === 0) {
-        return errMessage;
+        return;
     }
 
     // Invalid if contains malformed URL.
     const imageFileExtensions = ["jpg", "gif", "png", "tiff"];
     const invalidURLs = _.filter(urls, (url) => {
-        return _.isObject(validate({material: url}, {material: {url: true}})) ||
+        return _.isObject(validate({field: url}, {field: {url: true}})) ||
                 _.contains(imageFileExtensions, _.last(url.split('.'))) === false;
     });
     if (invalidURLs.length > 0) {
-        return errMessage;
+        return ERR_INVALID_MATERIALS;
+    }
+};
+
+// Custom validator: urls.
+validate.validators.urlsValidator = function(urls) {
+    // Field is not required.
+    if (urls.length === 0) {
+        return;
+    }
+
+    // Invalid if contains malformed URL.
+    const invalidURLs = _.filter(urls, (url) => {
+        return _.isObject(validate({field: url}, {field: {url: true}}));
+    });
+    if (invalidURLs.length > 0) {
+        return ERR_INVALID_LINKS;
     }
 };
 
 // Custom validator: datasets.
 validate.validators.datasetsValidator = function(identifiers) {
-    const errMessage = "Issue datasets must be a list of valid dataset identifiers";
-
     // Invalid if undefined.
     if (identifiers.length === 0) {
-        return errMessage;
+        return ERR_REQUIRED_FIELD;
     }
 
     console.log("TODO: Check datasets prefixed with project code");
     console.log("TODO: POST datasets to server for validation");
+
+    return;
+    return ERR_INVALID_DATASETS;
+
 };
 
 // Set field constraints to be applied.
@@ -49,7 +73,7 @@ const CONSTRAINTS = {
         presence: true,
         inclusion: {
             within: ['cmip5', 'cmip6', 'cordex'],
-            message: 'Issue project is required.'
+            message: ERR_REQUIRED_FIELD
         }
     },
     title: {
@@ -57,7 +81,7 @@ const CONSTRAINTS = {
         length: {
             minimum: 16,
             maximum: 255,
-            message: "Issue title is required & must be 16 to 255 characters."
+            message: ERR_INVALID_TITLE
         }
     },
     description: {
@@ -65,7 +89,7 @@ const CONSTRAINTS = {
         length: {
             minimum: 16,
             maximum: 1023,
-            message: "Issue description is required & must be 16 to 1023 characters."
+            message: ERR_INVALID_DESCRIPTION
         }
     },
     severity: {
@@ -74,11 +98,13 @@ const CONSTRAINTS = {
     status: {
         presence: true
     },
+    urls: {
+        urlsValidator: {}
+    },
     materials: {
         materialsValidator: {}
     },
     datasets: {
-        presence: true,
         datasetsValidator: {}
     }
 }
@@ -101,17 +127,5 @@ APP.on("field:change", (field) => {
         APP.trigger("field:change:aborted", field);
     } else {
         APP.trigger("field:change:verified", field);
-    }
-});
-
-// Event handler: issue:save.
-APP.on("issue:save", (field) => {
-    const err = true;
-
-    // Fire event.
-    if (err) {
-        APP.trigger("issue:save:aborted");
-    } else {
-        APP.trigger("issue:save:verified");
     }
 });

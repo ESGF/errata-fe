@@ -20,9 +20,9 @@ APP.on("setup:setupDataDownload:error", () => {
     alert("TODO: setup:setupDataDownload:error");
 });
 
-// Event handler: issue save unrequired.
-APP.on("issue:save:unrequired", () => {
-    UTILS.displayInfoDialog("An error occurred whilst saving the issue details - please try again.  If the problem persists then contact support.");
+// Event handler: issue state is invalid.
+APP.on("issue:save:invalidated", () => {
+    UTILS.displayInfoDialog("Issue is invalid - please correct errors & try again.");
 });
 
 // Event handler: issue save postback.

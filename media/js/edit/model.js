@@ -1,11 +1,11 @@
 // Module imports.
-import * as STATE from  './state.js';
+import * as APP   from  '../shared/application.js';
 import * as UTILS from  '../shared/utilities.js';
 
 // An issue being either created / updated.
 export default class Issue {
     // Instance ctor.
-    constructor(uid) {
+    constructor() {
         this.datasets = [];
         this.description = null;
         this.materials = [];
@@ -17,25 +17,33 @@ export default class Issue {
         this.isNew = UTILS.getURLParam("uid") ? false : true;
         this.urls = [];
 
-        this.ext = new IssueExtensionInfo(this);
+        this.setHash();
     }
 
     // Full issue title.
     get fullTitle () {
-        var result;
-
         if (this.isNew) {
             return 'New Issue'
         }
 
+        let result;
         result = this.project.toUpperCase();
         result += " - ";
         result += this.title.slice(0, 48);
         if (this.title.length > 48) {
             result += "...";
         }
-
         return result;
+    }
+
+    // Returns flag indicating whether issue state has changed or not.
+    get hasChanged () {
+        return this.stateHash !== this.encode();
+    }
+
+    // Sets a pseudo-hash of the objects state.
+    setHash () {
+        this.stateHash = this.encode();
     }
 
     // Decodes an instance from data pulled from server.
@@ -64,21 +72,5 @@ export default class Issue {
             uid: this.uid,
             urls: this.urls
         })
-    }
-}
-
-// Extended issue information.
-class IssueExtensionInfo {
-    // Instance ctor.
-    constructor(i) {
-        this._issue = i;
-    }
-
-    get datasets () {
-        return this._issue.datasets.join('\n');
-    }
-
-    get materials () {
-        return this._issue.materials.join('\n');
     }
 }
