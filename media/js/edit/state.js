@@ -16,11 +16,11 @@ export let hasChanged = false;
 
 // Event handler: field:change:aborted.
 APP.on("field:change:aborted", (field) => {
-    issue[field.name] = _.isArray(field.value) ? [] : null;
+    issue[field.id] = _.isArray(field.value) ? [] : null;
 });
 
 // Event handler: field:change:verified.
 APP.on("field:change:verified", (field) => {
     hasChanged = true;
-    issue[field.name] = field.value;
+    issue[field.id] = field.value;
 });

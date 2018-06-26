@@ -10,17 +10,17 @@ import * as VALIDATOR   from  './validator.js';
 export default Backbone.View.extend({
     // Backbone: view event handlers.
     events: {
-        // Open page: home.
+        // DOM Event handler: open home page.
         'click img.esdoc-logo': () => {
             UTILS.openHomepage();
         },
 
-        // Open email: support.
+        // DOM Event handler: open email support.
         'click button.esdoc-support': () => {
             UTILS.openSupportEmail();
         },
 
-        // Save changes.
+        // DOM Event handler: save changes.
         'click button.esdoc-errata-save': () => {
             if (STATE.hasChanged) {
                 APP.trigger("issue:save");
@@ -29,21 +29,21 @@ export default Backbone.View.extend({
             }
         },
 
-        'change #project, #title, #description, #severity, #status': function (e) {
-            APP.trigger("field:change", {
-                name: $(e.target).attr("id"),
-                value: $(e.target).val().trim()
-            });
-        },
-
-        'change #materials, #datasets': function (e) {
-            APP.trigger("field:change", {
-                name: $(e.target).attr("id"),
-                value: _.filter(_.uniq(_.map($(e.target).val().split(','), (i) => {
+        // DOM Event handler: field change.
+        'change #project, #title, #description, #severity, #status, #materials, #datasets': function (e) {
+            const fieldID = $(e.target).attr("id");
+            let fieldValue = $(e.target).val().trim();
+            if (_.contains(["materials", "datasets"], fieldID)) {
+                fieldValue = _.filter(_.uniq(_.map(fieldValue.split(','), (i) => {
                     return i.trim();
                 })), (i) => {
                     return i.length > 0;
                 })
+            }
+            APP.trigger("field:change", {
+                id: fieldID,
+                name: fieldID,
+                value: fieldValue
             });
         }
     },
@@ -64,33 +64,13 @@ export default Backbone.View.extend({
 
     // Event handler: field:change:aborted.
     _onFieldChangeAborted: function (field) {
-        this.$("." + field.name).addClass('has-error');
-        this.$("#" + field.name + "ErrorMessage").text(field.err);
+        this.$("." + field.id).addClass('has-error');
+        this.$("#" + field.id + "ErrorMessage").text(field.err);
     },
 
     // Event handler: field:change:verified.
     _onFieldChangeVerified: function (field) {
-        this.$("." + field.name).removeClass('has-error');
-        this.$("#" + field.name + "ErrorMessage").text("");
-    },
-
-    // Validates form field.
-    isValid: function (fieldName, fieldValue) {
-        const err = VALIDATOR.apply(fieldName, fieldValue);
-        const fieldErrorElement = "#" + fieldName + "ErrorMessage";
-
-        // Invalid field: apply error styling.
-        if (err && err[fieldName]) {
-            this.$("." + fieldName).addClass('has-error');
-            this.$(fieldErrorElement).text(err[fieldName][0]);
-            this.$(fieldErrorElement).val(err[fieldName][0]);
-            return false;
-
-        // Valid field: apply error styling.
-        } else {
-            this.$("." + fieldName).removeClass('has-error');
-            this.$(fieldErrorElement).text("");
-            return true;
-        }
+        this.$("." + field.id).removeClass('has-error');
+        this.$("#" + field.id + "ErrorMessage").text("");
     }
 });

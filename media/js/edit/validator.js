@@ -89,15 +89,15 @@ APP.on("field:change", (field) => {
     const constraints = {};
 
     // Set field error.
-    target[field.name] = field.value === "" ? null : field.value;
-    constraints[field.name] = CONSTRAINTS[field.name];
+    target[field.id] = field.value === "" ? null : field.value;
+    constraints[field.id] = CONSTRAINTS[field.id];
     const err = validate(target, constraints, {
         fullMessages: false
     });
 
     // Fire event.
     if (err) {
-        field.err = err[field.name][0];
+        field.err = err[field.id][0];
         APP.trigger("field:change:aborted", field);
     } else {
         APP.trigger("field:change:verified", field);
