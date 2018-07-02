@@ -6,10 +6,19 @@ import * as STATE       from  './state.js';
 import * as VALIDATOR   from  './validator.js';
 
 
-// Set of fields.
-const FIELD_SET = [
+// Set of fields when creating a new issue.
+const FIELD_SET_NEW = [
     'project',
     'title',
+    'description',
+    'severity',
+    'urls',
+    'materials',
+    'datasets'
+];
+
+// Set of fields when editing an existing issue.
+const FIELD_SET_UPDATE = [
     'description',
     'severity',
     'status',
@@ -34,7 +43,8 @@ export default Backbone.View.extend({
 
         // DOM Event handler: save changes.
         'click button.esdoc-errata-save': function (e) {
-            _.each(FIELD_SET, this.setFieldValue, this);
+            const fieldSet = STATE.issue.isNew ? FIELD_SET_NEW : FIELD_SET_UPDATE;
+            _.each(fieldSet, this.setFieldValue, this);
             if ($('.field-value').hasClass('has-error')) {
                 APP.trigger("issue:save:invalidated");
             } else {
@@ -64,14 +74,19 @@ export default Backbone.View.extend({
 
     // Updates the value of a field.
     setFieldValue: function (fieldID) {
+        console.log(fieldID);
         let fieldValue = $('#' + fieldID).val().trim();
         if (_.contains(["urls", "materials", "datasets"], fieldID)) {
-            fieldValue = _.filter(_.uniq(_.map(fieldValue.split(','), (i) => {
+            fieldValue = fieldValue.split("\n");
+            fieldValue = _.map(fieldValue, (i) => {
                 return i.trim();
-            })), (i) => {
+            });
+            fieldValue = _.uniq(fieldValue);
+            fieldValue = _.filter(fieldValue, (i) => {
                 return i.length > 0;
-            })
+            });
         }
+
         APP.trigger("field:change", {
             id: fieldID,
             value: fieldValue
