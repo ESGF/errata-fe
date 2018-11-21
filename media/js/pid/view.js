@@ -61,7 +61,7 @@ export default Backbone.View.extend({
 
             uid = $(e.target).attr("title");
             if (uid) {
-                url = window.location.href.replace("pid", "viewer");
+                url = window.location.href.replace("pid", "view");
                 url += "?uid=";
                 url += uid;
                 UTILS.openURL(url, true);
