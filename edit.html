@@ -144,6 +144,9 @@
             <td class="field-name">Severity *</td>
             <td class="field-value severity">
                 <select id="severity" name="severity" class="form-control" tabindex="4">
+                    <% if (STATE.issue.isNew) { %>
+                        <option value="null">Select Severity</option>
+                    <% } %>
                     <% _.each(PYESSV.ESDOC.ERRATA.getSeverity(), function(i) { %>
                         <option value="<%= i.canonicalName %>"
                                 <%= i.isMatch(STATE.issue.severity) ? "selected" : "" %> >

@@ -93,7 +93,11 @@ const CONSTRAINTS = {
         }
     },
     severity: {
-        presence: true
+        presence: true,
+        inclusion: {
+            within: ['low', 'medium', 'high', 'critical'],
+            message: ERR_REQUIRED_FIELD
+        }
     },
     status: {
         presence: true
