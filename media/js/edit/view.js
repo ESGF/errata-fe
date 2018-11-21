@@ -41,6 +41,11 @@ export default Backbone.View.extend({
             UTILS.openSupportEmail();
         },
 
+        // DOM Event handler: open documentation.
+        'click button.esdoc-docs': () => {
+            UTILS.openDocumentation();
+        },
+
         // DOM Event handler: save changes.
         'click button.esdoc-errata-save': function (e) {
             const fieldSet = STATE.issue.isNew ? FIELD_SET_NEW : FIELD_SET_UPDATE;

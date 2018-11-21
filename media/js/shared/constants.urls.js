@@ -1,6 +1,9 @@
 // Set API base url.
 export const API_BASE_URL = window.origin;
 
+// Set documentation url.
+export const DOCUMENTATION = "http://localhost:5001/static/pidq.html";
+
 // ES-DOC homepage.
 export const HOME_PAGE = "https://es-doc.org";
 

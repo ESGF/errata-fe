@@ -18,6 +18,11 @@ export default Backbone.View.extend({
             UTILS.openSupportEmail();
         },
 
+        // DOM Event handler: open documentation.
+        'click button.esdoc-docs': () => {
+            UTILS.openDocumentation();
+        },        
+
         // Open page: errata detail.
         'click .task': (e) => {
             var url;

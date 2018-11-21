@@ -13,6 +13,11 @@ export const openURL = (url, inTab) => {
     }
 };
 
+// Opens module documentation.
+export const openDocumentation = () => {
+    openURL(constants.URLS.DOCUMENTATION, true);
+};
+
 // Opens the homepage.
 export const openHomepage = () => {
     openURL(constants.URLS.HOME_PAGE, true);

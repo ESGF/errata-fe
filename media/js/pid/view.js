@@ -18,6 +18,11 @@ export default Backbone.View.extend({
             UTILS.openSupportEmail();
         },
 
+        // Open documentation.
+        'click button.esdoc-docs': () => {
+            UTILS.openDocumentation();
+        },
+
         'change .btn-file :file': (e) => {
             var file, reader;
 

@@ -18,6 +18,11 @@ export default Backbone.View.extend({
             UTILS.openSupportEmail();
         },
 
+        // Open documentation.
+        'click button.esdoc-docs': () => {
+            UTILS.openDocumentation();
+        },
+
         // Open login page.
         'click button.esdoc-errata-login': () => {
             UTILS.openURL(CONSTANTS.URLS.OAUTH_AUTHORIZE, false);
