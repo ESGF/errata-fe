@@ -2,7 +2,7 @@
 export const CONTACT = "errata-contact@list.woc.noaa.gov";
 
 // Support email.
-export const SUPPORT = "errata-support@es-doc.org";
+export const SUPPORT = "support@errata.es-doc.org";
 
 // Default email subject.
 export const SUBJECT = 'ES-DOC ERRATA :: subject goes here';
