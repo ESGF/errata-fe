@@ -242,7 +242,7 @@
             <%= idx %>
         </small>
     </td>
-    <td class="issue-institute text-center col-md-1" title="issue institute">
+    <td class="issue-institute text-center" title="issue institute">
         <small>
             <%= issue.ext.institutionID %>
         </small>
@@ -267,7 +267,7 @@
             <%= issue.dateClosed ? issue.dateClosed.slice(0, 10) : '--' %>
         </small>
     </td>
-    <td class="issue-severity <%= issue.severity %>  text-center" title="issue severity">
+    <td class="issue-severity <%= issue.severity %> text-center" title="issue severity">
         <small>
             <%= issue.ext.severity.label %>
         </small>
