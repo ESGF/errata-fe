@@ -30,7 +30,7 @@
     <script src="ext/js.cookie-2.1.0.js"></script>
     <script src="ext/moment-2.12.0.min.js"></script>
     <script src="ext/numeral-1.5.3.min.js"></script>
-    <script src="ext/pyessv.js" type="text/javascript"></script>
+    <script src="ext/pyessv-0.2.0.min.js" type="text/javascript"></script>
     <script src="ext/validate.min.js" type="text/javascript"></script>
 
     <!-- ---------------------------------------------- -->
@@ -58,6 +58,7 @@
         </small>
         <strong class="h6"> v<%= APP.VERSION %></strong>
         <button class="esdoc-support btn btn-success">Support</button>
+        <button class="esdoc-docs btn btn-success">Docs</button>
         <button class="esdoc-errata-save btn btn-primary">Save</button>
     </h1>
 </header>
@@ -99,7 +100,7 @@
                         <% } %>
                         <% _.each(PYESSV.ESDOC.ERRATA.getProject(), function(i) { %>
                             <option value="<%= i.canonicalName %>"
-                                    <%= i.isMatch(STATE.issue.project) ? "selected" : "" %> >
+                                    <%= i.canonicalName === STATE.issue.project ? "selected" : "" %> >
                                 <%- i.label %>
                             </option>
                         <% }); %>
@@ -149,7 +150,7 @@
                     <% } %>
                     <% _.each(PYESSV.ESDOC.ERRATA.getSeverity(), function(i) { %>
                         <option value="<%= i.canonicalName %>"
-                                <%= i.isMatch(STATE.issue.severity) ? "selected" : "" %> >
+                                <%= i.canonicalName === STATE.issue.severity ? "selected" : "" %> >
                             <%- i.label %>
                         </option>
                     <% }); %>
@@ -164,10 +165,12 @@
             <td class="field-value status">
                 <select id="status" name="status" class="form-control" tabindex="5">
                     <% _.each(PYESSV.ESDOC.ERRATA.getStatus(), function(i) { %>
-                        <option value="<%= i.canonicalName %>"
-                                <%= i.isMatch(STATE.issue.status) ? "selected" : "" %> >
-                            <%- i.label %>
-                        </option>
+                        <% if (STATE.issue.status === 'new' || i.canonicalName !== 'new') { %>
+                            <option value="<%= i.canonicalName %>"
+                                    <%= i.canonicalName === STATE.issue.status  ? "selected" : "" %> >
+                                <%- i.label %>
+                            </option>
+                        <% } %>
                     <% }); %>
                 </select>
                 <div id="statusErrorMessage" class="field-error" />
@@ -318,7 +321,7 @@
                 <p><b id="infoDialogText"><b></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
             </div>
         </div>
     </div>

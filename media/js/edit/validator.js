@@ -100,7 +100,11 @@ const CONSTRAINTS = {
         }
     },
     status: {
-        presence: true
+        presence: true,
+        inclusion: {
+            within: ['new', 'onhold', 'resolved', 'wontfix'],
+            message: ERR_REQUIRED_FIELD
+        }
     },
     urls: {
         urlsValidator: {}

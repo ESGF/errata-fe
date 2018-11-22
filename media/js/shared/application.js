@@ -14,7 +14,7 @@ export const NAME = "Errata";
 export const ORGANIZATION = "ES-DOC";
 
 // Version.
-export const VERSION = '0.6.2.0';
+export const VERSION = '0.6.3.0';
 
 // Event router.
 export const events = _.extend({}, Backbone.Events);
