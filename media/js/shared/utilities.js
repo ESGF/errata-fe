@@ -18,6 +18,11 @@ export const openDocumentation = () => {
     openURL(constants.URLS.DOCUMENTATION, true);
 };
 
+// Opens PID documentation.
+export const openPIDDocumentation = () => {
+    openURL(constants.URLS.PIDDOCUMENTATION, true);
+};
+
 // Opens the homepage.
 export const openHomepage = () => {
     openURL(constants.URLS.HOME_PAGE, true);

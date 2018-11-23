@@ -20,7 +20,7 @@ export default Backbone.View.extend({
 
         // Open documentation.
         'click button.esdoc-docs': () => {
-            UTILS.openDocumentation();
+            UTILS.openPIDDocumentation();
         },
 
         'change .btn-file :file': (e) => {

@@ -3,6 +3,8 @@ export const API_BASE_URL = window.origin;
 
 // Set documentation url.
 export const DOCUMENTATION = "https://es-doc.github.io/esdoc-errata-client/";
+export const PIDDOCUMENTATION = "https://es-doc.github.io/esdoc-errata-client/lookup.html"
+
 
 // ES-DOC homepage.
 export const HOME_PAGE = "https://es-doc.org";
