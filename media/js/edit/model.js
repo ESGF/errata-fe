@@ -10,7 +10,6 @@ export default class Issue {
         this.description = null;
         this.materials = [];
         this.project = null;
-        this.severity = "low";
         this.status = "new";
         this.title = null;
         this.uid = UTILS.getURLParam("uid") || UTILS.generateUUID();
