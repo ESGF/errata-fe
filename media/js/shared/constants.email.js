@@ -1,5 +1,5 @@
 // Contact email.
-export const CONTACT = "errata-contact@list.woc.noaa.gov";
+export const CONTACT = "support@errata.es-doc.org";
 
 // Support email.
 export const SUPPORT = "support@errata.es-doc.org";
