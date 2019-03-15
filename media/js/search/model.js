@@ -1,7 +1,11 @@
+// Module imports.
+import * as UTILS from '../shared/utilities.js';
+
 // Encapsulates a search filter.
 export class SearchFilter {
     // Instance ctor.
     constructor(c) {
+        // Filter data.
         this.data = {
             all: _.sortBy(c.terms, (i) => {
                 return i.sortOrdinal || i.key;
@@ -9,7 +13,22 @@ export class SearchFilter {
             current: null,
             set: {}
         };
-        this.defaultKey = c.key === "esdoc:errata:project" ? "esdoc:errata:project:cmip6" : null,
+
+        // Filter default key.
+        if (c.key === "esdoc:errata:project") {
+            let projectParam = UTILS.getURLParam("project");
+            console.log(projectParam);
+            if (projectParam) {
+                projectParam = projectParam.toLowerCase();
+                this.defaultKey = `esdoc:errata:project:${projectParam}`;
+            } else {
+                this.defaultKey = 'esdoc:errata:project:cmip6';
+            }
+        } else {
+            this.defaultKey = null;
+        }
+
+        // Filter fields.
         this.key = c.key;
         this.label = c.label;
         this.project = c.key.startsWith('esdoc') ? null : c.key.split(':')[1];
@@ -17,17 +36,22 @@ export class SearchFilter {
                            c.key === "esdoc:errata:severity" ? 1000 :
                            c.key === "esdoc:errata:status" ? 1001 : 100;
 
+        // Project must be specified.
         if (c.key !== "esdoc:errata:project") {
             this.data.all.unshift({
                 key: this.key + ":*",
                 label: "*"
             });
         }
+
+        // Set current item using default key (if specified).
         if (this.defaultKey) {
             this.data.current = _.find(this.data.all, (i) => {
                 return i.key === this.defaultKey;
             });
         }
+
+        // Set current item and set of items.
         this.data.current = this.data.current || this.data.all[0];
         this.data.set = _.indexBy(this.data.all, 'key');
     }
