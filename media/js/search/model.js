@@ -1,5 +1,6 @@
 // Module imports.
 import * as UTILS from '../shared/utilities.js';
+import getDefaultFilterKey from './defaultFilterKeys.js';
 
 // Encapsulates a search filter.
 export class SearchFilter {
@@ -14,21 +15,8 @@ export class SearchFilter {
             set: {}
         };
 
-        // Filter default key.
-        if (c.key === "esdoc:errata:project") {
-            let projectParam = UTILS.getURLParam("project");
-            console.log(projectParam);
-            if (projectParam) {
-                projectParam = projectParam.toLowerCase();
-                this.defaultKey = `esdoc:errata:project:${projectParam}`;
-            } else {
-                this.defaultKey = 'esdoc:errata:project:cmip6';
-            }
-        } else {
-            this.defaultKey = null;
-        }
-
         // Filter fields.
+        this.defaultKey = getDefaultFilterKey(c) || null;
         this.key = c.key;
         this.label = c.label;
         this.project = c.key.startsWith('esdoc') ? null : c.key.split(':')[1];
