@@ -64,7 +64,7 @@ class AffectedFacetSet {
         });
         if (_.isUndefined(this.collection.cimDocumentType) === false) {
             _.each(this.terms, (i) => {
-                i.documentationURL = 'https://documentation.es-doc.org/' + project + '/' + this.collection.cimDocumentTypeSynonym + 's/' + i.canonicalName;
+                i.documentationURL = 'https://documentation.es-doc.org/' + project + '/' + this.collection.cimDocumentTypeAlternativeName + 's/' + i.canonicalName;
             });
         }
     }
