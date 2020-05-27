@@ -39,7 +39,7 @@ APP.on("issue:save:post:success", () => {
 });
 
 // Event handler: issue save begins.
-APP.on("issue:save:post:error", () => {
+APP.on("issue:save:post:error", (serverErrors) => {
     UTILS.hideFeedback();
     UTILS.displayInfoDialog("An error occurred whilst saving the issue details - please try again.  If the problem persists then contact support.");
 });
