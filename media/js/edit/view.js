@@ -67,6 +67,7 @@ export default Backbone.View.extend({
     initialize: function () {
         APP.on("field:change:aborted", this._onFieldChange, this);
         APP.on("field:change:verified", this._onFieldChange, this);
+        APP.on("issue:save:post:error", this._onSaveToServerError, this);
     },
 
     // Backbone: view renderer.
@@ -79,7 +80,6 @@ export default Backbone.View.extend({
 
     // Updates the value of a field.
     setFieldValue: function (fieldID) {
-        console.log(fieldID);
         let fieldValue = $('#' + fieldID).val().trim();
         if (_.contains(["urls", "materials", "datasets"], fieldID)) {
             fieldValue = fieldValue.split("\n");
@@ -107,5 +107,16 @@ export default Backbone.View.extend({
             this.$("." + field.id).removeClass('has-error');
             this.$("#" + field.id + "ErrorMessage").text("");
         }
+    },
+
+    // Event handler: issue:save:post:error.
+    _onSaveToServerError: function ({ responseJSON: error }) {
+        if (error.errorField) {
+            this.$(".field-value ." + error.errorField).addClass('has-error');
+            this.$("#" + error.errorField + "ErrorMessage").text(error.errorMessage);        
+        }
+        console.log(errorCode);
+        console.log(errorField);
+        console.log(errorMessage);
     }
 });

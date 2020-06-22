@@ -2,6 +2,7 @@
 import * as APP     from    '../shared/application.js';
 import * as CONSTANTS   from  '../shared/constants.js';
 import * as UTILS   from    '../shared/utilities.js';
+import { UI_UPDATE_DELAY } from '../shared/constants.misc.js';
 
 // Event handler: setup begins.
 APP.on("setup:begin", () => {
@@ -38,8 +39,13 @@ APP.on("issue:save:post:success", () => {
     });
 });
 
-// Event handler: issue save begins.
-APP.on("issue:save:post:error", (serverErrors) => {
+// Event handler: issue save error reported by server.
+APP.on("issue:save:post:error", (response) => {
     UTILS.hideFeedback();
-    UTILS.displayInfoDialog("An error occurred whilst saving the issue details - please try again.  If the problem persists then contact support.");
+    if (response && response.responseJSON && response.responseJSON.errorCode) {
+        UTILS.displayInfoDialog(`Issue is invalid - ${response.responseJSON.errorMessage}.`);
+    } else {
+        UTILS.displayInfoDialog("An error occurred whilst saving the issue details - please try again.  If the problem persists then contact support.");
+    }
 });
+
