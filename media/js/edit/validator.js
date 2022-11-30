@@ -29,7 +29,7 @@ validate.validators.materialsValidator = function(urls) {
     const imageFileExtensions = ["jpg", "gif", "png", "tiff"];
     const invalidURLs = _.filter(urls, (url) => {
         return _.isObject(validate({field: url}, {field: {url: true}})) ||
-                _.contains(imageFileExtensions, _.last(url.split('.'))) === false;
+               _.contains(imageFileExtensions, _.last(url.split('.'))) === false;
     });
     if (invalidURLs.length > 0) {
         return ERR_INVALID_MATERIALS;
