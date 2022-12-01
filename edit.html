@@ -4,6 +4,7 @@
 <!-- ---------------------------------------------- -->
 <!-- Document head 									-->
 <!-- ---------------------------------------------- -->
+
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
@@ -11,9 +12,9 @@
     <title>ES-DOC - Errata - Create / Edit Issue</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- ---------------------------------------------- -->
-	<!-- CSS: 											-->
-	<!-- ---------------------------------------------- -->
+    <!-- ---------------------------------------------- -->
+    <!-- CSS: 											-->
+    <!-- ---------------------------------------------- -->
     <link href="ext/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="media/css/shared/defaults.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="media/css/shared/cv.css" media="screen" rel="stylesheet" type="text/css" />
@@ -43,10 +44,11 @@
 <!-- ---------------------------------------------- -->
 <!-- Document body 									-->
 <!-- ---------------------------------------------- -->
+
 <body>
 
-<!-- BEGIN: Page header -->
-<script type="underscore/template" id="template-header">
+    <!-- BEGIN: Page header -->
+    <script type="underscore/template" id="template-header">
 <header class="main">
     <img src="media/img/logo.png"
          alt="Earth System Documentation"
@@ -57,16 +59,45 @@
             <b><%= APP.LONG_NAME %> - <% if (STATE.issue.isNew) { %>Create<% } else { %>Edit<% } %> Issue</b>
         </small>
         <strong class="h6"> v<%= APP.VERSION %></strong>
-        <button class="esdoc-support btn btn-success">Support</button>
-        <button class="esdoc-docs btn btn-success">Docs</button>
+
+        <!-- Support -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-success">Support</button>
+            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+                <li class="esdoc-support"><a href="#">Email</a></li>
+                <li class="esdoc-docs"><a href="#">Documentation</a></li>
+            </ul>
+        </div>
+
+        <!-- Save -->
         <button class="esdoc-errata-save btn btn-primary">Save</button>
+
+        <!-- Moderation -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary">Moderate</button>
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#" class="esdoc-moderation-accept">Accept</a></li>
+                <li><a href="#" class="esdoc-moderation-reject">Reject</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#" class="esdoc-moderation-extend">Extend</a></li>
+          </ul>
+        </div>
+
     </h1>
 </header>
 </script>
-<!-- END: page header -->
+    <!-- END: page header -->
 
-<!-- BEGIN: Issue -->
-<script type="underscore/template" id="template-issue">
+    <!-- BEGIN: Issue -->
+    <script type="underscore/template" id="template-issue">
 <article class="container-fluid">
     <header class="bg-primary">
         <h2>
@@ -76,10 +107,10 @@
     <%= UTILS.renderTemplate("template-issue-details") %>
 </article>
 </script>
-<!-- END: Issue -->
+    <!-- END: Issue -->
 
-<!-- BEGIN: Issue details -->
-<script type="underscore/template" id="template-issue-details">
+    <!-- BEGIN: Issue details -->
+    <script type="underscore/template" id="template-issue-details">
 
 <table class="table">
     <tbody>
@@ -227,10 +258,10 @@
     </tbody>
 </table>
 </script>
-<!-- END: Issue details -->
+    <!-- END: Issue details -->
 
-<!-- BEGIN: Issue materials -->
-<script type="underscore/template" id="template-issue-materials">
+    <!-- BEGIN: Issue materials -->
+    <script type="underscore/template" id="template-issue-materials">
 <% _.each(STATE.issue.materials, function(material) { %>
         <img src="<%= material %>"
              alt="NO MATERIALS PROVIDED"
@@ -238,10 +269,10 @@
              class="img"/>
 <% }); %>
 </script>
-<!-- END: Issue materials -->
+    <!-- END: Issue materials -->
 
-<!-- BEGIN: Issue datasets -->
-<script type="underscore/template" id="template-issue-datasets">
+    <!-- BEGIN: Issue datasets -->
+    <script type="underscore/template" id="template-issue-datasets">
 <table class="table table-bordered table-striped">
     <thead>
         <tr class="column-headers">
@@ -282,51 +313,52 @@
     </tfoot>
 </ table>
 </script>
-<!-- END: Issue datasets -->
+    <!-- END: Issue datasets -->
 
-<!-- BEGIN: feedback -->
-<div id="feedbackContainer" class="modal fade feedback-container">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">
-                    <span class="feedback-title"></span>
-                    <small class="feedback-version"></small>
-                </h4>
-            </div>
-            <div class="modal-body">
-                <p><b id="feedbackText"><b></p>
-                <div class="progress">
-                  <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-                    <span class="sr-only">100% Complete</span>
-                  </div>
+    <!-- BEGIN: feedback -->
+    <div id="feedbackContainer" class="modal fade feedback-container">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span class="feedback-title"></span>
+                        <small class="feedback-version"></small>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <p><b id="feedbackText"><b></p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar"
+                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                            <span class="sr-only">100% Complete</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- END: feedback -->
+    <!-- END: feedback -->
 
-<!-- BEGIN: information dialog -->
-<div id="infoDialogContainer" class="modal fade feedback-container">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">
-                    <span class="infoDialog-title"></span>
-                    <small class="infoDialog-version"></small>
-                </h4>
-            </div>
-            <div class="modal-body">
-                <p><b id="infoDialogText"><b></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+    <!-- BEGIN: information dialog -->
+    <div id="infoDialogContainer" class="modal fade feedback-container">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span class="infoDialog-title"></span>
+                        <small class="infoDialog-version"></small>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <p><b id="infoDialogText"><b></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- END: information dialog -->
+    <!-- END: information dialog -->
 
 </body>
 

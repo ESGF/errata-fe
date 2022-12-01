@@ -36,6 +36,11 @@ export default Backbone.View.extend({
             UTILS.openHomepage();
         },
 
+        // DOM Event handler: support :: open email.
+        'click button.esdoc-support': function (e) {
+            UTILS.openSupportEmail();
+        },
+
         // DOM Event handler: open email support.
         'click button.esdoc-support': function (e) {
             UTILS.openSupportEmail();
