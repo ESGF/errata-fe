@@ -47,17 +47,30 @@
 <!-- BEGIN: Page header -->
 <script type="underscore/template" id="template-header">
 <header class="main">
+    <!-- Logo -->
     <img src="media/img/logo.png"
          alt="Earth System Documentation"
          title="Earth System Documentation"
          class="pull-left esdoc-logo" />
     <h1 class="pull-right">
+        <!-- Title -->
         <small>
             <b><%= APP.LONG_NAME %> - PID</b>
         </small>
         <strong class="h6"> v<%= APP.VERSION %></strong>
-        <button class="esdoc-support btn btn-success">Support</button>
-        <button class="esdoc-docs btn btn-success">Docs</button>
+
+        <!-- Menu - Support -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-success">Support</button>
+            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+                <li class="esdoc-support"><a href="#">Email</a></li>
+                <li class="esdoc-docs"><a href="#">Documentation</a></li>
+            </ul>
+        </div>
     </h1>
 </header>
 </script>

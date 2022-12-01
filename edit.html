@@ -50,17 +50,19 @@
     <!-- BEGIN: Page header -->
     <script type="underscore/template" id="template-header">
 <header class="main">
+    <!-- Logo -->
     <img src="media/img/logo.png"
          alt="Earth System Documentation"
          title="Earth System Documentation"
          class="pull-left esdoc-logo" />
     <h1 class="pull-right">
+        <!-- Title -->
         <small>
             <b><%= APP.LONG_NAME %> - <% if (STATE.issue.isNew) { %>Create<% } else { %>Edit<% } %> Issue</b>
         </small>
         <strong class="h6"> v<%= APP.VERSION %></strong>
 
-        <!-- Support -->
+        <!-- Menu - Support -->
         <div class="btn-group">
             <button type="button" class="btn btn-success">Support</button>
             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -73,10 +75,10 @@
             </ul>
         </div>
 
-        <!-- Save -->
-        <button class="esdoc-errata-save btn btn-primary">Save</button>
+        <!-- Menu - Save -->
+        <button class="esdoc-errata-save btn btn-primary btn-single">Save</button>
 
-        <!-- Moderation -->
+        <!-- Menu - Moderation -->
         <div class="btn-group">
             <button type="button" class="btn btn-primary">Moderate</button>
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
