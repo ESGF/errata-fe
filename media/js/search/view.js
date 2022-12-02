@@ -13,13 +13,13 @@ export default Backbone.View.extend({
             UTILS.openHomepage();
         },
 
-        // Open email: support.
-        'click button.esdoc-support': () => {
+        // DOM Event handler: support :: open email.
+        'click a.esdoc-support': function (e) {
             UTILS.openSupportEmail();
         },
 
-        // Open documentation.
-        'click button.esdoc-docs': () => {
+        // DOM Event handler: open documentation.
+        'click a.esdoc-docs': () => {
             UTILS.openDocumentation();
         },
 

@@ -68,8 +68,8 @@
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu">
-                <li class="esdoc-support"><a href="#">Email</a></li>
-                <li class="esdoc-docs"><a href="#">Documentation</a></li>
+                <li><a class="esdoc-support" href="#">Email</a></li>
+                <li><a class="esdoc-docs" href="#">Documentation</a></li>
             </ul>
         </div>
 
@@ -261,6 +261,14 @@
             </td>
         </tr>
 
+        <!-- moderation -->
+        <tr>
+            <td class="field-name">Moderation Status</td>
+            <td class="field-value issue-moderation-status <%= STATE.issue.statusModeration %>">
+                <%= STATE.issue.statusModeration.toUpperCase() %>
+            </td>
+        </tr>
+
         <!-- tracking info -->
         <tr>
             <td class="field-name">Tracking Info.</td>
@@ -284,14 +292,6 @@
                 </td>
             </tr>
         <% } %>
-
-        <!-- moderation -->
-        <tr>
-            <td class="field-name">Moderation Status</td>
-            <td class="field-value issue-moderation-status <%= STATE.issue.statusModeration %>">
-                <%= STATE.issue.statusModeration.toUpperCase() %>
-            </td>
-        </tr>
 
     </tbody>
 </table>
