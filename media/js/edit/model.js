@@ -11,6 +11,7 @@ export default class Issue {
         this.materials = [];
         this.project = null;
         this.status = "new";
+        this.statusModeration = "not-required";
         this.title = null;
         this.uid = UTILS.getURLParam("uid") || UTILS.generateUUID();
         this.isNew = UTILS.getURLParam("uid") ? false : true;
@@ -47,12 +48,14 @@ export default class Issue {
 
     // Decodes an instance from data pulled from server.
     decode (i) {
+        console.log(i);
         this.datasets = i.datasets;
         this.description = i.description;
         this.materials = i.materials;
         this.project = i.project;
         this.severity = i.severity;
         this.status = i.status;
+        this.statusModeration = i.statusModeration;
         this.title = i.title;
         this.uid = i.uid;
         this.urls = i.urls;
