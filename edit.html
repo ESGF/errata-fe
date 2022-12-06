@@ -79,19 +79,21 @@
         <button class="esdoc-errata-save btn btn-primary btn-single">Save</button>
 
         <!-- Menu - Moderation -->
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary">Moderate</button>
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="caret"></span>
-                <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a href="#" class="esdoc-moderation-accept">Accept</a></li>
-                <li><a href="#" class="esdoc-moderation-reject">Reject</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#" class="esdoc-moderation-extend">Extend</a></li>
-          </ul>
-        </div>
+        <% if (STATE.isModerator) { %>
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary">Moderate</button>
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#" class="esdoc-moderation-accept">Accept</a></li>
+                    <li><a href="#" class="esdoc-moderation-reject">Reject</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#" class="esdoc-moderation-extend">Extend</a></li>
+              </ul>
+            </div>
+        <% } %>
 
     </h1>
 </header>
@@ -249,6 +251,20 @@
                           placeholder="Enter a new line separated list of ESG-F datset identifiers."
                           rows="15"><%= STATE.issue.datasets.join('\n') %></textarea>
                   <div id="datasetsErrorMessage" class="field-error" />
+            </td>
+        </tr>
+
+        <!-- moderation -->
+        <tr>
+            <td class="field-name">Moderation Status</td>
+            <td class="field-value issue-moderation-status <%= STATE.issue.moderationStatus %>">
+                <%= STATE.issue.moderationStatus.toUpperCase() %>
+            </td>
+        </tr>
+        <tr>
+            <td class="field-name">Moderation Window</td>
+            <td class="field-value issue-moderation-window">
+                <%= STATE.issue.moderationWindow %>
             </td>
         </tr>
 

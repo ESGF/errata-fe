@@ -34,8 +34,6 @@ APP.on("issue:save:post", () => {
 APP.on("issue:moderation:accept", () => {
     const url = `${CONSTANTS.URLS.API_BASE_URL}${CONSTANTS.URLS.MODERATION_ACCEPT}?uid=${STATE.issue.uid}`;
 
-    console.log(STATE.issue);
-
     APP.trigger("issue:moderation:accept:starts");
 
     $.ajax({
@@ -62,8 +60,6 @@ APP.on("issue:moderation:accept", () => {
 APP.on("issue:moderation:extend", () => {
     const url = `${CONSTANTS.URLS.API_BASE_URL}${CONSTANTS.URLS.MODERATION_EXTEND}?uid=${STATE.issue.uid}`;
 
-    console.log(STATE.issue);
-
     APP.trigger("issue:moderation:extend:starts");
 
     $.ajax({
@@ -89,8 +85,6 @@ APP.on("issue:moderation:extend", () => {
 // Event handler: issue:moderation:reject.
 APP.on("issue:moderation:reject", () => {
     const url = `${CONSTANTS.URLS.API_BASE_URL}${CONSTANTS.URLS.MODERATION_REJECT}?uid=${STATE.issue.uid}`;
-
-    console.log(STATE.issue);
 
     APP.trigger("issue:moderation:reject:starts");
 

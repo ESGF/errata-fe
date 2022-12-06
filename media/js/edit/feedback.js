@@ -48,4 +48,3 @@ APP.on("issue:save:post:error", (response) => {
         UTILS.displayInfoDialog("An error occurred whilst saving the issue details - please try again.  If the problem persists then contact support.");
     }
 });
-

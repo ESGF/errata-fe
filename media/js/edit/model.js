@@ -1,6 +1,6 @@
 // Module imports.
-import * as APP   from  '../shared/application.js';
-import * as UTILS from  '../shared/utilities.js';
+import * as APP         from  '../shared/application.js';
+import * as UTILS       from  '../shared/utilities.js';
 
 // An issue being either created / updated.
 export default class Issue {
@@ -48,7 +48,6 @@ export default class Issue {
 
     // Decodes an instance from data pulled from server.
     decode (i) {
-        console.log(i);
         this.datasets = i.datasets;
         this.description = i.description;
         this.materials = i.materials;
@@ -56,6 +55,7 @@ export default class Issue {
         this.severity = i.severity;
         this.status = i.status;
         this.moderationStatus = i.moderationStatus;
+        this.moderationWindow = i.moderationWindow;
         this.title = i.title;
         this.uid = i.uid;
         this.urls = i.urls;
