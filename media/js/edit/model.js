@@ -11,7 +11,7 @@ export default class Issue {
         this.materials = [];
         this.project = null;
         this.status = "new";
-        this.statusModeration = "not-required";
+        this.moderationStatus = "not-required";
         this.title = null;
         this.uid = UTILS.getURLParam("uid") || UTILS.generateUUID();
         this.isNew = UTILS.getURLParam("uid") ? false : true;
@@ -55,7 +55,7 @@ export default class Issue {
         this.project = i.project;
         this.severity = i.severity;
         this.status = i.status;
-        this.statusModeration = i.statusModeration;
+        this.moderationStatus = i.moderationStatus;
         this.title = i.title;
         this.uid = i.uid;
         this.urls = i.urls;
