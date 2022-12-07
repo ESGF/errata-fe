@@ -79,10 +79,11 @@
         <!-- Menu - PID -->
         <button class="esdoc-pid-lookup btn btn-primary btn-single">PID Search</button>
 
-        <!-- Menu - Create | Login -->
-        <% if (STATE.isAuthenticated) {%>
-            <button class="esdoc-errata-create btn btn-primary btn-single">Create</button>
-        <% } else { %>
+        <!-- Menu - Create -->
+        <button class="esdoc-errata-create btn btn-primary btn-single">Create</button>
+
+        <!-- Menu - Login -->
+        <% if (!STATE.isAuthenticated) {%>
             <button class="esdoc-errata-login btn btn-primary btn-single">Login</button>
         <% }; %>
     </h1>
@@ -144,48 +145,64 @@
                 #
             </small>
         </th>
+
         <th title='Institution Identifier' class="text-center sort-target sort-target-institutionID">
             <small class="sort-target-institutionID">
                 Institute
             </small>
             <span class='pull-right glyphicon sort-target-institutionID' />
         </th>
+
         <th title='Title' class="sort-target sort-target-title">
             <small class="sort-target-title">
                 Title
             </small>
             <span class='pull-right glyphicon sort-target-title' />
         </th>
+
         <th title='Date Created' class="text-center sort-target sort-target-dateCreated">
             <small class="sort-target-dateCreated">
                 Created
             </small>
             <span class='pull-right glyphicon sort-target-dateCreated' />
         </th>
+
         <th title='Date Last Updated' class="text-center sort-target sort-target-dateUpdated">
             <small class="sort-target-dateUpdated">
                 Updated
             </small>
             <span class='pull-right glyphicon sort-target-dateUpdated' />
         </th>
+
         <th title='Date Closed' class="text-center sort-target sort-target-dateClosed">
             <small class="sort-target-dateClosed">
                 Closed
             </small>
             <span class='pull-right glyphicon sort-target-dateClosed' />
         </th>
+
         <th title='Severity' class="text-center sort-target sort-target-severity">
             <small class="sort-target-severity">
                 Severity
             </small>
             <span class='pull-right glyphicon sort-target-severity' />
         </th>
+
         <th title='Status' class="text-center sort-target sort-target-status">
             <small class="sort-target-status">
                 Status
             </small>
             <span class='pull-right glyphicon sort-target-status' />
         </th>
+
+        <% if (STATE.isModerator) { %>
+            <th title='Moderation Status' class="text-center sort-target sort-target-moderation-status">
+                <small class="sort-target-moderation-status">
+                    Moderation
+                </small>
+                <span class='pull-right glyphicon sort-target-moderation-status' />
+            </th>    
+        <% } %>
     </tr>
 </thead>
 </script>

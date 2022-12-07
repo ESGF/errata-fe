@@ -118,6 +118,21 @@
 
 <table class="table">
     <tbody>
+        <!-- Field: email -->
+        <% if (STATE.isAnonymous) { %>
+            <tr>
+                <td class="field-name">Email Address *</td>
+                <td class="field-value email-address">
+                    <input id="emailAddress"
+                           name="emailAddress"
+                           type="text"
+                           tabindex="2"
+                           class="form-control"
+                           placeholder="Enter your email - a system moderator will contact you in due course." >
+                <div id="emailAddressErrorMessage" class="field-error" />
+             </td>
+            </tr>
+        <% } %>
 
         <!-- Field: project -->
         <tr>
@@ -254,19 +269,21 @@
             </td>
         </tr>
 
-        <!-- moderation -->
-        <tr>
-            <td class="field-name">Moderation Status</td>
-            <td class="field-value issue-moderation-status <%= STATE.issue.moderationStatus %>">
-                <%= STATE.issue.moderationStatus.toUpperCase() %>
-            </td>
-        </tr>
-        <tr>
-            <td class="field-name">Moderation Window</td>
-            <td class="field-value issue-moderation-window">
-                <%= STATE.issue.moderationWindow %>
-            </td>
-        </tr>
+        <!-- Fields: Moderation -->
+        <% if (STATE.isModerator) { %>
+            <tr>
+                <td class="field-name">Moderation Status</td>
+                <td class="field-value issue-moderation-status <%= STATE.issue.moderationStatus %>">
+                    <%= STATE.issue.moderationStatus.toUpperCase() %>
+                </td>
+            </tr>
+            <tr>
+                <td class="field-name">Moderation Window</td>
+                <td class="field-value issue-moderation-window">
+                    <%= STATE.issue.moderationWindow %>
+                </td>
+            </tr>
+        <% } %>
 
         <!-- Footer -->
         <tr>
