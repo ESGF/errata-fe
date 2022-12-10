@@ -72,7 +72,8 @@ export default class Issue {
             status: this.status,
             title: this.title,
             uid: this.uid,
-            urls: this.urls
+            urls: this.urls,
+            userEmail: this.email
         })
     }
 }

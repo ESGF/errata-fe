@@ -122,15 +122,15 @@
         <% if (STATE.isAnonymous) { %>
             <tr>
                 <td class="field-name">Email Address *</td>
-                <td class="field-value email-address">
-                    <input id="emailAddress"
-                           name="emailAddress"
+                <td class="field-value email">
+                    <input id="email"
+                           name="email"
                            type="text"
                            tabindex="2"
                            class="form-control"
                            placeholder="Enter your email - a system moderator will contact you in due course." >
-                <div id="emailAddressErrorMessage" class="field-error" />
-             </td>
+                    <div id="emailErrorMessage" class="field-error" />
+                 </td>
             </tr>
         <% } %>
 

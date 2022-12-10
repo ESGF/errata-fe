@@ -5,8 +5,12 @@ import * as STATE       from  './state.js';
 
 // Event handler: issue:save:post.
 APP.on("issue:save:post", () => {
-    const url = CONSTANTS.URLS.API_BASE_URL +
-                (STATE.issue.isNew ? CONSTANTS.URLS.ISSUE_CREATE : CONSTANTS.URLS.ISSUE_UPDATE);
+    let url = CONSTANTS.URLS.API_BASE_URL;
+    if (STATE.isAnonymous) {
+        url += STATE.issue.isNew ? CONSTANTS.URLS.ISSUE_PROPOSE : CONSTANTS.URLS.ISSUE_UPDATE;
+    } else {
+        url += STATE.issue.isNew ? CONSTANTS.URLS.ISSUE_CREATE : CONSTANTS.URLS.ISSUE_UPDATE;
+    }
 
     APP.trigger("issue:save:post:starts");
 
