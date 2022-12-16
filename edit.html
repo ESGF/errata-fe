@@ -58,7 +58,15 @@
     <h1 class="pull-right">
         <!-- Title -->
         <small>
-            <b><%= APP.LONG_NAME %> - <% if (STATE.issue.isNew) { %>Create<% } else { %>Edit<% } %> Issue</b>
+            <% if (STATE.issue.isNew) {%>
+                <% if (STATE.isAuthenticated) {%>
+                    <b><%= APP.LONG_NAME %> - Create Issue</b>
+                <% } else { %>
+                    <b><%= APP.LONG_NAME %> - Propose Issue</b>
+                <% }; %>
+            <% } else { %>
+                <b><%= APP.LONG_NAME %> - Edit Issue</b>
+            <% }; %>
         </small>
         <strong class="h6"> v<%= APP.VERSION %></strong>
 

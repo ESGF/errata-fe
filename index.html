@@ -80,7 +80,14 @@
         <button class="esdoc-pid-lookup btn btn-primary btn-single">PID Search</button>
 
         <!-- Menu - Create -->
-        <button class="esdoc-errata-create btn btn-primary btn-single">Create</button>
+        <% if (STATE.isAuthenticated) {%>
+            <button class="esdoc-errata-create btn btn-primary btn-single">Create</button>
+        <% }; %>
+
+        <!-- Menu - Propose -->
+        <% if (!STATE.isAuthenticated) {%>
+            <button class="esdoc-errata-propose btn btn-primary btn-single">Propose</button>
+        <% }; %>
 
         <!-- Menu - Login -->
         <% if (!STATE.isAuthenticated) {%>

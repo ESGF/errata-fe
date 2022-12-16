@@ -33,6 +33,11 @@ export default Backbone.View.extend({
             UTILS.openURL(CONSTANTS.URLS.EDIT_PAGE, true);
         },
 
+        // Open propose issue page.
+        'click button.esdoc-errata-propose': () => {
+            UTILS.openURL(CONSTANTS.URLS.EDIT_PAGE, true);
+        },
+
         // Open page: pid lookup.
         'click button.esdoc-pid-lookup': () => {
             UTILS.openURL(CONSTANTS.URLS.PID_PAGE, true);
