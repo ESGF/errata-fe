@@ -22,13 +22,16 @@ export const ISSUE_PROPOSE = "/1/issue/propose";
 export const ISSUE_UPDATE = "/1/issue/update";
 
 // Issue moderation: accept.
-export const MODERATION_ACCEPT = "/1/issue/accept";
+export const MODERATION_ACCEPT = "/1/issue/moderation/accept";
 
 // Issue moderation: extend.
-export const MODERATION_EXTEND = "/1/issue/extend";
+export const MODERATION_EXTEND = "/1/issue/moderation/extend";
 
 // Issue moderation: reject.
-export const MODERATION_REJECT = "/1/issue/reject";
+export const MODERATION_REJECT = "/1/issue/moderation/reject";
+
+// Issue moderation: search.
+export const MODERATION_SEARCH = "/1/issue/moderation/search";
 
 // OAuth authorize.
 export const OAUTH_AUTHORIZE = window.location.origin + "/oauth/authorize";
