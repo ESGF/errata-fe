@@ -79,6 +79,11 @@
         <!-- Menu - PID -->
         <button class="esdoc-pid-lookup btn btn-primary btn-single">PID Search</button>
 
+        <!-- Menu - Moderation -->
+        <% if (STATE.isModerator) {%>
+            <button class="esdoc-errata-moderation btn btn-primary btn-single">Moderation</button>
+        <% }; %>
+
         <!-- Menu - Create -->
         <% if (STATE.isAuthenticated) {%>
             <button class="esdoc-errata-create btn btn-primary btn-single">Create</button>
@@ -201,15 +206,6 @@
             </small>
             <span class='pull-right glyphicon sort-target-status' />
         </th>
-
-        <% if (STATE.isModerator) { %>
-            <th title='Moderation Status' class="text-center sort-target sort-target-moderation-status">
-                <small class="sort-target-moderation-status">
-                    Moderation
-                </small>
-                <span class='pull-right glyphicon sort-target-moderation-status' />
-            </th>    
-        <% } %>
     </tr>
 </thead>
 </script>
