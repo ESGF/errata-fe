@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- ---------------------------------------------- -->
+<!-- Document head 									-->
+<!-- ---------------------------------------------- -->
+<head>
+    <!-- ---------------------------------------------- -->
+    <!-- Meta                                           -->
+    <!-- ---------------------------------------------- -->
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <link rel="shortcut icon" href="media/img/favicon.ico" type="image/x-icon" />
+    <title>ES-DOC - Errata - Search</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- ---------------------------------------------- -->
+	<!-- CSS 											-->
+	<!-- ---------------------------------------------- -->
+    <link href="ext/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="media/css/shared/defaults.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="media/css/shared/cv.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="media/css/shared/header.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="media/css/moderation/filter.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="media/css/moderation/grid.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="media/css/moderation/other.css" media="screen" rel="stylesheet" type="text/css" />
+
+    <!-- ---------------------------------------------- -->
+    <!-- JS: 3rd party libraries                        -->
+    <!-- ---------------------------------------------- -->
+    <script src="ext/jquery-2.2.3.min.js" defer></script>
+    <script src="ext/underscore-1.9.0.min.js" defer></script>
+    <script src="ext/backbone-1.4.1.min.js" defer></script>
+    <script src="ext/bootstrap-3.3.6/js/bootstrap.min.js" defer></script>
+    <script src="ext/js.cookie-2.2.0.js" defer></script>
+    <script src="ext/moment-2.29.4.min.js" defer></script>
+    <script src="ext/numeral-1.5.3.min.js" defer></script>
+
+    <!-- ---------------------------------------------- -->
+    <!-- JS: Application script                         -->
+    <!-- ---------------------------------------------- -->
+    <script src="media/js/moderation/index.js" type="module"></script>
+    <script src="dist/moderation.js" defer nomodule></script>
+</head>
+
+<!-- ---------------------------------------------- -->
+<!-- Document body 									-->
+<!-- ---------------------------------------------- -->
+<body>
+
+<!-- BEGIN: Page header -->
+<script type="underscore/template" id="template-header">
+<header class="main">
+    <!-- Logo -->
+    <img src="media/img/logo.png"
+         alt="Earth System Documentation"
+         title="Earth System Documentation"
+         class="pull-left esdoc-logo" />
+    <h1 class="pull-right">
+        <!-- Title -->
+        <small>
+            <b><%= APP.LONG_NAME %> - Search</b>
+        </small>
+        <strong class="h6"> v<%= APP.VERSION %></strong>
+
+        <!-- Menu - Support -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-success">Support</button>
+            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="esdoc-support" href="#">Email</a></li>
+                <li><a class="esdoc-docs" href="#">Documentation</a></li>
+            </ul>
+        </div>
+
+        <!-- Menu - PID -->
+        <button class="esdoc-pid-lookup btn btn-primary btn-single">PID Search</button>
+
+        <!-- Menu - Moderation -->
+        <% if (STATE.isModerator) {%>
+            <button class="esdoc-errata-moderation btn btn-primary btn-single">Moderation</button>
+        <% }; %>
+
+        <!-- Menu - Create -->
+        <% if (STATE.isAuthenticated) {%>
+            <button class="esdoc-errata-create btn btn-primary btn-single">Create</button>
+        <% }; %>
+
+        <!-- Menu - Propose -->
+        <% if (!STATE.isAuthenticated) {%>
+            <button class="esdoc-errata-propose btn btn-primary btn-single">Propose</button>
+        <% }; %>
+
+        <!-- Menu - Login -->
+        <% if (!STATE.isAuthenticated) {%>
+            <button class="esdoc-errata-login btn btn-primary btn-single">Login</button>
+        <% }; %>
+    </h1>
+</header>
+</script>
+<!-- END: page header -->
+
+<!-- BEGIN: filter panel -->
+<script type="underscore/template" id="template-filter">
+<div class="container-fluid bg-primary filter">
+    <div class="row">
+        <% _.each(_.sortBy(STATE.getActiveFilters(), 'uiPosition'), function(f) { %>
+        <label>
+            <%- f.label %>:
+        </label>
+        <% }); %>
+    </div>
+    <div class="row">
+        <% _.each(_.sortBy(STATE.getActiveFilters(), 'uiPosition'), function(f) { %>
+        <span>
+            <select id="filter-<%= f.key %>" class="form-control input-sm">
+                <% _.each(f.data.all, function(i) { %>
+                    <option value="<%= i.key %>" <%= i === f.data.current ? "selected" : "" %> >
+                        <%- i.label %>
+                    </option>
+                <% }); %>
+            </select>
+        </span>
+        <% }); %>
+    </div>
+</div>
+</script>
+<!-- END: filter panel -->
+
+<!-- BEGIN: grid -->
+<script type="underscore/template" id="template-grid">
+<table class='container-fluid table table-hover table-bordered table-condensed table-striped monitoring-table'>
+    <%= UTILS.renderTemplate("template-grid-header") %>
+    <%= UTILS.renderTemplate("template-grid-body") %>
+    <%= UTILS.renderTemplate("template-grid-footer") %>
+</table>
+</script>
+<!-- END: grid -->
+
+<!-- BEGIN: grid header -->
+<script type="underscore/template" id="template-grid-header">
+<thead>
+    <tr class="bg-primary">
+        <th colspan="8">
+            <span class="pull-left summary-main">
+            <%= UTILS.renderTemplate("template-grid-header-summary") %>
+            </span>
+            <%= UTILS.renderTemplate("template-grid-header-pager") %>
+        </th>
+    </tr>
+    <tr class="column-headers">
+        <th title='Number' class="text-center sort-target">
+            <small>
+                #
+            </small>
+        </th>
+
+        <th title='Institution Identifier' class="text-center sort-target sort-target-institutionID">
+            <small class="sort-target-institutionID">
+                Institute
+            </small>
+            <span class='pull-right glyphicon sort-target-institutionID' />
+        </th>
+
+        <th title='Title' class="sort-target sort-target-title">
+            <small class="sort-target-title">
+                Title
+            </small>
+            <span class='pull-right glyphicon sort-target-title' />
+        </th>
+
+        <th title='Date Created' class="text-center sort-target sort-target-dateCreated">
+            <small class="sort-target-dateCreated">
+                Created
+            </small>
+            <span class='pull-right glyphicon sort-target-dateCreated' />
+        </th>
+
+        <th title='Date Last Updated' class="text-center sort-target sort-target-dateUpdated">
+            <small class="sort-target-dateUpdated">
+                Updated
+            </small>
+            <span class='pull-right glyphicon sort-target-dateUpdated' />
+        </th>
+
+        <th title='Date Closed' class="text-center sort-target sort-target-dateClosed">
+            <small class="sort-target-dateClosed">
+                Closed
+            </small>
+            <span class='pull-right glyphicon sort-target-dateClosed' />
+        </th>
+
+        <th title='Severity' class="text-center sort-target sort-target-severity">
+            <small class="sort-target-severity">
+                Severity
+            </small>
+            <span class='pull-right glyphicon sort-target-severity' />
+        </th>
+
+        <th title='Status' class="text-center sort-target sort-target-status">
+            <small class="sort-target-status">
+                Status
+            </small>
+            <span class='pull-right glyphicon sort-target-status' />
+        </th>
+    </tr>
+</thead>
+</script>
+<!-- END: grid header -->
+
+<!-- BEGIN: grid header summary -->
+<script type="underscore/template" id="template-grid-header-summary">
+<span id="grid-header-summary">
+    Total Issues = <%= STATE.searchData.total %>.
+    Filtered Issues = <%= STATE.searchData.count %>.
+</span>
+</script>
+<!-- END: grid header summary -->
+
+<!-- BEGIN: grid header pager -->
+<script type="underscore/template" id="template-grid-header-pager">
+<span class="pull-right form-inline pagination-container <%= STATE.paging.count < 2 ? 'hidden' : '' %>">
+    <button type="button"
+            class="btn btn-sm btn-default pagination-first">
+        <strong class="text-muted"><<</strong>
+    </button>
+    <button type="button"
+            class="btn btn-sm btn-default pagination-previous">
+        <strong class="text-muted">&nbsp;&lt;&nbsp;</strong>
+    </button>
+    <input type="text"
+           class="pagination-info form-control input-sm"
+           placeholder="Page <%= STATE.paging.current ? STATE.paging.current.id : '0' %> of <%= STATE.paging.count %>">
+    <button type="button"
+            class="btn btn-sm btn-default pagination-next">
+        <strong class="text-muted">&nbsp;&gt;&nbsp;</strong>
+    </button>
+    <button type="button"
+            class="btn btn-sm btn-default pagination-last">
+        <strong class="text-muted">>></strong>
+    </button>
+    <select class="pagination-page-size form-control input-sm">
+        <% _.each(STATE.paging.pageSizeOptions, function(pageSize) { %>
+        <option value="<%= pageSize %>" <%= pageSize == STATE.paging.pageSize ? "selected" : "" %>>
+            <%= pageSize %> / page
+        </option>
+        <% }); %>
+    </select>
+</span>
+</script>
+<!-- END: grid header pager -->
+
+<!-- BEGIN: grid body -->
+<script type="underscore/template" id="template-grid-body">
+<tbody>
+<% if (STATE.paging.current) { %>
+    <% _.each((STATE.paging.current ? STATE.paging.current.data : []), function(issue, idx) { %>
+        <%= UTILS.renderTemplate("template-grid-body-row", {issue: issue, idx:idx + 1}) %>
+    <% }); %>
+<% } else { %>
+    <tr class="null-search">
+        <td colspan="8">
+            <strong>SEARCH RETURNED NO RESULTS</strong>
+        </td>
+    </tr>
+<% } %>
+</tbody>
+</script>
+<!-- END: grid body -->
+
+<!-- BEGIN: grid body row -->
+<script type="underscore/template" id="template-grid-body-row">
+<tr id="<%= issue.uid %>" class='issue'>
+    <td class="issue-idx text-center" title="issue id">
+        <small>
+            <%= idx %>
+        </small>
+    </td>
+    <td class="issue-institute text-center" title="issue institute">
+        <small>
+            <%= issue.ext.institutionID %>
+        </small>
+    </td>
+    <td class="issue-title col-md-5" title="issue title">
+        <small>
+            <%= issue.ext.title %>
+        </small>
+    </td>
+    <td class="issue-date-created text-center" title="issue creation date">
+        <small>
+            <%= issue.dateCreated.slice(0, 10) %>
+        </small>
+    </td>
+    <td class="issue-date-updated text-center" title="issue last updated date">
+        <small>
+            <%= issue.dateUpdated ? issue.dateUpdated.slice(0, 10) : '--' %>
+        </small>
+    </td>
+    <td class="issue-date-closed text-center" title="issue closed date">
+        <small>
+            <%= issue.dateClosed ? issue.dateClosed.slice(0, 10) : '--' %>
+        </small>
+    </td>
+    <td class="issue-severity <%= issue.severity %> text-center" title="issue severity">
+        <small>
+            <%= issue.ext.severity.label %>
+        </small>
+    </td>
+    <td class="issue-status <%= issue.status %> text-center" title="issue status">
+        <small>
+            <%= issue.ext.status.label %>
+        </small>
+    </td>
+</tr>
+</script>
+<!-- END: grid body row -->
+
+<!-- BEGIN: grid footer -->
+<script type="underscore/template" id="template-grid-footer">
+<tfoot>
+    <tr class="bg-default">
+        <th colspan="8">
+            <%= UTILS.renderTemplate("template-grid-footer-summary") %>
+            <span class="pull-right">
+                <strong><small>
+                    <%- APP.G_NAME %> v<%- APP.VERSION %> © <%- APP.copyrightYear %>
+                    <a href="<%- CONSTANTS.URLS.HOME_PAGE %>" target='_blank'>ES-DOC</a>
+                </small></strong>
+            </span>
+        </th>
+    </tr>
+</tfoot>
+</script>
+<!-- END: grid footer -->
+
+<!-- BEGIN: grid footer summary -->
+<script type="underscore/template" id="template-grid-footer-summary">
+<span id="grid-footer-summary">
+    <strong><small>
+    Total Issues = <%= STATE.searchData.total %>.
+    Filtered Issues = <%= STATE.searchData.count %>.
+    </small></strong>
+</span>
+</script>
+<!-- END: grid footer summary -->
+
+<!-- BEGIN: feedback -->
+<div id="feedbackContainer" class="modal fade feedback-container">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span class="feedback-title"></span>
+                    <small class="feedback-version"></small>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <p><b id="feedbackText"><b></p>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                    <span class="sr-only">100% Complete</span>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: feedback -->
+
+</body>
+</html>

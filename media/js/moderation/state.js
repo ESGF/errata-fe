@@ -48,6 +48,28 @@ export const setSearchData = (data) => {
 
 // Initialises filters.
 export const initFilters = (data) => {
+    console.log(data);
+    filters.push({
+        canonicalName: "moderation-status",
+        key: "esdoc:errata:moderation-status",
+        label: "Moderation Status",
+        namespace: "esdoc:errata:moderation-status",
+        project: null,
+        terms: [
+            {
+                canonicalName: "in-review",
+                key: "esdoc:errata:moderation-status:in-review",
+                label: "In Review",
+                namespace: "esdoc:errata:moderation-status:in-review",
+            },
+            {
+                canonicalName: "accepted",
+                key: "esdoc:errata:moderation-status:accepted",
+                label: "Accepted",
+                namespace: "esdoc:errata:moderation-status:accepted",
+            }
+        ]
+    });
     filters = _.map(data, function (c) {
         return new SearchFilter(c);
     });
@@ -59,6 +81,7 @@ export const setActiveFilters = () => {
     _.each(filters, (f) => {
         f.isActive = _.isNull(f.project) || 
                      f.project === filters[0].data.current.key.split(':')[3];
+        console.log(f);
     });
 };
 
