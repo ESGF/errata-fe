@@ -52,7 +52,7 @@ export const initFilters = (data) => {
     data.push({
         canonicalName: "moderation-status",
         key: "esdoc:errata:moderation-status",
-        label: "Moderation Status",
+        label: "Moderation State",
         namespace: "esdoc:errata:moderation-status",
         project: null,
         terms: [
@@ -67,6 +67,18 @@ export const initFilters = (data) => {
                 key: "esdoc:errata:moderation-status:accepted",
                 label: "Accepted",
                 namespace: "esdoc:errata:moderation-status:accepted",
+            },
+            {
+                canonicalName: "not-required",
+                key: "esdoc:errata:moderation-status:not-required",
+                label: "Not Required",
+                namespace: "esdoc:errata:moderation-status:not-required",
+            },
+            {
+                canonicalName: "rejected",
+                key: "esdoc:errata:moderation-status:rejected",
+                label: "Rejected",
+                namespace: "esdoc:errata:moderation-status:rejected",
             }
         ]
     });
@@ -81,7 +93,6 @@ export const setActiveFilters = () => {
     _.each(filters, (f) => {
         f.isActive = _.isNull(f.project) || 
                      f.project === filters[0].data.current.key.split(':')[3];
-        console.log(f.key);
     });
 };
 
