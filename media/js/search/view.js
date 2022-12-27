@@ -34,7 +34,7 @@ export default Backbone.View.extend({
         },
 
         // Open moderate issue page.
-        'click button.esdoc-errata-moderation': () => {
+        'click button.esdoc-errata-moderate': () => {
             UTILS.openURL(CONSTANTS.URLS.MODERATION_PAGE, true);
         },
 

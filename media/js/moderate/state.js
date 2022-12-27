@@ -49,7 +49,7 @@ export const setSearchData = (data) => {
 // Initialises filters.
 export const initFilters = (data) => {
     console.log(data);
-    filters.push({
+    data.push({
         canonicalName: "moderation-status",
         key: "esdoc:errata:moderation-status",
         label: "Moderation Status",
@@ -81,7 +81,7 @@ export const setActiveFilters = () => {
     _.each(filters, (f) => {
         f.isActive = _.isNull(f.project) || 
                      f.project === filters[0].data.current.key.split(':')[3];
-        console.log(f);
+        console.log(f.key);
     });
 };
 

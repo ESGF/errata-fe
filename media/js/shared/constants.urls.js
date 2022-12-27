@@ -28,7 +28,7 @@ export const MODERATION_ACCEPT = "/1/issue/moderation/accept";
 export const MODERATION_EXTEND = "/1/issue/moderation/extend";
 
 // Issue moderation page.
-export const MODERATION_PAGE = '/static/moderation.html'
+export const MODERATION_PAGE = '/static/moderate.html'
 
 // Issue moderation: reject.
 export const MODERATION_REJECT = "/1/issue/moderation/reject";

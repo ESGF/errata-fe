@@ -23,31 +23,11 @@ export default Backbone.View.extend({
             UTILS.openDocumentation();
         },
 
-        // Open login page.
-        'click button.esdoc-errata-login': () => {
-            UTILS.openURL(CONSTANTS.URLS.OAUTH_AUTHORIZE, false);
-        },
-
-        // Open create issue page.
-        'click button.esdoc-errata-create': () => {
-            UTILS.openURL(CONSTANTS.URLS.EDIT_PAGE, true);
-        },
-
-        // Open propose issue page.
-        'click button.esdoc-errata-propose': () => {
-            UTILS.openURL(CONSTANTS.URLS.EDIT_PAGE, true);
-        },
-
-        // Open page: pid lookup.
-        'click button.esdoc-pid-lookup': () => {
-            UTILS.openURL(CONSTANTS.URLS.PID_PAGE, true);
-        },
-
         // Open page: errata detail.
         'click .issue': (e) => {
             var url;
 
-            url = CONSTANTS.URLS.VIEW_PAGE;
+            url = CONSTANTS.URLS.EDIT_PAGE;
             url += "?uid=";
             url += $(e.target).parent().attr("id") ||
                    $(e.target).parent().parent().attr("id");
