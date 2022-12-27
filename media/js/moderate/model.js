@@ -59,6 +59,7 @@ export class SearchResult {
         this.dateCreated = i[6];
         this.dateClosed = i[7];
         this.dateUpdated = i[8];
+        this.moderationStatus = i[9];
         this.ext = new SearchResultExtensionInfo(this, filters);
     }
 }
@@ -67,8 +68,9 @@ export class SearchResult {
 class SearchResultExtensionInfo {
     // Instance ctor.
     constructor(i, filters) {
-        this.severity = filters[1].data.set['esdoc:errata:severity:' + i.severity];
-        this.status = filters[2].data.set['esdoc:errata:status:' + i.status];
+        this.moderationStatus = filters[0].data.set['esdoc:errata:moderation-status:' + i.moderationStatus];
+        this.severity = filters[2].data.set['esdoc:errata:severity:' + i.severity];
+        this.status = filters[3].data.set['esdoc:errata:status:' + i.status];
         this.institutionID = i.institutionID.toUpperCase();
         this.title = (i.title || '--').trim();
         if (i.title.length > 53) {

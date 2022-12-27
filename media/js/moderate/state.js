@@ -48,40 +48,6 @@ export const setSearchData = (data) => {
 
 // Initialises filters.
 export const initFilters = (data) => {
-    console.log(data);
-    data.push({
-        canonicalName: "moderation-status",
-        key: "esdoc:errata:moderation-status",
-        label: "Moderation State",
-        namespace: "esdoc:errata:moderation-status",
-        project: null,
-        terms: [
-            {
-                canonicalName: "in-review",
-                key: "esdoc:errata:moderation-status:in-review",
-                label: "In Review",
-                namespace: "esdoc:errata:moderation-status:in-review",
-            },
-            {
-                canonicalName: "accepted",
-                key: "esdoc:errata:moderation-status:accepted",
-                label: "Accepted",
-                namespace: "esdoc:errata:moderation-status:accepted",
-            },
-            {
-                canonicalName: "not-required",
-                key: "esdoc:errata:moderation-status:not-required",
-                label: "Not Required",
-                namespace: "esdoc:errata:moderation-status:not-required",
-            },
-            {
-                canonicalName: "rejected",
-                key: "esdoc:errata:moderation-status:rejected",
-                label: "Rejected",
-                namespace: "esdoc:errata:moderation-status:rejected",
-            }
-        ]
-    });
     filters = _.map(data, function (c) {
         return new SearchFilter(c);
     });
@@ -92,7 +58,7 @@ export const initFilters = (data) => {
 export const setActiveFilters = () => {
     _.each(filters, (f) => {
         f.isActive = _.isNull(f.project) || 
-                     f.project === filters[0].data.current.key.split(':')[3];
+                     f.project === filters[1].data.current.key.split(':')[3];
     });
 };
 
