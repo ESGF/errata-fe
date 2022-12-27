@@ -46,19 +46,13 @@ export default Backbone.View.extend({
             UTILS.openDocumentation();
         },
 
-        // DOM Event handler: moderation -> accept.
-        'click a.esdoc-moderation-accept': () => {
-            APP.trigger("issue:moderate:accept");
-        },
-
-        // DOM Event handler: moderation -> reject.
-        'click a.esdoc-moderation-reject': () => {
-            APP.trigger("issue:moderate:reject");
-        },
-
         // DOM Event handler: save changes.
         'click button.esdoc-errata-save': function (e) {
             const fieldSet = STATE.issue.isNew ? FIELD_SET_NEW : FIELD_SET_UPDATE;
+            if (STATE.isModerator) {
+                fieldSet.push("moderation-status");
+            }
+
             _.each(fieldSet, this.setFieldValue, this);
 
             if ($('.field-value').hasClass('has-error')) {

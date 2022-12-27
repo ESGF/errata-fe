@@ -89,6 +89,13 @@ const CONSTRAINTS = {
     materials: {
         materialsValidator: {}
     },
+    "moderation-status": {
+        presence: true,
+        inclusion: {
+            within: ['accepted', 'in-review', 'not-required', 'rejected'],
+            message: ERR_REQUIRED_FIELD
+        }
+    },
     project: {
         presence: true,
         inclusion: {
@@ -127,6 +134,8 @@ const CONSTRAINTS = {
 APP.on("field:change", (field) => {
     const target = {};
     const constraints = {};
+
+    console.log(field);
 
     // Set field error.
     target[field.id] = field.value === "" ? null : field.value;

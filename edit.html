@@ -86,21 +86,6 @@
         <!-- Menu - Save -->
         <button class="esdoc-errata-save btn btn-primary btn-single">Save</button>
 
-        <!-- Menu - Moderation -->
-        <% if (STATE.isModerator) { %>
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary">Moderate</button>
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="#" class="esdoc-moderation-accept">Accept</a></li>
-                    <li><a href="#" class="esdoc-moderation-reject">Reject</a></li>
-              </ul>
-            </div>
-        <% } %>
-
     </h1>
 </header>
 </script>
@@ -137,6 +122,24 @@
                            placeholder="Enter your email - a system moderator will contact you in due course." >
                     <div id="emailErrorMessage" class="field-error" />
                  </td>
+            </tr>
+        <% } %>
+
+        <!-- Fields: Moderation -->
+        <% if (STATE.isModerator) { %>
+            <tr>
+                <td class="field-name">Moderation Status *</td>
+                <td class="field-value moderation-status">
+                    <select id="moderation-status" name="moderation-status" class="form-control" tabindex="5">
+                        <% _.each(PYESSV.ESDOC.ERRATA.getModerationStatus(), function(i) { %>
+                            <option value="<%= i.canonicalName %>"
+                                    <%= i.canonicalName === STATE.issue.moderationStatus  ? "selected" : "" %> >
+                                <%- i.label %>
+                            </option>
+                        <% }); %>
+                    </select>
+                    <div id="moderation-statusErrorMessage" class="field-error" />
+                </td>
             </tr>
         <% } %>
 
@@ -274,22 +277,6 @@
                   <div id="datasetsErrorMessage" class="field-error" />
             </td>
         </tr>
-
-        <!-- Fields: Moderation -->
-        <% if (STATE.isModerator) { %>
-            <tr>
-                <td class="field-name">Moderation Status</td>
-                <td class="field-value issue-moderation-status <%= STATE.issue.moderationStatus %>">
-                    <%= STATE.issue.moderationStatus.toUpperCase() %>
-                </td>
-            </tr>
-            <tr>
-                <td class="field-name">Moderation Window</td>
-                <td class="field-value issue-moderation-window">
-                    <%= STATE.issue.moderationWindow %>
-                </td>
-            </tr>
-        <% } %>
 
         <!-- Footer -->
         <tr>

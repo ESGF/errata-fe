@@ -12,26 +12,28 @@ APP.on("issue:save:post", () => {
         url += STATE.issue.isNew ? CONSTANTS.URLS.ISSUE_CREATE : CONSTANTS.URLS.ISSUE_UPDATE;
     }
 
-    APP.trigger("issue:save:post:starts");
+    console.log(STATE.issue);
 
-    $.ajax({
-        method: "POST",
-        url: url,
-        data: STATE.issue.encode(),
-        dataType: 'json',
-        headers: {
-            "Authorization": STATE.OAuthCredentials,
-            "Content-Type": 'application/json; charset=UTF-8',
-            "X-XSRFToken": Cookies.get('_xsrf')
-        }
-    })
-        .always((r) => {
-            if (r.status === 200) {
-                APP.trigger("issue:save:post:success");
-            } else {
-                APP.trigger("issue:save:post:error", r);
-            }
-    });
+    // APP.trigger("issue:save:post:starts");
+
+    // $.ajax({
+    //     method: "POST",
+    //     url: url,
+    //     data: STATE.issue.encode(),
+    //     dataType: 'json',
+    //     headers: {
+    //         "Authorization": STATE.OAuthCredentials,
+    //         "Content-Type": 'application/json; charset=UTF-8',
+    //         "X-XSRFToken": Cookies.get('_xsrf')
+    //     }
+    // })
+    //     .always((r) => {
+    //         if (r.status === 200) {
+    //             APP.trigger("issue:save:post:success");
+    //         } else {
+    //             APP.trigger("issue:save:post:error", r);
+    //         }
+    // });
 });
 
 // Event handler: issue:moderation:accept.
