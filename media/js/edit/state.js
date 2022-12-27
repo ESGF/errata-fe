@@ -41,11 +41,6 @@ APP.on("issue:moderate:accept", () => {
     APP.trigger("issue:moderation:accept");
 });
 
-// Event handler: issue:moderate:extend.
-APP.on("issue:moderate:extend", () => {
-    APP.trigger("issue:moderation:extend");
-});
-
 // Event handler: issue:moderate:reject.
 APP.on("issue:moderate:reject", () => {
     APP.trigger("issue:moderation:reject");

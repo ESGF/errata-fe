@@ -22,7 +22,8 @@ export class SearchFilter {
         this.project = c.key.startsWith('esdoc') ? null : c.key.split(':')[1];
         this.uiPosition =  c.key === "esdoc:errata:project" ? 0 :
                            c.key === "esdoc:errata:severity" ? 1000 :
-                           c.key === "esdoc:errata:status" ? 1001 : 100;
+                           c.key === "esdoc:errata:status" ? 1001 :
+                           c.key === "esdoc:errata:moderationStatus" ? 1002 : 100;
 
         // Project must be specified.
         if (c.key !== "esdoc:errata:project") {
@@ -58,6 +59,7 @@ export class SearchResult {
         this.dateCreated = i[6];
         this.dateClosed = i[7];
         this.dateUpdated = i[8];
+        this.moderationStatus = i[9];
         this.ext = new SearchResultExtensionInfo(this, filters);
     }
 }
@@ -66,8 +68,8 @@ export class SearchResult {
 class SearchResultExtensionInfo {
     // Instance ctor.
     constructor(i, filters) {
-        this.severity = filters[1].data.set['esdoc:errata:severity:' + i.severity];
-        this.status = filters[2].data.set['esdoc:errata:status:' + i.status];
+        this.severity = filters[2].data.set['esdoc:errata:severity:' + i.severity];
+        this.status = filters[3].data.set['esdoc:errata:status:' + i.status];
         this.institutionID = i.institutionID.toUpperCase();
         this.title = (i.title || '--').trim();
         if (i.title.length > 53) {

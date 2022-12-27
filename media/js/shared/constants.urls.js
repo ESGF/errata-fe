@@ -5,7 +5,6 @@ export const API_BASE_URL = window.origin;
 export const DOCUMENTATION = "https://es-doc.github.io/esdoc-errata-client/";
 export const PIDDOCUMENTATION = "https://es-doc.github.io/esdoc-errata-client/lookup.html"
 
-
 // Set viewerBaseURL.
 export const EDIT_PAGE = '/static/edit.html'
 
@@ -15,20 +14,17 @@ export const HOME_PAGE = "https://es-doc.org";
 // Issue create.
 export const ISSUE_CREATE = "/1/issue/create";
 
-// Issue propose.
-export const ISSUE_PROPOSE = "/1/issue/propose";
-
 // Issue update.
 export const ISSUE_UPDATE = "/1/issue/update";
 
 // Issue moderation: accept.
 export const MODERATION_ACCEPT = "/1/issue/moderation/accept";
 
-// Issue moderation: extend.
-export const MODERATION_EXTEND = "/1/issue/moderation/extend";
-
 // Issue moderation page.
 export const MODERATION_PAGE = '/static/moderate.html'
+
+// Issue moderation: propose.
+export const MODERATION_PROPOSE = "/1/issue/moderation/propose";
 
 // Issue moderation: reject.
 export const MODERATION_REJECT = "/1/issue/moderation/reject";

@@ -57,8 +57,8 @@ export const initFilters = (data) => {
 // Sets active filter flag.
 export const setActiveFilters = () => {
     _.each(filters, (f) => {
-        f.isActive = _.isNull(f.project) || 
-                     f.project === filters[0].data.current.key.split(':')[3];
+        f.isActive = (_.isNull(f.project) && f.key !== "esdoc:errata:moderation-status") || 
+                     f.project === filters[1].data.current.key.split(':')[3];
     });
 };
 

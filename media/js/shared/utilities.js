@@ -104,7 +104,7 @@ const templateCache = {};
 export const renderTemplate = (templateID, templateData, view) => {
     var template, html;
 
-    APP.log(`Rendering template: ${templateID}`);
+    APP.log(`template: ${templateID}`);
 
     if (!_.has(templateCache, templateID)) {
         templateCache[templateID] = _.template($('#' + templateID).html());

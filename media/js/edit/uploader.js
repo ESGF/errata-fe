@@ -7,7 +7,7 @@ import * as STATE       from  './state.js';
 APP.on("issue:save:post", () => {
     let url = CONSTANTS.URLS.API_BASE_URL;
     if (STATE.isAnonymous) {
-        url += STATE.issue.isNew ? CONSTANTS.URLS.ISSUE_PROPOSE : CONSTANTS.URLS.ISSUE_UPDATE;
+        url += STATE.issue.isNew ? CONSTANTS.URLS.MODERATION_PROPOSE : CONSTANTS.URLS.ISSUE_UPDATE;
     } else {
         url += STATE.issue.isNew ? CONSTANTS.URLS.ISSUE_CREATE : CONSTANTS.URLS.ISSUE_UPDATE;
     }
@@ -56,32 +56,6 @@ APP.on("issue:moderation:accept", () => {
                 APP.trigger("issue:moderation:accept:success");
             } else {
                 APP.trigger("issue:moderation:accept:error", r);
-            }
-    });
-});
-
-// Event handler: issue:moderation:extend.
-APP.on("issue:moderation:extend", () => {
-    const url = `${CONSTANTS.URLS.API_BASE_URL}${CONSTANTS.URLS.MODERATION_EXTEND}?uid=${STATE.issue.uid}`;
-
-    APP.trigger("issue:moderation:extend:starts");
-
-    $.ajax({
-        method: "POST",
-        url: url,
-        data: {},
-        dataType: 'json',
-        headers: {
-            "Authorization": STATE.OAuthCredentials,
-            "Content-Type": 'application/json; charset=UTF-8',
-            "X-XSRFToken": Cookies.get('_xsrf')
-        }
-    })
-        .always((r) => {
-            if (r.status === 200) {
-                APP.trigger("issue:moderation:extend:success");
-            } else {
-                APP.trigger("issue:moderation:extend:error", r);
             }
     });
 });

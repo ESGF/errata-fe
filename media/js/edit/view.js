@@ -51,11 +51,6 @@ export default Backbone.View.extend({
             APP.trigger("issue:moderate:accept");
         },
 
-        // DOM Event handler: moderation -> extend.
-        'click a.esdoc-moderation-extend': () => {
-            APP.trigger("issue:moderate:extend");
-        },
-
         // DOM Event handler: moderation -> reject.
         'click a.esdoc-moderation-reject': () => {
             APP.trigger("issue:moderate:reject");
