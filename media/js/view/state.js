@@ -3,7 +3,7 @@ import { Issue, User } from  './model.js';
 import * as UTILS from  '../shared/utilities.js';
 
 // Issue.
-export const user = User;
+export const user = new User();
 
 // Issue.
 export var issue = null;

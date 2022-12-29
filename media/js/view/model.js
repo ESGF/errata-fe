@@ -5,7 +5,6 @@ import * as STATE from  './state.js';
 export class Issue {
     // Instance ctor.
     constructor(i) {
-        console.log(i);
         _.each(_.keys(i), (k) => {
             this[k] = i[k];
         })

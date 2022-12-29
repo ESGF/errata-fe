@@ -58,8 +58,6 @@ APP.on("setup:cvDataParsed", () => {
 
 // Event handler: setup:issueDataDownload.
 APP.on("setup:issueDataDownload", (data) => {
-    console.log(data);
-
     // Update state.
     STATE.setIssue(data.issue);
 
