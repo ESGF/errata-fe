@@ -2,19 +2,19 @@
 export const API_BASE_URL = window.origin;
 
 // Errata create.
-export const API_PUBLICATION_CREATE = "/2/errata/publication/create";
+export const API_PUBLICATION_CREATE = "/2/publication/create";
 
 // Errata retrieve.
-export const API_PUBLICATION_RETRIEVE = "/2/errata/publication/retrieve";
+export const API_PUBLICATION_RETRIEVE = "/2/publication/retrieve";
 
 // Errata retrieve-all.
-export const API_PUBLICATION_RETRIEVE_ALL = "/2/errata/publication/retrieve-all";
+export const API_PUBLICATION_RETRIEVE_ALL = "/2/publication/retrieve-all";
 
 // Errata update.
-export const API_PUBLICATION_UPDATE = "/2/errata/publication/update";
+export const API_PUBLICATION_UPDATE = "/2/publication/update";
 
 // Errata propose.
-export const API_MODERATION_PROPOSE = "/2/errata/publication/propose";
+export const API_MODERATION_PROPOSE = "/2/publication/propose";
 
 // OAuth authorize.
 export const API_OAUTH_AUTHORIZE = window.location.origin + "/oauth/authorize";
