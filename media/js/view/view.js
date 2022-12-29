@@ -27,7 +27,7 @@ export default Backbone.View.extend({
         'click button.esdoc-errata-edit': () => {
             var url;
 
-            url = CONSTANTS.URLS.EDIT_PAGE;
+            url = CONSTANTS.URLS.PAGE_EDIT;
             url += "?uid=";
             url += STATE.issueUID;
             UTILS.openURL(url, false);

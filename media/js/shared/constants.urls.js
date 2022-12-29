@@ -3,61 +3,58 @@ export const API_BASE_URL = window.origin;
 
 // Set documentation url.
 export const DOCUMENTATION = "https://es-doc.github.io/esdoc-errata-client/";
-export const PIDDOCUMENTATION = "https://es-doc.github.io/esdoc-errata-client/lookup.html"
-
-// Set viewerBaseURL.
-export const EDIT_PAGE = '/static/edit.html'
-
-// ES-DOC homepage.
-export const HOME_PAGE = "https://es-doc.org";
+export const DOCUMENTATION_PID = "https://es-doc.github.io/esdoc-errata-client/lookup.html"
 
 // Issue create.
-export const ISSUE_CREATE = "/1/issue/create";
-
-// Issue update.
-export const ISSUE_UPDATE = "/1/issue/update";
-
-// Issue moderation: accept.
-export const MODERATION_ACCEPT = "/1/issue/moderation/accept";
-
-// Issue moderation page.
-export const MODERATION_PAGE = '/static/moderate.html'
-
-// Issue moderation: propose.
-export const MODERATION_PROPOSE = "/1/issue/moderation/propose";
-
-// Issue moderation: reject.
-export const MODERATION_REJECT = "/1/issue/moderation/reject";
-
-// Issue moderation: search.
-export const MODERATION_SEARCH = "/1/issue/moderation/search";
-
-// OAuth authorize.
-export const OAUTH_AUTHORIZE = window.location.origin + "/oauth/authorize";
-
-// PID page.
-export const PID_PAGE = "pid.html";
-
-// PID resolve.
-export const PID_RESOLVE = "/1/resolve/pid";
-
-// PID task queeu search.
-export const PID_TASK_QUEUE_SEARCH = "/1/pid-queue/search";
-
-// PID task queeu search setup.
-export const PID_TASK_QUEUE_SEARCH_SETUP = "/1/pid-queue/search-setup";
+export const API_PUBLICATION_CREATE = "/2/issue/publication/create";
 
 // Issue retrieve.
-export const RETRIEVE = "/1/issue/retrieve";
+export const API_PUBLICATION_RETRIEVE = "/2/issue/publication/retrieve";
+
+// Issue retrieve-all.
+export const API_PUBLICATION_RETRIEVE_ALL = "/2/issue/publication/retrieve-all";
+
+// Issue update.
+export const API_PUBLICATION_UPDATE = "/2/issue/publication/update";
+
+// Issue moderation: propose.
+export const API_MODERATION_PROPOSE = "/2/issue/moderation/propose";
+
+// Issue moderation: search.
+export const API_MODERATION_SEARCH = "/2/issue/moderation/search";
+
+// OAuth authorize.
+export const API_OAUTH_AUTHORIZE = window.location.origin + "/oauth/authorize";
+
+// PID resolve.
+export const API_PID_RESOLVE = "/1/resolve/pid";
+
+// PID task queeu search.
+export const API_PID_TASK_QUEUE_SEARCH = "/1/pid-queue/search";
+
+// PID task queeu search setup.
+export const API_PID_TASK_QUEUE_SEARCH_SETUP = "/1/pid-queue/search-setup";
 
 // issue search.
-export const SEARCH = "/1/issue/search";
+export const API_SEARCH = "/2/issue/search";
 
 // Issue search setup.
-export const SEARCH_SETUP = "/1/issue/search-setup";
+export const API_SEARCH_SETUP = "/2/issue/search-setup";
 
-// Search page.
-export const SEARCH_PAGE = "/static/index.html";
+// Issue moderation page.
+export const PAGE_MODERATE = '/static/moderate.html';
+
+// ES-DOC homepage.
+export const PAGE_HOME = "https://es-doc.org";
 
 // Set viewerBaseURL.
-export const VIEW_PAGE = '/static/view.html'
+export const PAGE_EDIT = '/static/edit.html';
+
+// PID page.
+export const PAGE_PID = "pid.html";
+
+// Search page.
+export const PAGE_SEARCH = "/static/index.html";
+
+// Set viewerBaseURL.
+export const PAGE_VIEW = '/static/view.html';

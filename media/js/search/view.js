@@ -25,34 +25,34 @@ export default Backbone.View.extend({
 
         // Open login page.
         'click button.esdoc-errata-login': () => {
-            UTILS.openURL(CONSTANTS.URLS.OAUTH_AUTHORIZE, false);
+            UTILS.openURL(CONSTANTS.URLS.API_OAUTH_AUTHORIZE, false);
         },
 
         // Open create issue page.
         'click button.esdoc-errata-create': () => {
-            UTILS.openURL(CONSTANTS.URLS.EDIT_PAGE, true);
+            UTILS.openURL(CONSTANTS.URLS.PAGE_EDIT, true);
         },
 
         // Open moderate issue page.
         'click button.esdoc-errata-moderate': () => {
-            UTILS.openURL(CONSTANTS.URLS.MODERATION_PAGE, true);
+            UTILS.openURL(CONSTANTS.URLS.PAGE_MODERATE, true);
         },
 
         // Open propose issue page.
         'click button.esdoc-errata-propose': () => {
-            UTILS.openURL(CONSTANTS.URLS.EDIT_PAGE, true);
+            UTILS.openURL(CONSTANTS.URLS.PAGE_EDIT, true);
         },
 
         // Open page: pid lookup.
         'click button.esdoc-pid-lookup': () => {
-            UTILS.openURL(CONSTANTS.URLS.PID_PAGE, true);
+            UTILS.openURL(CONSTANTS.URLS.PAGE_PID, true);
         },
 
         // Open page: errata detail.
         'click .issue': (e) => {
             var url;
 
-            url = CONSTANTS.URLS.VIEW_PAGE;
+            url = CONSTANTS.URLS.PAGE_VIEW;
             url += "?uid=";
             url += $(e.target).parent().attr("id") ||
                    $(e.target).parent().parent().attr("id");

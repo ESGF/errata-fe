@@ -32,7 +32,7 @@ APP.on("setup:complete", () => {
 });
 
 APP.on('issue:save:complete', () => {
-    let url = CONSTANTS.URLS.VIEW_PAGE;
+    let url = CONSTANTS.URLS.PAGE_VIEW;
     url += '?uid=';
     url += STATE.issue.uid;
     UTILS.openURL(url);

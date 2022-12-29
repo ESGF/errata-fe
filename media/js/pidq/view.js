@@ -27,7 +27,7 @@ export default Backbone.View.extend({
         'click .task': (e) => {
             var url;
 
-            url = CONSTANTS.URLS.VIEW_PAGE;
+            url = CONSTANTS.URLS.PAGE_VIEW;
             url += "?uid=";
             url += $(e.target).parent().attr("id") ||
                    $(e.target).parent().parent().attr("id");

@@ -9,7 +9,7 @@ APP.on("setup:begin", () => {
     var url;
 
     // Set target.
-    url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.PID_TASK_QUEUE_SEARCH_SETUP;
+    url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.API_PID_TASK_QUEUE_SEARCH_SETUP;
 
     // Download.
     $.get(url)
@@ -53,7 +53,7 @@ const executeSearch = (preEventType, eventType) => {
     }
 
     // Set target.
-    url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.PID_TASK_QUEUE_SEARCH;
+    url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.API_PID_TASK_QUEUE_SEARCH;
     params = [];
     _.each(_.values(STATE.filters), (f) => {
         if (f.data.current.key.endsWith('*') === false) {

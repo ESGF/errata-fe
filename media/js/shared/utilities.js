@@ -20,12 +20,12 @@ export const openDocumentation = () => {
 
 // Opens PID documentation.
 export const openPIDDocumentation = () => {
-    openURL(constants.URLS.PIDDOCUMENTATION, true);
+    openURL(constants.URLS.DOCUMENTATION_PID, true);
 };
 
 // Opens the homepage.
 export const openHomepage = () => {
-    openURL(constants.URLS.HOME_PAGE, true);
+    openURL(constants.URLS.PAGE_HOME, true);
 };
 
 // Opens the target email.

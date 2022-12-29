@@ -15,7 +15,7 @@ APP.on("setup:begin", () => {
     }
 
     // Set target.
-    url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.RETRIEVE;
+    url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.API_PUBLICATION_RETRIEVE;
     params = {
         uid: STATE.issue.uid
     };

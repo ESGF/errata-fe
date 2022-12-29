@@ -7,9 +7,9 @@ import * as STATE       from  './state.js';
 APP.on("issue:save:post", () => {
     let url = CONSTANTS.URLS.API_BASE_URL;
     if (STATE.user.isAnonymous) {
-        url += STATE.issue.isNew ? CONSTANTS.URLS.MODERATION_PROPOSE : CONSTANTS.URLS.ISSUE_UPDATE;
+        url += STATE.issue.isNew ? CONSTANTS.URLS.API_MODERATION_PROPOSE : CONSTANTS.URLS.API_PUBLICATION_UPDATE;
     } else {
-        url += STATE.issue.isNew ? CONSTANTS.URLS.ISSUE_CREATE : CONSTANTS.URLS.ISSUE_UPDATE;
+        url += STATE.issue.isNew ? CONSTANTS.URLS.API_PUBLICATION_CREATE : CONSTANTS.URLS.API_PUBLICATION_UPDATE;
     }
 
     APP.trigger("issue:save:post:starts");

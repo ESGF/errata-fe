@@ -8,7 +8,7 @@ APP.on("setup:begin", () => {
     var url;
 
     // Set target.
-    url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.SEARCH_SETUP;
+    url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.API_SEARCH_SETUP;
 
     // Download.
     $.get(url)
@@ -76,7 +76,7 @@ const executeSearch = (preEventType, eventType) => {
     }
 
     // Set target.
-    url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.SEARCH;
+    url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.API_SEARCH;
     params = [];
     _.each(_.values(STATE.getActiveFilters()), (f) => {
         if (f.data.current.key.endsWith('*') === false) {

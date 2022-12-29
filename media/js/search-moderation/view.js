@@ -27,7 +27,7 @@ export default Backbone.View.extend({
         'click .issue': (e) => {
             var url;
 
-            url = CONSTANTS.URLS.EDIT_PAGE;
+            url = CONSTANTS.URLS.PAGE_EDIT;
             url += "?uid=";
             url += $(e.target).parent().attr("id") ||
                    $(e.target).parent().parent().attr("id");
