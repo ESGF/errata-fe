@@ -1,4 +1,5 @@
 // Module imports.
+import * as CONSTANTS   from  '../shared/constants.js';
 import * as UTILS from '../shared/utilities.js';
 import getDefaultFilterKey from './defaultFilterKeys.js';
 
@@ -75,5 +76,16 @@ class SearchResultExtensionInfo {
         if (i.title.length > 53) {
             this.title = i.title.slice(0, 53) + " ...";
         }
+    }
+}
+
+// A user interacting with the system.
+export class User {
+    constructor() {
+        this.OAuthCredentials= Cookies.get('errata-oauth-credentials');
+        this.isAuthenticated = _.isUndefined(this.OAuthCredentials) === false;
+        this.isModerator = this.isAuthenticated && Cookies.get('errata-user-role') === CONSTANTS.SECURITY.USER_ROLE_MODERATOR;
+        this.isAuthor = this.isAuthenticated && Cookies.get('errata-user-role') === CONSTANTS.SECURITY.USER_ROLE_AUTHOR;
+        this.isAnonymous = !(this.isModerator || this.isAuthor);
     }
 }
