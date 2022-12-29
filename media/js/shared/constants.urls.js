@@ -29,13 +29,13 @@ export const API_PID_TASK_QUEUE_SEARCH = "/1/pid-queue/search";
 export const API_PID_TASK_QUEUE_SEARCH_SETUP = "/1/pid-queue/search-setup";
 
 // Errata search.
-export const API_SEARCH = "/2/errata/search";
+export const API_SEARCH = "/2/search/errata";
 
 // Errata search: moderation.
-export const API_SEARCH_MODERATION = "/2/errata/search/moderation";
+export const API_SEARCH_MODERATION = "/2/search/errata/moderation";
 
 // Errata search setup.
-export const API_SEARCH_SETUP = "/2/errata/search/setup";
+export const API_SEARCH_SETUP = "/2/search/errata/setup";
 
 // Set documentation url.
 export const DOCUMENTATION = "https://es-doc.github.io/esdoc-errata-client/";

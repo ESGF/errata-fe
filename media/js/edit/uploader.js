@@ -20,7 +20,7 @@ APP.on("issue:save:post", () => {
         data: STATE.issue.encode(),
         dataType: 'json',
         headers: {
-            "Authorization": STATE.OAuthCredentials,
+            "Authorization": STATE.user.oauthCredentials,
             "Content-Type": 'application/json; charset=UTF-8',
             "X-XSRFToken": Cookies.get('_xsrf')
         }
