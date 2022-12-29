@@ -1,4 +1,4 @@
-// Module imports.
+export { User } from '../shared/model.js';
 import * as STATE from  './state.js';
 
 // Search result.
@@ -67,16 +67,5 @@ class AffectedFacetSet {
                 i.documentationURL = 'https://documentation.es-doc.org/' + project + '/' + this.collection.cimDocumentTypeAlternativeName + 's/' + i.canonicalName;
             });
         }
-    }
-}
-
-// A user interacting with the system.
-export class User {
-    constructor() {
-        this.OAuthCredentials= Cookies.get('errata-oauth-credentials');
-        this.isAuthenticated = _.isUndefined(this.OAuthCredentials) === false;
-        this.isModerator = this.isAuthenticated && Cookies.get('errata-user-role') === CONSTANTS.SECURITY.USER_ROLE_MODERATOR;
-        this.isAuthor = this.isAuthenticated && Cookies.get('errata-user-role') === CONSTANTS.SECURITY.USER_ROLE_AUTHOR;
-        this.isAnonymous = !(this.isModerator || this.isAuthor);
     }
 }

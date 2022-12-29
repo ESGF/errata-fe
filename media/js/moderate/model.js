@@ -1,6 +1,6 @@
-// Module imports.
-import * as UTILS from '../shared/utilities.js';
+export { User }   from  '../shared/model.js';
 import getDefaultFilterKey from './defaultFilterKeys.js';
+
 
 // Encapsulates a search filter.
 export class SearchFilter {

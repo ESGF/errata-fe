@@ -1,8 +1,5 @@
-// Module imports.
-import * as APP         from  '../shared/application.js';
-import * as CONSTANTS   from  '../shared/constants.js';
-import * as UTILS       from  '../shared/utilities.js';
-
+export { User } from '../shared/model.js';
+import * as UTILS from '../shared/utilities.js';
 
 // An issue being either created / updated.
 export class Issue {
@@ -77,16 +74,5 @@ export class Issue {
             urls: this.urls,
             userEmail: this.email
         })
-    }
-}
-
-// A user interacting with the system.
-export class User {
-    constructor() {
-        this.OAuthCredentials= Cookies.get('errata-oauth-credentials');
-        this.isAuthenticated = _.isUndefined(this.OAuthCredentials) === false;
-        this.isModerator = this.isAuthenticated && Cookies.get('errata-user-role') === CONSTANTS.SECURITY.USER_ROLE_MODERATOR;
-        this.isAuthor = this.isAuthenticated && Cookies.get('errata-user-role') === CONSTANTS.SECURITY.USER_ROLE_AUTHOR;
-        this.isAnonymous = !(this.isModerator || this.isAuthor);
     }
 }

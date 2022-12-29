@@ -4,17 +4,12 @@ import * as CONSTANTS   from  '../shared/constants.js';
 import * as UTILS   from    '../shared/utilities.js';
 import {
     SearchResult,
-    SearchFilter
+    SearchFilter,
+    User
     }               from    './model.js';
 
-// OAuth credentials.
-export const OAuthCredentials = Cookies.get('errata-oauth-credentials');
-
-// User authentication status + role.
-export const isAuthenticated = _.isUndefined(OAuthCredentials) === false;
-export const isModerator = isAuthenticated && Cookies.get('errata-user-role') === CONSTANTS.SECURITY.USER_ROLE_MODERATOR;
-export const isAuthor = isAuthenticated && Cookies.get('errata-user-role') === CONSTANTS.SECURITY.USER_ROLE_AUTHOR;
-export const isAnonymous = !(isModerator || isAuthor);
+// User.
+export const user = new User();
 
 // Collection of search filters.
 export var filters = [];
