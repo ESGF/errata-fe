@@ -12,9 +12,6 @@ APP.on("issue:save:post", () => {
         url += STATE.issue.isNew ? CONSTANTS.URLS.ISSUE_CREATE : CONSTANTS.URLS.ISSUE_UPDATE;
     }
 
-    console.log(STATE.issue);
-    console.log(STATE.issue.encode());
-
     APP.trigger("issue:save:post:starts");
 
     $.ajax({
