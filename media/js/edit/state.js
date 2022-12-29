@@ -1,21 +1,13 @@
 // Module imports.
 import * as APP         from  '../shared/application.js';
 import * as CONSTANTS   from  '../shared/constants.js';
-import Issue from  './model.js';
-
-// OAuth credentials.
-export const OAuthCredentials = Cookies.get('errata-oauth-credentials');
-
-// Flag indicating whether user is authenticated or not.
-export const isAuthenticated = _.isUndefined(OAuthCredentials) === false;
-
-// User role.
-export const isModerator = isAuthenticated && Cookies.get('errata-user-role') === CONSTANTS.SECURITY.USER_ROLE_MODERATOR;
-export const isAuthor = isAuthenticated && Cookies.get('errata-user-role') === CONSTANTS.SECURITY.USER_ROLE_AUTHOR;
-export const isAnonymous = !(isModerator || isAuthor);
+import { Issue, User } from "./model.js";
 
 // Issue.
 export const issue = new Issue();
+
+// User.
+export const user = new User();
 
 // Event handler: field:change:aborted.
 APP.on("field:change:aborted", (field) => {

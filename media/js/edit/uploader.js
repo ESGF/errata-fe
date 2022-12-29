@@ -6,7 +6,7 @@ import * as STATE       from  './state.js';
 // Event handler: issue:save:post.
 APP.on("issue:save:post", () => {
     let url = CONSTANTS.URLS.API_BASE_URL;
-    if (STATE.isAnonymous) {
+    if (STATE.user.isAnonymous) {
         url += STATE.issue.isNew ? CONSTANTS.URLS.MODERATION_PROPOSE : CONSTANTS.URLS.ISSUE_UPDATE;
     } else {
         url += STATE.issue.isNew ? CONSTANTS.URLS.ISSUE_CREATE : CONSTANTS.URLS.ISSUE_UPDATE;

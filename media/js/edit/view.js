@@ -49,7 +49,7 @@ export default Backbone.View.extend({
         // DOM Event handler: save changes.
         'click button.esdoc-errata-save': function (e) {
             const fieldSet = STATE.issue.isNew ? FIELD_SET_NEW : FIELD_SET_UPDATE;
-            if (STATE.isModerator) {
+            if (STATE.user.isModerator) {
                 fieldSet.push("moderation-status");
             }
 

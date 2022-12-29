@@ -59,7 +59,7 @@
         <!-- Title -->
         <small>
             <% if (STATE.issue.isNew) {%>
-                <% if (STATE.isAuthenticated) {%>
+                <% if (STATE.user.isAuthenticated) {%>
                     <b><%= APP.LONG_NAME %> - Create Issue</b>
                 <% } else { %>
                     <b><%= APP.LONG_NAME %> - Propose Issue</b>
@@ -110,7 +110,7 @@
 <table class="table">
     <tbody>
         <!-- Field: email -->
-        <% if (STATE.isAnonymous) { %>
+        <% if (STATE.user.isAnonymous) { %>
             <tr>
                 <td class="field-name">Email Address *</td>
                 <td class="field-value email">
@@ -126,7 +126,7 @@
         <% } %>
 
         <!-- Fields: Moderation -->
-        <% if (STATE.isModerator) { %>
+        <% if (STATE.user.isModerator) { %>
             <tr>
                 <td class="field-name">Moderation Status *</td>
                 <td class="field-value moderation-status">
