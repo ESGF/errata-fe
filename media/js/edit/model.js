@@ -66,6 +66,7 @@ export class Issue {
             datasets: this.datasets,
             description: this.description,
             materials: this.materials,
+            moderationStatus: this.moderationStatus,
             project: this.project,
             severity: this.severity,
             status: this.status,

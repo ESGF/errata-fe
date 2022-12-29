@@ -1,5 +1,12 @@
 import * as constants from './constants.js';
 
+// A field encapsulating view data.
+export class ViewDataField {
+    constructor() {
+        
+    }
+}
+
 // A user interacting with the system.
 export class User {
     constructor() {

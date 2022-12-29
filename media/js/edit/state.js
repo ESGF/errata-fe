@@ -11,12 +11,16 @@ export const user = new User();
 
 // Event handler: field:change:aborted.
 APP.on("field:change:aborted", (field) => {
-    issue[field.id] = _.isArray(field.value) ? [] : null;
+    const slot = getIssueSlotFromViewField(field.id);
+
+    issue[slot] = _.isArray(field.value) ? [] : null;
 });
 
 // Event handler: field:change:verified.
 APP.on("field:change:verified", (field) => {
-    issue[field.id] = field.value;
+    const slot = getIssueSlotFromViewField(field);
+
+    issue[slot] = field.value;
 });
 
 // Event handler: issue:save.
@@ -27,3 +31,12 @@ APP.on("issue:save:start", () => {
         APP.trigger("issue:save:abort");
     }
 });
+
+// Utility fn: returns issue slot identifier from view field identifier.
+const getIssueSlotFromViewField = (field) => {
+    if (field.id === "moderation-status") {
+        return "moderationStatus";
+    } else {
+        return field.id;
+    }
+};

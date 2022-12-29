@@ -13,25 +13,26 @@ APP.on("issue:save:post", () => {
     }
 
     console.log(STATE.issue);
+    console.log(STATE.issue.encode());
 
-    // APP.trigger("issue:save:post:starts");
+    APP.trigger("issue:save:post:starts");
 
-    // $.ajax({
-    //     method: "POST",
-    //     url: url,
-    //     data: STATE.issue.encode(),
-    //     dataType: 'json',
-    //     headers: {
-    //         "Authorization": STATE.OAuthCredentials,
-    //         "Content-Type": 'application/json; charset=UTF-8',
-    //         "X-XSRFToken": Cookies.get('_xsrf')
-    //     }
-    // })
-    //     .always((r) => {
-    //         if (r.status === 200) {
-    //             APP.trigger("issue:save:post:success");
-    //         } else {
-    //             APP.trigger("issue:save:post:error", r);
-    //         }
-    // });
+    $.ajax({
+        method: "POST",
+        url: url,
+        data: STATE.issue.encode(),
+        dataType: 'json',
+        headers: {
+            "Authorization": STATE.OAuthCredentials,
+            "Content-Type": 'application/json; charset=UTF-8',
+            "X-XSRFToken": Cookies.get('_xsrf')
+        }
+    })
+        .always((r) => {
+            if (r.status === 200) {
+                APP.trigger("issue:save:post:success");
+            } else {
+                APP.trigger("issue:save:post:error", r);
+            }
+    });
 });

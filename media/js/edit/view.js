@@ -17,6 +17,7 @@ const FIELD_SET_NEW = [
     'datasets'
 ];
 
+
 // Set of fields when editing an existing issue.
 const FIELD_SET_UPDATE = [
     'description',
@@ -26,6 +27,12 @@ const FIELD_SET_UPDATE = [
     'materials',
     'datasets'
 ];
+
+// Extend fieldsets if user is a moderator.
+if (STATE.user.isModerator) {
+    FIELD_SET_NEW.push("moderation-status");
+    FIELD_SET_UPDATE.push("moderation-status");
+}
 
 // Main module level view.
 export default Backbone.View.extend({
@@ -49,10 +56,6 @@ export default Backbone.View.extend({
         // DOM Event handler: save changes.
         'click button.esdoc-errata-save': function (e) {
             const fieldSet = STATE.issue.isNew ? FIELD_SET_NEW : FIELD_SET_UPDATE;
-            if (STATE.user.isModerator) {
-                fieldSet.push("moderation-status");
-            }
-
             _.each(fieldSet, this.setFieldValue, this);
 
             if ($('.field-value').hasClass('has-error')) {

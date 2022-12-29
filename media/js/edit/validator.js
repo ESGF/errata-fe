@@ -135,11 +135,11 @@ APP.on("field:change", (field) => {
     const target = {};
     const constraints = {};
 
-    console.log(field);
-
-    // Set field error.
+    // Set field target / constraint.
     target[field.id] = field.value === "" ? null : field.value;
     constraints[field.id] = CONSTRAINTS[field.id];
+    
+    // Set field error.
     const err = validate(target, constraints, {
         fullMessages: false
     });
