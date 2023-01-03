@@ -53,18 +53,18 @@ APP.on("errata:save:dispatch:error", (response) => {
     }
 });
 
-APP.on("errata:moderate:status-update:starts", () => {
+APP.on("errata:moderate:dispatch:starts", () => {
     UTILS.displayFeedback("Saving errata moderation status");
 });
 
-APP.on("errata:moderate:status-update:error", () => {
+APP.on("errata:moderate:dispatch:error", () => {
     UTILS.hideFeedback();
     UTILS.displayInfoDialog("An error occurred whilst saving the errata moderation status - please try again.  If the problem persists then contact support.");
 });
 
-APP.on("errata:moderate:status-update:success", () => {
+APP.on("errata:moderate:dispatch:success", () => {
     UTILS.hideFeedback();
     UTILS.displayInfoDialog("Moderation status has been sucessfully updated.", () => {
-        APP.trigger("errata:moderate:status-update:complete");
+        APP.trigger("errata:moderate:complete");
     });
 });

@@ -35,25 +35,10 @@ APP.on("errata:save:dispatch", () => {
 });
 
 // Event handler: errata:moderate:accept.
-APP.on("errata:moderate:accept", () => {
-    dispatchModerationStatusUpdate("accepted");
-});
-
-// Event handler: errata:moderate:reject.
-APP.on("errata:moderate:reject", () => {
-    dispatchModerationStatusUpdate("rejected");
-});
-
-// Event handler: errata:moderate:review.
-APP.on("errata:moderate:review", () => {
-    dispatchModerationStatusUpdate("in-review");
-});
-
-// Dispatches a moderation status update.
-const dispatchModerationStatusUpdate = (moderationStatus) => {
+APP.on("errata:moderate", (moderationStatus) => {
     let url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.API_PUBLICATION_MODERATE;
 
-    APP.trigger("errata:moderate:status-update:starts");
+    APP.trigger("errata:moderate:dispatch:starts");
 
     $.ajax({
         method: "POST",
@@ -71,9 +56,9 @@ const dispatchModerationStatusUpdate = (moderationStatus) => {
     })
         .always((r) => {
             if (r.status === 200) {
-                APP.trigger("errata:moderate:status-update:success", moderationStatus);
+                APP.trigger("errata:moderate:dispatch:success", moderationStatus);
             } else {
-                APP.trigger("errata:moderate:status-update:error", r);
+                APP.trigger("errata:moderate:dispatch:error", r);
             }
     });
-};
+});

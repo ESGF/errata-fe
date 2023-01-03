@@ -28,12 +28,6 @@ const FIELD_SET_UPDATE = [
     'datasets'
 ];
 
-// Extend fieldsets if user is a moderator.
-if (STATE.user.isModerator) {
-    FIELD_SET_NEW.push("moderation-status");
-    FIELD_SET_UPDATE.push("moderation-status");
-}
-
 // Main module level view.
 export default Backbone.View.extend({
     // Backbone: view event handlers.
@@ -67,17 +61,17 @@ export default Backbone.View.extend({
 
         // DOM Event handler: moderation accept.
         'click a.esdoc-moderate-accept': function (e) {
-            APP.trigger("errata:moderate:accept");
+            APP.trigger("errata:moderate", "accepted");
         },
 
         // DOM Event handler: moderation review.
         'click a.esdoc-moderate-review': function (e) {
-            APP.trigger("errata:moderate:review");
+            APP.trigger("errata:moderate", "in-review");
         },
 
         // DOM Event handler: moderation reject.
         'click a.esdoc-moderate-reject': function (e) {
-            APP.trigger("errata:moderate:reject");
+            APP.trigger("errata:moderate", "rejected");
         },
 
         // DOM Event handler: field change.
@@ -91,7 +85,7 @@ export default Backbone.View.extend({
         APP.on("field:change:aborted", this._onFieldChange, this);
         APP.on("field:change:verified", this._onFieldChange, this);
         APP.on("errata:save:dispatch:error", this._onSaveToServerError, this);
-        APP.on("errata:moderate:status-update:success", this._onModerationStatusChange, this);
+        APP.on("errata:moderate:dispatch:success", this._onModerationStatusChange, this);
     },
 
     // Backbone: view renderer.
@@ -104,6 +98,7 @@ export default Backbone.View.extend({
 
     // Updates the value of a field.
     setFieldValue: function (fieldID) {
+
         let fieldValue = $('#' + fieldID).val().trim();
         if (_.contains(["urls", "materials", "datasets"], fieldID)) {
             fieldValue = fieldValue.split("\n");
