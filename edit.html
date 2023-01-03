@@ -37,8 +37,8 @@
     <!-- ---------------------------------------------- -->
     <!-- JS: Application script                         -->
     <!-- ---------------------------------------------- -->
-    <script src="media/js/edit/index.js" type="module"></script>
-    <!-- <script src="dist/edit.js" defer nomodule></script> -->
+    <script src="media/js/detail-edit/index.js" type="module"></script>
+    <!-- <script src="dist/detail-edit.js" defer nomodule></script> -->
 </head>
 
 <!-- ---------------------------------------------- -->
@@ -117,7 +117,7 @@
                     <input id="email"
                            name="email"
                            type="text"
-                           tabindex="2"
+                           tabindex="1"
                            class="form-control"
                            placeholder="Enter your email - a system moderator will contact you in due course." >
                     <div id="emailErrorMessage" class="field-error" />
@@ -130,7 +130,7 @@
             <tr>
                 <td class="field-name">Moderation Status *</td>
                 <td class="field-value moderation-status">
-                    <select id="moderation-status" name="moderation-status" class="form-control" tabindex="5">
+                    <select id="moderation-status" name="moderation-status" class="form-control" tabindex="1">
                         <% _.each(PYESSV.ESDOC.ERRATA.getModerationStatus(), function(i) { %>
                             <option value="<%= i.canonicalName %>"
                                     <%= i.canonicalName === STATE.issue.moderationStatus  ? "selected" : "" %> >
@@ -153,7 +153,7 @@
                     <select id="project"
                             name="project"
                             class="form-control"
-                            tabindex="1">
+                            tabindex="2">
                         <% if (STATE.issue.isNew) { %>
                             <option value="null">Select Project</option>
                         <% } %>
@@ -176,7 +176,7 @@
                 <input id="title"
                        name="title"
                        type="text"
-                       tabindex="2"
+                       tabindex="3"
                        <% if (!STATE.issue.isNew) { %>disabled="true"<% } %>
                        class="form-control"
                        placeholder="Enter a unique title between 16 and 255 characters."
@@ -192,7 +192,7 @@
                 <textarea id="description"
                           name="description"
                           class="form-control"
-                          tabindex="3"
+                          tabindex="4"
                           placeholder="Enter an explanation of the issue between 16 and 1023 characters."
                           rows="3"><%= STATE.issue.description%></textarea>
                   <div id="descriptionErrorMessage" class="field-error" />
@@ -203,7 +203,7 @@
         <tr>
             <td class="field-name">Severity *</td>
             <td class="field-value severity">
-                <select id="severity" name="severity" class="form-control" tabindex="4">
+                <select id="severity" name="severity" class="form-control" tabindex="5">
                     <% if (STATE.issue.isNew) { %>
                         <option value="null">Select Severity</option>
                     <% } %>
@@ -222,7 +222,7 @@
         <tr <% if (STATE.issue.isNew) { %>class="hidden"<% } %>>
             <td class="field-name">Status *</td>
             <td class="field-value status">
-                <select id="status" name="status" class="form-control" tabindex="5">
+                <select id="status" name="status" class="form-control" tabindex="6">
                     <% _.each(PYESSV.ESDOC.ERRATA.getStatus(), function(i) { %>
                         <% if (STATE.issue.status === 'new' || i.canonicalName !== 'new') { %>
                             <option value="<%= i.canonicalName %>"
@@ -242,7 +242,7 @@
             <td class="field-value urls">
                 <textarea id="urls"
                           name="urls"
-                          tabindex="6"
+                          tabindex="7"
                           class="form-control"
                           placeholder="Enter a new line separated list of links."
                           rows="6"><%= STATE.issue.materials.join('\n') %></textarea>
@@ -256,7 +256,7 @@
             <td class="field-value materials">
                 <textarea id="materials"
                           name="materials"
-                          tabindex="6"
+                          tabindex="8"
                           class="form-control"
                           placeholder="Enter a new line separated list of image file links (.jpg, .gif, .png, .tiff)."
                           rows="6"><%= STATE.issue.materials.join('\n') %></textarea>
@@ -271,7 +271,7 @@
                 <textarea class="form-control"
                           id="datasets"
                           name="datasets"
-                          tabindex="7"
+                          tabindex="9"
                           placeholder="Enter a new line separated list of ESG-F datset identifiers."
                           rows="15"><%= STATE.issue.datasets.join('\n') %></textarea>
                   <div id="datasetsErrorMessage" class="field-error" />

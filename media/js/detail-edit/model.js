@@ -45,7 +45,7 @@ export class Issue {
         this.stateHash = this.encode();
     }
 
-    // Decodes an instance from data pulled from server.
+    // Decodes an instance from over the wire.
     decode (i) {
         this.datasets = i.datasets;
         this.description = i.description;
@@ -60,9 +60,9 @@ export class Issue {
         this.urls = i.urls;
     }
 
-    // Encode an instance to be pushed to server.
+    // Encodes an instance for over the wire dispatch.
     encode () {
-        return JSON.stringify({
+        const data = {
             datasets: this.datasets,
             description: this.description,
             materials: this.materials,
@@ -74,6 +74,8 @@ export class Issue {
             uid: this.uid,
             urls: this.urls,
             userEmail: this.email
-        })
+        };
+
+        return JSON.stringify(data);
     }
 }

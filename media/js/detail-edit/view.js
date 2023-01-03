@@ -59,9 +59,9 @@ export default Backbone.View.extend({
             _.each(fieldSet, this.setFieldValue, this);
 
             if ($('.field-value').hasClass('has-error')) {
-                APP.trigger("issue:save:invalidated");
+                APP.trigger("errata:save:invalidated");
             } else {
-                APP.trigger("issue:save:start");
+                APP.trigger("errata:save:start");
             }
         },
 
@@ -75,7 +75,7 @@ export default Backbone.View.extend({
     initialize: function () {
         APP.on("field:change:aborted", this._onFieldChange, this);
         APP.on("field:change:verified", this._onFieldChange, this);
-        APP.on("issue:save:post:error", this._onSaveToServerError, this);
+        APP.on("errata:save:dispatch:error", this._onSaveToServerError, this);
     },
 
     // Backbone: view renderer.
@@ -117,7 +117,7 @@ export default Backbone.View.extend({
         }
     },
 
-    // Event handler: issue:save:post:error.
+    // Event handler: errata:save:dispatch:error.
     _onSaveToServerError: function ({ responseJSON: error }) {
         if (error.errorField) {
             this.$(".field-value ." + error.errorField).addClass('has-error');

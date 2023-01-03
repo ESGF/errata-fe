@@ -3,8 +3,8 @@ import * as APP         from  '../shared/application.js';
 import * as CONSTANTS   from  '../shared/constants.js';
 import * as STATE       from  './state.js';
 
-// Event handler: issue:save:post.
-APP.on("issue:save:post", () => {
+// Event handler: errata:save:dispatch.
+APP.on("errata:save:dispatch", () => {
     let url = CONSTANTS.URLS.API_BASE_URL;
     if (STATE.user.isAnonymous) {
         url += STATE.issue.isNew ? CONSTANTS.URLS.API_MODERATION_PROPOSE : CONSTANTS.URLS.API_PUBLICATION_UPDATE;
@@ -12,7 +12,7 @@ APP.on("issue:save:post", () => {
         url += STATE.issue.isNew ? CONSTANTS.URLS.API_PUBLICATION_CREATE : CONSTANTS.URLS.API_PUBLICATION_UPDATE;
     }
 
-    APP.trigger("issue:save:post:starts");
+    APP.trigger("errata:save:dispatch:starts");
 
     $.ajax({
         method: "POST",
@@ -27,9 +27,9 @@ APP.on("issue:save:post", () => {
     })
         .always((r) => {
             if (r.status === 200) {
-                APP.trigger("issue:save:post:success");
+                APP.trigger("errata:save:dispatch:success");
             } else {
-                APP.trigger("issue:save:post:error", r);
+                APP.trigger("errata:save:dispatch:error", r);
             }
     });
 });

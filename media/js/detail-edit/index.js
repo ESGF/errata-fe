@@ -31,7 +31,7 @@ APP.on("setup:complete", () => {
     APP.trigger("ui:initialized");
 });
 
-APP.on('issue:save:complete', () => {
+APP.on('errata:save:complete', () => {
     let url = CONSTANTS.URLS.PAGE_VIEW;
     url += '?uid=';
     url += STATE.issue.uid;

@@ -23,12 +23,12 @@ APP.on("field:change:verified", (field) => {
     issue[slot] = field.value;
 });
 
-// Event handler: issue:save.
-APP.on("issue:save:start", () => {
+// Event handler: errata:save.
+APP.on("errata:save:start", () => {
     if (issue.hasChanged) {
-        APP.trigger("issue:save:post");
+        APP.trigger("errata:save:dispatch");
     } else {
-        APP.trigger("issue:save:abort");
+        APP.trigger("errata:save:abort");
     }
 });
 
