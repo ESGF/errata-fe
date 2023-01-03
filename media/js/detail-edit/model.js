@@ -37,12 +37,12 @@ export class Issue {
 
     // Returns flag indicating whether issue state has changed or not.
     get hasChanged () {
-        return this.stateHash !== this.encode();
+        return this.stateHash !== JSON.stringify(this.encode());
     }
 
     // Sets a pseudo-hash of the objects state.
     setHash () {
-        this.stateHash = this.encode();
+        this.stateHash = JSON.stringify(this.encode());
     }
 
     // Decodes an instance from over the wire.
@@ -62,7 +62,7 @@ export class Issue {
 
     // Encodes an instance for over the wire dispatch.
     encode () {
-        const data = {
+        return {
             datasets: this.datasets,
             description: this.description,
             materials: this.materials,
@@ -75,7 +75,5 @@ export class Issue {
             urls: this.urls,
             userEmail: this.email
         };
-
-        return JSON.stringify(data);
     }
 }

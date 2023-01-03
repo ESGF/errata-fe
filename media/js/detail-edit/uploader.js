@@ -5,6 +5,8 @@ import * as STATE       from  './state.js';
 
 // Event handler: errata:save:dispatch.
 APP.on("errata:save:dispatch", () => {
+    const eventNamespace = "errata:save:dispatch";
+    const payload = STATE.issue.encode();
     let url = CONSTANTS.URLS.API_BASE_URL;
     if (STATE.user.isAnonymous) {
         url += STATE.issue.isNew ? CONSTANTS.URLS.API_PUBLICATION_PROPOSE : CONSTANTS.URLS.API_PUBLICATION_UPDATE;
@@ -12,67 +14,22 @@ APP.on("errata:save:dispatch", () => {
         url += STATE.issue.isNew ? CONSTANTS.URLS.API_PUBLICATION_CREATE : CONSTANTS.URLS.API_PUBLICATION_UPDATE;
     }
 
-    APP.trigger("errata:save:dispatch:starts");
-
-    $.ajax({
-        method: "POST",
-        url: url,
-        data: STATE.issue.encode(),
-        dataType: 'json',
-        headers: {
-            "Authorization": STATE.user.oauthCredentials,
-            "Content-Type": 'application/json; charset=UTF-8',
-            "X-XSRFToken": Cookies.get('_xsrf')
-        }
-    })
-        .always((r) => {
-            if (r.status === 200) {
-                APP.trigger("errata:save:dispatch:success");
-            } else {
-                APP.trigger("errata:save:dispatch:error", r);
-            }
-    });
+    dispatchPost(url, payload, eventNamespace);
 });
 
 // Event handler: errata:moderate:accept.
 APP.on("errata:moderate", (moderationStatus) => {
-    const url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.API_PUBLICATION_MODERATE;
+    const eventNamespace = "errata:moderate:dispatch";
     const payload = {
         uid: STATE.issue.uid,
         moderationStatus: moderationStatus
     };
-    const eventNamespace = "errata:moderate:dispatch";
+    const url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.API_PUBLICATION_MODERATE;
 
     dispatchPost(url, payload, eventNamespace);
-
-
-    // dispatchPost(url)
-
-    // APP.trigger("errata:moderate:dispatch:starts");
-
-    // $.ajax({
-    //     method: "POST",
-    //     url: url,
-    //     data: JSON.stringify({
-    //         uid: STATE.issue.uid,
-    //         moderationStatus: moderationStatus
-    //     }),
-    //     dataType: 'json',
-    //     headers: {
-    //         "Authorization": STATE.user.oauthCredentials,
-    //         "Content-Type": 'application/json; charset=UTF-8',
-    //         "X-XSRFToken": Cookies.get('_xsrf')
-    //     }
-    // })
-    //     .always((r) => {
-    //         if (r.status === 200) {
-    //             APP.trigger("errata:moderate:dispatch:success", moderationStatus);
-    //         } else {
-    //             APP.trigger("errata:moderate:dispatch:error", r);
-    //         }
-    // });
 });
 
+// Utility fn: Dispatches an HTTP POST to API server.
 const dispatchPost = (url, payload, eventNamespace) => {
     APP.trigger(`${eventNamespace}:starts`);
 
