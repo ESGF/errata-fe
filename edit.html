@@ -127,12 +127,14 @@
             <tr>
                 <td class="field-name">Email Address *</td>
                 <td class="field-value email">
-                    <input id="email"
-                           name="email"
-                           type="text"
-                           tabindex="1"
-                           class="form-control"
-                           placeholder="Enter your email - a system moderator will contact you in due course." >
+                    <input 
+                        id="email"
+                        name="email"
+                        type="text"
+                        tabindex="1"
+                        class="form-control"
+                        placeholder="Enter your email - a system moderator will contact you in due course." >
+                    </input>
                     <div id="emailErrorMessage" class="field-error" />
                  </td>
             </tr>
@@ -143,13 +145,15 @@
             <tr>
                 <td class="field-name">Moderation Status *</td>
                 <td class="field-value moderation-status">
-                    <input id="moderation status"
-                    name="moderationStatus"
-                    type="text"
-                    tabindex="2"
-                    disabled="true"
-                    class="form-control"
-                    value="<%= STATE.issue.moderationStatus.toUpperCase() %>" >
+                    <input 
+                        id="moderationStatus"
+                        name="moderationStatus"
+                        type="text"
+                        tabindex="2"
+                        disabled="true"
+                        class="form-control"
+                        value="<%= STATE.issue.moderationStatus.toUpperCase() %>" >
+                    </input>
                 </td>
             </tr>
         <% } %>
@@ -159,13 +163,15 @@
             <td class="field-name">Project *</td>
             <td class="field-value project">
                 <% if (!STATE.issue.isNew) { %>
-                    <input id="project"
-                    name="project"
-                    type="text"
-                    tabindex="2"
-                    disabled="true"
-                    class="form-control"
-                    value="<%= STATE.issue.project.toUpperCase() %>" >
+                    <input 
+                        id="project"
+                        name="project"
+                        type="text"
+                        tabindex="2"
+                        disabled="true"
+                        class="form-control"
+                        value="<%= STATE.issue.project.toUpperCase() %>" >
+                    </input>
                 <% } else { %>
                     <select id="project"
                             name="project"

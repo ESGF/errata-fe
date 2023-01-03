@@ -91,6 +91,7 @@ export default Backbone.View.extend({
         APP.on("field:change:aborted", this._onFieldChange, this);
         APP.on("field:change:verified", this._onFieldChange, this);
         APP.on("errata:save:dispatch:error", this._onSaveToServerError, this);
+        APP.on("errata:moderate:status-update:success", this._onModerationStatusChange, this);
     },
 
     // Backbone: view renderer.
@@ -132,14 +133,15 @@ export default Backbone.View.extend({
         }
     },
 
+    _onModerationStatusChange: function (newStatus) {
+        $("#moderationStatus").val(newStatus.toUpperCase());
+    },
+
     // Event handler: errata:save:dispatch:error.
     _onSaveToServerError: function ({ responseJSON: error }) {
         if (error.errorField) {
             this.$(".field-value ." + error.errorField).addClass('has-error');
             this.$("#" + error.errorField + "ErrorMessage").text(error.errorMessage);        
         }
-        console.log(errorCode);
-        console.log(errorField);
-        console.log(errorMessage);
     }
 });

@@ -71,7 +71,7 @@ const dispatchModerationStatusUpdate = (moderationStatus) => {
     })
         .always((r) => {
             if (r.status === 200) {
-                APP.trigger("errata:moderate:status-update:success");
+                APP.trigger("errata:moderate:status-update:success", moderationStatus);
             } else {
                 APP.trigger("errata:moderate:status-update:error", r);
             }
