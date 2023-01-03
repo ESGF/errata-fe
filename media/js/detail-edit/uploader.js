@@ -36,17 +36,50 @@ APP.on("errata:save:dispatch", () => {
 
 // Event handler: errata:moderate:accept.
 APP.on("errata:moderate", (moderationStatus) => {
-    let url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.API_PUBLICATION_MODERATE;
+    const url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.API_PUBLICATION_MODERATE;
+    const payload = {
+        uid: STATE.issue.uid,
+        moderationStatus: moderationStatus
+    };
+    const eventNamespace = "errata:moderate:dispatch";
 
-    APP.trigger("errata:moderate:dispatch:starts");
+    dispatchPost(url, payload, eventNamespace);
+
+
+    // dispatchPost(url)
+
+    // APP.trigger("errata:moderate:dispatch:starts");
+
+    // $.ajax({
+    //     method: "POST",
+    //     url: url,
+    //     data: JSON.stringify({
+    //         uid: STATE.issue.uid,
+    //         moderationStatus: moderationStatus
+    //     }),
+    //     dataType: 'json',
+    //     headers: {
+    //         "Authorization": STATE.user.oauthCredentials,
+    //         "Content-Type": 'application/json; charset=UTF-8',
+    //         "X-XSRFToken": Cookies.get('_xsrf')
+    //     }
+    // })
+    //     .always((r) => {
+    //         if (r.status === 200) {
+    //             APP.trigger("errata:moderate:dispatch:success", moderationStatus);
+    //         } else {
+    //             APP.trigger("errata:moderate:dispatch:error", r);
+    //         }
+    // });
+});
+
+const dispatchPost = (url, payload, eventNamespace) => {
+    APP.trigger(`${eventNamespace}:starts`);
 
     $.ajax({
         method: "POST",
         url: url,
-        data: JSON.stringify({
-            uid: STATE.issue.uid,
-            moderationStatus: moderationStatus
-        }),
+        data: JSON.stringify(payload),
         dataType: 'json',
         headers: {
             "Authorization": STATE.user.oauthCredentials,
@@ -56,9 +89,9 @@ APP.on("errata:moderate", (moderationStatus) => {
     })
         .always((r) => {
             if (r.status === 200) {
-                APP.trigger("errata:moderate:dispatch:success", moderationStatus);
+                APP.trigger(`${eventNamespace}:success`, payload);
             } else {
-                APP.trigger("errata:moderate:dispatch:error", r);
+                APP.trigger(`${eventNamespace}:error`, r);
             }
     });
-});
+};
