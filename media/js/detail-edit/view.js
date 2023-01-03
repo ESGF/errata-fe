@@ -65,6 +65,21 @@ export default Backbone.View.extend({
             }
         },
 
+        // DOM Event handler: moderation accept.
+        'click a.esdoc-moderate-accept': function (e) {
+            APP.trigger("errata:moderate:accept");
+        },
+
+        // DOM Event handler: moderation review.
+        'click a.esdoc-moderate-review': function (e) {
+            APP.trigger("errata:moderate:review");
+        },
+
+        // DOM Event handler: moderation reject.
+        'click a.esdoc-moderate-reject': function (e) {
+            APP.trigger("errata:moderate:reject");
+        },
+
         // DOM Event handler: field change.
         'change .form-control': function (e) {
             this.setFieldValue($(e.target).attr("id"));

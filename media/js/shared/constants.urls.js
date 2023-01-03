@@ -4,6 +4,12 @@ export const API_BASE_URL = window.origin;
 // Errata create.
 export const API_PUBLICATION_CREATE = "/2/publication/create";
 
+// Errata update moderation status.
+export const API_PUBLICATION_MODERATE = "/2/publication/moderate";
+
+// Errata propose.
+export const API_PUBLICATION_PROPOSE = "/2/publication/propose";
+
 // Errata retrieve.
 export const API_PUBLICATION_RETRIEVE = "/2/publication/retrieve";
 
@@ -12,9 +18,6 @@ export const API_PUBLICATION_RETRIEVE_ALL = "/2/publication/retrieve-all";
 
 // Errata update.
 export const API_PUBLICATION_UPDATE = "/2/publication/update";
-
-// Errata propose.
-export const API_MODERATION_PROPOSE = "/2/publication/propose";
 
 // OAuth authorize.
 export const API_OAUTH_AUTHORIZE = window.location.origin + "/oauth/authorize";
