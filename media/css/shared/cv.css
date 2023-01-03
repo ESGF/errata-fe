@@ -18,7 +18,6 @@ td.issue-severity.critical {
 	color: #ffffff;
 }
 
-
 /* Issue status */
 td.issue-status {
 	font-weight: bold;
@@ -34,6 +33,25 @@ td.issue-status.resolved {
 	color: #ffffff;
 }
 td.issue-status.wontfix {
+	background-color: #38761d;
+	color: #ffffff;
+}
+
+/* Issue moderation status */
+td.issue-moderation-status {
+	font-weight: bold;
+}
+td.issue-moderation-status.accepted {
+	background-color: #00ff00;
+}
+td.issue-moderation-status.in-review {
+	background-color: #ff9900;
+}
+td.issue-moderation-status.not-required {
+	background-color: pink;
+	color: #333;
+}
+td.issue-moderation-status.rejected {
 	background-color: #38761d;
 	color: #ffffff;
 }
