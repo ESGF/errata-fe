@@ -1,4 +1,3 @@
-// Module imports.
 import * as APP         from  '../shared/application.js';
 import * as CONSTANTS   from  '../shared/constants.js';
 import * as STATE       from  './state.js';
