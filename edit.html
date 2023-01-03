@@ -143,15 +143,13 @@
             <tr>
                 <td class="field-name">Moderation Status *</td>
                 <td class="field-value moderation-status">
-                    <select id="moderation-status" name="moderation-status" class="form-control" tabindex="1">
-                        <% _.each(PYESSV.ESDOC.ERRATA.getModerationStatus(), function(i) { %>
-                            <option value="<%= i.canonicalName %>"
-                                    <%= i.canonicalName === STATE.issue.moderationStatus  ? "selected" : "" %> >
-                                <%- i.label %>
-                            </option>
-                        <% }); %>
-                    </select>
-                    <div id="moderation-statusErrorMessage" class="field-error" />
+                    <input id="moderation status"
+                    name="moderationStatus"
+                    type="text"
+                    tabindex="2"
+                    disabled="true"
+                    class="form-control"
+                    value="<%= STATE.issue.moderationStatus.toUpperCase() %>" >
                 </td>
             </tr>
         <% } %>
@@ -161,7 +159,13 @@
             <td class="field-name">Project *</td>
             <td class="field-value project">
                 <% if (!STATE.issue.isNew) { %>
-                    <%= STATE.issue.project.toUpperCase() %>
+                    <input id="project"
+                    name="project"
+                    type="text"
+                    tabindex="2"
+                    disabled="true"
+                    class="form-control"
+                    value="<%= STATE.issue.project.toUpperCase() %>" >
                 <% } else { %>
                     <select id="project"
                             name="project"
