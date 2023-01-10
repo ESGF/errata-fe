@@ -32,16 +32,23 @@ APP.on("errata:moderate", (moderationStatus) => {
 const dispatchPost = (url, payload, eventNamespace) => {
     APP.trigger(`${eventNamespace}:starts`);
 
+    let headers = {
+        "Content-Type": 'application/json; charset=UTF-8'
+    };
+    if (STATE.user.isAnonymous === false) {
+        headers = {            
+            "Authorization": STATE.user.oauthCredentials,
+            "X-XSRFToken": Cookies.get('_xsrf'),
+            ...headers
+        };
+    }
+
     $.ajax({
         method: "POST",
         url: url,
         data: JSON.stringify(payload),
         dataType: 'json',
-        headers: {
-            "Authorization": STATE.user.oauthCredentials,
-            "Content-Type": 'application/json; charset=UTF-8',
-            "X-XSRFToken": Cookies.get('_xsrf')
-        }
+        headers: headers
     })
         .always((r) => {
             if (r.status === 200) {
