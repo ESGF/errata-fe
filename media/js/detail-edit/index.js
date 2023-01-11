@@ -38,6 +38,13 @@ APP.on('errata:save:complete', () => {
     UTILS.openURL(url);
 });
 
+APP.on('errata:moderation:complete', () => {
+    let url = CONSTANTS.URLS.PAGE_EDIT;
+    url += '?uid=';
+    url += STATE.issue.uid;
+    UTILS.openURL(url);
+});
+
 // Expose to presentation layer.
 window.APP = APP;
 window.CONSTANTS = CONSTANTS;
