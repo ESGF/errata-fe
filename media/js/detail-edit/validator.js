@@ -4,7 +4,7 @@
 
 // Module imports.
 import * as APP from '../shared/application.js';
-import * as CONSTANTS from '../shared/constants';
+import * as CONSTANTS from '../shared/constants.js';
 
 // Message literals.
 const ERR_REQUIRED_FIELD = "Required field - you must enter a value.";
