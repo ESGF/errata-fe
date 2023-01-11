@@ -95,9 +95,18 @@
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="esdoc-moderate-accept" href="#">Accept</a></li>
-                    <li><a class="esdoc-moderate-review" href="#">In-Review</a></li>
-                    <li><a class="esdoc-moderate-reject" href="#">Reject</a></li>
+                    <% if (STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_IN_REVIEW || 
+                           STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_REJECTED) { %>
+                        <li><a class="esdoc-moderate-accept" href="#">Accept</a></li>
+                    <% } %>
+                    <% if (STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_ACCEPTED || 
+                           STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_REJECTED) { %>
+                            <li><a class="esdoc-moderate-review" href="#">In-Review</a></li>
+                    <% } %>
+                    <% if (STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_ACCEPTED || 
+                           STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_IN_REVIEW) { %>
+                        <li><a class="esdoc-moderate-reject" href="#">Reject</a></li>
+                    <% } %>
                 </ul>
             </div>
         <% } %>
