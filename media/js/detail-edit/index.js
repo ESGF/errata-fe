@@ -38,7 +38,7 @@ APP.on('errata:save:complete', () => {
     UTILS.openURL(url);
 });
 
-APP.on('errata:moderation:complete', () => {
+APP.on('errata:moderate:complete', () => {
     let url = CONSTANTS.URLS.PAGE_EDIT;
     url += '?uid=';
     url += STATE.issue.uid;
