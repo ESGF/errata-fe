@@ -61,17 +61,17 @@ export default Backbone.View.extend({
 
         // DOM Event handler: moderation accept.
         'click a.esdoc-moderate-accept': function (e) {
-            APP.trigger("errata:moderate", "accepted");
+            APP.trigger("errata:moderate", CONSTANTS.ISSUE.MODERATION_STATUS_ACCEPTED);
         },
 
         // DOM Event handler: moderation review.
         'click a.esdoc-moderate-review': function (e) {
-            APP.trigger("errata:moderate", "in-review");
+            APP.trigger("errata:moderate", CONSTANTS.ISSUE.MODERATION_STATUS_IN_REVIEW);
         },
 
         // DOM Event handler: moderation reject.
         'click a.esdoc-moderate-reject': function (e) {
-            APP.trigger("errata:moderate", "rejected");
+            APP.trigger("errata:moderate", CONSTANTS.ISSUE.MODERATION_STATUS_REJECTED);
         },
 
         // DOM Event handler: field change.

@@ -63,11 +63,11 @@ APP.on("errata:moderate:dispatch:error", () => {
     UTILS.displayInfoDialog("An error occurred whilst saving the errata moderation status - please try again.  If the problem persists then contact support.");
 });
 
-APP.on("errata:moderate:dispatch:success", () => {
+APP.on("errata:moderate:dispatch:success", (details) => {
     let msg = "Moderation status has been sucessfully updated.  ";
-    if (STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_ACCEPTED) {
+    if (details.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_ACCEPTED) {
         msg += "  An acceptance email has been sent to the errata proposer.";
-    } else if (STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_REJECTED) {
+    } else if (details.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_REJECTED) {
         msg += "  A rejection email has been sent to the errata proposer.";
     }
 

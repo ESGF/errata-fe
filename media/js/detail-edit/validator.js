@@ -4,6 +4,7 @@
 
 // Module imports.
 import * as APP from '../shared/application.js';
+import * as CONSTANTS from '../shared/constants';
 
 // Message literals.
 const ERR_REQUIRED_FIELD = "Required field - you must enter a value.";
@@ -92,7 +93,12 @@ const CONSTRAINTS = {
     "moderation-status": {
         presence: true,
         inclusion: {
-            within: ['accepted', 'in-review', 'not-required', 'rejected'],
+            within : [
+                CONSTANTS.ISSUE.MODERATION_STATUS_ACCEPTED,
+                CONSTANTS.ISSUE.MODERATION_STATUS_IN_REVIEW,
+                CONSTANTS.ISSUE.MODERATION_STATUS_NOT_REQUIRED,
+                CONSTANTS.ISSUE.MODERATION_STATUS_REJECTED
+            ],
             message: ERR_REQUIRED_FIELD
         }
     },
