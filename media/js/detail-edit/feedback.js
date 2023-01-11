@@ -33,11 +33,12 @@ APP.on("errata:save:dispatch:starts", () => {
 
 // Event handler: issue save success.
 APP.on("errata:save:dispatch:success", () => {
-    UTILS.hideFeedback();
     let msg = "Errata details have been successfully saved.";
     if (STATE.user.isAnonymous) {
         msg += "  A system moderator will review the details and contact you in due course."
     }
+
+    UTILS.hideFeedback();
     UTILS.displayInfoDialog(msg, () => {
         APP.trigger("errata:save:complete");
     });
@@ -63,8 +64,15 @@ APP.on("errata:moderate:dispatch:error", () => {
 });
 
 APP.on("errata:moderate:dispatch:success", () => {
+    let msg = "Moderation status has been sucessfully updated.  ";
+    if (STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_ACCEPTED) {
+        msg += "  An acceptance email has been sent to the errata proposer."
+    } elif (STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_REJECTED) {
+        msg += "  A rejection email has been sent to the errata proposer."
+    }
+
     UTILS.hideFeedback();
-    UTILS.displayInfoDialog("Moderation status has been sucessfully updated.", () => {
+    UTILS.displayInfoDialog(msg, () => {
         APP.trigger("errata:moderate:complete");
     });
 });
