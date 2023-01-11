@@ -33,12 +33,12 @@ const dispatchPost = (url, payload, eventNamespace) => {
     APP.trigger(`${eventNamespace}:starts`);
 
     let headers = {
-        "Content-Type": 'application/json; charset=UTF-8'
+        "Content-Type": 'application/json; charset=UTF-8',
+        "X-XSRFToken": Cookies.get('_xsrf')
     };
     if (STATE.user.isAnonymous === false) {
         headers = {            
             "Authorization": STATE.user.oauthCredentials,
-            "X-XSRFToken": Cookies.get('_xsrf'),
             ...headers
         };
     }
