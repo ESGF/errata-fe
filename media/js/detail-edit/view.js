@@ -92,13 +92,13 @@ export default Backbone.View.extend({
     render: function () {
         UTILS.renderTemplate("template-header", null, this);
         UTILS.renderTemplate("template-issue", null, this);
+        this.setPageTitle();
 
         return this;
     },
 
     // Updates the value of a field.
     setFieldValue: function (fieldID) {
-
         let fieldValue = $('#' + fieldID).val().trim();
         if (_.contains(["urls", "materials", "datasets"], fieldID)) {
             fieldValue = fieldValue.split("\n");
@@ -115,6 +115,21 @@ export default Backbone.View.extend({
             id: fieldID,
             value: fieldValue
         });
+    },
+
+    // Updates page title.
+    setPageTitle: function () {
+        let title = "ES-DOC - Errata - ";
+        if (STATE.issue.isNew) {
+            if (STATE.user.isAuthenticated) {
+                title += "Create Issue";
+            } else {
+                title += "Propose Issue";
+            }
+        } else {
+            title += "Edit Issue";
+        }
+        $(document).prop('title', title);
     },
 
     // Event handler: field:change:aborted | field:change:verified.

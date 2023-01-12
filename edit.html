@@ -9,15 +9,7 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
     <link rel="shortcut icon" href="media/img/favicon.ico" type="image/x-icon" />
-    <% if (STATE.issue.isNew) {%>
-        <% if (STATE.user.isAuthenticated) {%>
-            <title>ES-DOC - Errata - Create Issue</title>
-        <% } else { %>
-            <title>ES-DOC - Errata - Propose Issue</title>
-        <% }; %>
-    <% } else { %>
-        <title>ES-DOC - Errata - Edit Issue</title>
-    <% }; %>
+    <title>ES-DOC - Errata - Edit Issue</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- ---------------------------------------------- -->
@@ -57,6 +49,7 @@
 
     <!-- BEGIN: Page header -->
     <script type="underscore/template" id="template-header">
+
 <header class="main">
     <!-- Logo -->
     <img src="media/img/logo.png"
@@ -95,7 +88,9 @@
         <button class="esdoc-errata-save btn btn-primary btn-single">Save</button>
 
         <!-- Menu -  Moderation -->
-        <% if (STATE.user.isModerator) { %>
+        <% if (STATE.issue.isNew === false && 
+               STATE.user.isModerator && 
+               STATE.issue.moderationStatus != CONSTANTS.ISSUE.MODERATION_STATUS_NOT_REQUIRED) { %>
             <div class="btn-group">
                 <button type="button" class="btn btn-primary">Moderate</button>
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -120,11 +115,13 @@
         <% } %>
     </h1>
 </header>
-</script>
+
+    </script>
     <!-- END: page header -->
 
     <!-- BEGIN: Issue -->
     <script type="underscore/template" id="template-issue">
+
 <article class="container-fluid">
     <header class="bg-primary">
         <h2>
@@ -133,7 +130,8 @@
     </header>
     <%= UTILS.renderTemplate("template-issue-details") %>
 </article>
-</script>
+
+    </script>
     <!-- END: Issue -->
 
     <!-- BEGIN: Issue details -->
@@ -160,7 +158,9 @@
         <% } %>
 
         <!-- Fields: Moderation -->
-        <% if (STATE.user.isModerator) { %>
+        <% if (STATE.issue.isNew === false && 
+               STATE.user.isModerator && 
+               STATE.issue.moderationStatus != CONSTANTS.ISSUE.MODERATION_STATUS_NOT_REQUIRED) { %>
             <tr>
                 <td class="field-name">Moderation Status *</td>
                 <td class="field-value moderation-status">
