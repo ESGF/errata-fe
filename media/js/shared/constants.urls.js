@@ -1,49 +1,63 @@
 // Set API base url.
 export const API_BASE_URL = window.origin;
 
-// Set documentation url.
-export const DOCUMENTATION = "https://es-doc.github.io/esdoc-errata-client/";
-export const PIDDOCUMENTATION = "https://es-doc.github.io/esdoc-errata-client/lookup.html"
+// Errata create.
+export const API_PUBLICATION_CREATE = "/2/publication/create";
 
+// Errata update moderation status.
+export const API_PUBLICATION_MODERATE = "/2/publication/moderate";
 
-// ES-DOC homepage.
-export const HOME_PAGE = "https://es-doc.org";
+// Errata propose.
+export const API_PUBLICATION_PROPOSE = "/2/publication/propose";
+
+// Errata retrieve.
+export const API_PUBLICATION_RETRIEVE = "/2/publication/retrieve";
+
+// Errata retrieve-all.
+export const API_PUBLICATION_RETRIEVE_ALL = "/2/publication/retrieve-all";
+
+// Errata update.
+export const API_PUBLICATION_UPDATE = "/2/publication/update";
 
 // OAuth authorize.
-export const OAUTH_AUTHORIZE = window.location.origin + "/oauth/authorize";
-
-// PID page.
-export const PID_PAGE = "pid.html";
+export const API_OAUTH_AUTHORIZE = window.location.origin + "/oauth/authorize";
 
 // PID resolve.
-export const PID_RESOLVE = "/1/resolve/pid";
+export const API_PID_RESOLVE = "/1/resolve/pid";
 
-// PID task queeu search.
-export const PID_TASK_QUEUE_SEARCH = "/1/pid-queue/search";
+// PID task queue search.
+export const API_PID_TASK_QUEUE_SEARCH = "/1/pid-queue/search";
 
-// PID task queeu search setup.
-export const PID_TASK_QUEUE_SEARCH_SETUP = "/1/pid-queue/search-setup";
+// PID task queue search setup.
+export const API_PID_TASK_QUEUE_SEARCH_SETUP = "/1/pid-queue/search-setup";
 
-// Issue create.
-export const ISSUE_CREATE = "/1/issue/create";
+// Errata search.
+export const API_SEARCH = "/2/search/errata";
 
-// Issue update.
-export const ISSUE_UPDATE = "/1/issue/update";
+// Errata search: moderation.
+export const API_SEARCH_MODERATION = "/2/search/errata/moderation";
 
-// Issue retrieve.
-export const RETRIEVE = "/1/issue/retrieve";
+// Errata search setup.
+export const API_SEARCH_SETUP = "/2/search/errata/setup";
 
-// issue search.
-export const SEARCH = "/1/issue/search";
+// Set documentation url.
+export const DOCUMENTATION = "https://es-doc.github.io/esdoc-errata-client/";
+export const DOCUMENTATION_PID = "https://es-doc.github.io/esdoc-errata-client/lookup.html"
 
-// Issue search setup.
-export const SEARCH_SETUP = "/1/issue/search-setup";
+// Page: moderate errata.
+export const PAGE_MODERATE = '/static/moderate.html';
 
-// Search page.
-export const SEARCH_PAGE = "/static/index.html";
+// Page: ES-DOC home.
+export const PAGE_HOME = "https://es-doc.org";
 
-// Set viewerBaseURL.
-export const VIEW_PAGE = '/static/view.html'
+// Page: Edit errata.
+export const PAGE_EDIT = '/static/edit.html';
 
-// Set viewerBaseURL.
-export const EDIT_PAGE = '/static/edit.html'
+// Page: PID.
+export const PAGE_PID = "pid.html";
+
+// Page: Search errata.
+export const PAGE_SEARCH = "/static/index.html";
+
+// Page: View errata.
+export const PAGE_VIEW = '/static/view.html';

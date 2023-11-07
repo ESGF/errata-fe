@@ -76,7 +76,7 @@ const executeSearch = (preEventType, eventType) => {
     }
 
     // Set target.
-    url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.API_SEARCH;
+    url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.API_SEARCH_MODERATION;
     params = [];
     _.each(_.values(STATE.getActiveFilters()), (f) => {
         if (f.data.current.key.endsWith('*') === false) {

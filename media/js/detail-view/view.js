@@ -13,13 +13,13 @@ export default Backbone.View.extend({
             UTILS.openHomepage();
         },
 
-        // Open email: support.
-        'click button.esdoc-support': () => {
+        // DOM Event handler: support :: open email.
+        'click a.esdoc-support': function (e) {
             UTILS.openSupportEmail();
         },
 
         // DOM Event handler: open documentation.
-        'click button.esdoc-docs': () => {
+        'click a.esdoc-docs': () => {
             UTILS.openDocumentation();
         },
 
@@ -27,7 +27,7 @@ export default Backbone.View.extend({
         'click button.esdoc-errata-edit': () => {
             var url;
 
-            url = CONSTANTS.URLS.EDIT_PAGE;
+            url = CONSTANTS.URLS.PAGE_EDIT;
             url += "?uid=";
             url += STATE.issueUID;
             UTILS.openURL(url, false);

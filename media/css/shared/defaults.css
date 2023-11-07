@@ -17,6 +17,6 @@ body > div > header h1 small b {
     color: black;
 }
 
-button {
-    width: 80px;
+button.btn-single {
+    width: 100px;
 }

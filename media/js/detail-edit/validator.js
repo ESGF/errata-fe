@@ -4,16 +4,18 @@
 
 // Module imports.
 import * as APP from '../shared/application.js';
+import * as CONSTANTS from '../shared/constants.js';
 
 // Message literals.
 const ERR_REQUIRED_FIELD = "Required field - you must enter a value.";
+const ERR_INVALID_EMAIL = "Must be a valid email address.";
 const ERR_INVALID_MATERIALS = "Must be a list of valid image file links (.jpg, .gif, .png, .tiff).";
 const ERR_INVALID_LINKS = "Must be a list of valid links.";
 const ERR_INVALID_DATASETS = "Must be a list of valid dataset identifiers.";
 const ERR_INVALID_TITLE = "Must be 16 to 255 characters.";
 const ERR_INVALID_DESCRIPTION = "Must be 16 to 1023 characters.";
 
-// Override staandard error messages.
+// Override standard error messages.
 validate.validators.presence.options = {
     message: ERR_REQUIRED_FIELD
 };
@@ -29,7 +31,7 @@ validate.validators.materialsValidator = function(urls) {
     const imageFileExtensions = ["jpg", "gif", "png", "tiff"];
     const invalidURLs = _.filter(urls, (url) => {
         return _.isObject(validate({field: url}, {field: {url: true}})) ||
-                _.contains(imageFileExtensions, _.last(url.split('.'))) === false;
+               _.contains(imageFileExtensions, _.last(url.split('.'))) === false;
     });
     if (invalidURLs.length > 0) {
         return ERR_INVALID_MATERIALS;
@@ -69,20 +71,8 @@ validate.validators.datasetsValidator = function(identifiers) {
 
 // Set field constraints to be applied.
 const CONSTRAINTS = {
-    project: {
-        presence: true,
-        inclusion: {
-            within: ['cmip5', 'cmip6', 'cordex', 'input4mips'],
-            message: ERR_REQUIRED_FIELD
-        }
-    },
-    title: {
-        presence: true,
-        length: {
-            minimum: 16,
-            maximum: 255,
-            message: ERR_INVALID_TITLE
-        }
+    datasets: {
+        datasetsValidator: {}
     },
     description: {
         presence: true,
@@ -90,6 +80,33 @@ const CONSTRAINTS = {
             minimum: 16,
             maximum: 1023,
             message: ERR_INVALID_DESCRIPTION
+        }
+    },
+    email: {
+        email: {
+            message: ERR_INVALID_EMAIL
+        }
+    },
+    materials: {
+        materialsValidator: {}
+    },
+    "moderation-status": {
+        presence: true,
+        inclusion: {
+            within : [
+                CONSTANTS.ISSUE.MODERATION_STATUS_ACCEPTED,
+                CONSTANTS.ISSUE.MODERATION_STATUS_IN_REVIEW,
+                CONSTANTS.ISSUE.MODERATION_STATUS_NOT_REQUIRED,
+                CONSTANTS.ISSUE.MODERATION_STATUS_REJECTED
+            ],
+            message: ERR_REQUIRED_FIELD
+        }
+    },
+    project: {
+        presence: true,
+        inclusion: {
+            within: ['cmip5', 'cmip6', 'cordex', 'input4mips'],
+            message: ERR_REQUIRED_FIELD
         }
     },
     severity: {
@@ -106,25 +123,29 @@ const CONSTRAINTS = {
             message: ERR_REQUIRED_FIELD
         }
     },
+    title: {
+        presence: true,
+        length: {
+            minimum: 16,
+            maximum: 255,
+            message: ERR_INVALID_TITLE
+        }
+    },
     urls: {
         urlsValidator: {}
-    },
-    materials: {
-        materialsValidator: {}
-    },
-    datasets: {
-        datasetsValidator: {}
     }
-}
+};
 
 // Event handler: field:change.
 APP.on("field:change", (field) => {
     const target = {};
     const constraints = {};
 
-    // Set field error.
+    // Set field target / constraint.
     target[field.id] = field.value === "" ? null : field.value;
     constraints[field.id] = CONSTRAINTS[field.id];
+    
+    // Set field error.
     const err = validate(target, constraints, {
         fullMessages: false
     });

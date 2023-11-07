@@ -13,21 +13,21 @@ export default Backbone.View.extend({
             UTILS.openHomepage();
         },
 
-        // Open email: support.
-        'click button.esdoc-support': () => {
+        // DOM Event handler: support :: open email.
+        'click a.esdoc-support': function (e) {
             UTILS.openSupportEmail();
         },
 
         // DOM Event handler: open documentation.
-        'click button.esdoc-docs': () => {
+        'click a.esdoc-docs': () => {
             UTILS.openDocumentation();
-        },        
+        },
 
         // Open page: errata detail.
         'click .task': (e) => {
             var url;
 
-            url = CONSTANTS.URLS.VIEW_PAGE;
+            url = CONSTANTS.URLS.PAGE_VIEW;
             url += "?uid=";
             url += $(e.target).parent().attr("id") ||
                    $(e.target).parent().parent().attr("id");

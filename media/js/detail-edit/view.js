@@ -17,6 +17,7 @@ const FIELD_SET_NEW = [
     'datasets'
 ];
 
+
 // Set of fields when editing an existing issue.
 const FIELD_SET_UPDATE = [
     'description',
@@ -36,13 +37,13 @@ export default Backbone.View.extend({
             UTILS.openHomepage();
         },
 
-        // DOM Event handler: open email support.
-        'click button.esdoc-support': function (e) {
+        // DOM Event handler: support :: open email.
+        'click a.esdoc-support': function (e) {
             UTILS.openSupportEmail();
         },
 
         // DOM Event handler: open documentation.
-        'click button.esdoc-docs': () => {
+        'click a.esdoc-docs': () => {
             UTILS.openDocumentation();
         },
 
@@ -50,11 +51,27 @@ export default Backbone.View.extend({
         'click button.esdoc-errata-save': function (e) {
             const fieldSet = STATE.issue.isNew ? FIELD_SET_NEW : FIELD_SET_UPDATE;
             _.each(fieldSet, this.setFieldValue, this);
+
             if ($('.field-value').hasClass('has-error')) {
-                APP.trigger("issue:save:invalidated");
+                APP.trigger("errata:save:invalidated");
             } else {
-                APP.trigger("issue:save:start");
+                APP.trigger("errata:save:start");
             }
+        },
+
+        // DOM Event handler: moderation accept.
+        'click a.esdoc-moderate-accept': function (e) {
+            APP.trigger("errata:moderate", CONSTANTS.ISSUE.MODERATION_STATUS_ACCEPTED);
+        },
+
+        // DOM Event handler: moderation review.
+        'click a.esdoc-moderate-review': function (e) {
+            APP.trigger("errata:moderate", CONSTANTS.ISSUE.MODERATION_STATUS_IN_REVIEW);
+        },
+
+        // DOM Event handler: moderation reject.
+        'click a.esdoc-moderate-reject': function (e) {
+            APP.trigger("errata:moderate", CONSTANTS.ISSUE.MODERATION_STATUS_REJECTED);
         },
 
         // DOM Event handler: field change.
@@ -67,13 +84,15 @@ export default Backbone.View.extend({
     initialize: function () {
         APP.on("field:change:aborted", this._onFieldChange, this);
         APP.on("field:change:verified", this._onFieldChange, this);
-        APP.on("issue:save:post:error", this._onSaveToServerError, this);
+        APP.on("errata:save:dispatch:error", this._onSaveToServerError, this);
+        APP.on("errata:moderate:dispatch:success", this._onModerationStatusChange, this);
     },
 
     // Backbone: view renderer.
     render: function () {
         UTILS.renderTemplate("template-header", null, this);
         UTILS.renderTemplate("template-issue", null, this);
+        this.setPageTitle();
 
         return this;
     },
@@ -98,6 +117,21 @@ export default Backbone.View.extend({
         });
     },
 
+    // Updates page title.
+    setPageTitle: function () {
+        let title = "ES-DOC - Errata - ";
+        if (STATE.issue.isNew) {
+            if (STATE.user.isAuthenticated) {
+                title += "Create Issue";
+            } else {
+                title += "Propose Issue";
+            }
+        } else {
+            title += "Edit Issue";
+        }
+        $(document).prop('title', title);
+    },
+
     // Event handler: field:change:aborted | field:change:verified.
     _onFieldChange: function (field) {
         if (field.err) {
@@ -109,14 +143,16 @@ export default Backbone.View.extend({
         }
     },
 
-    // Event handler: issue:save:post:error.
+    // Event handler: errata:moderate:dispatch:success.
+    _onModerationStatusChange: function ({ moderationStatus: newStatus }) {
+        $("#moderationStatus").val(newStatus.toUpperCase());
+    },
+
+    // Event handler: errata:save:dispatch:error.
     _onSaveToServerError: function ({ responseJSON: error }) {
         if (error.errorField) {
             this.$(".field-value ." + error.errorField).addClass('has-error');
             this.$("#" + error.errorField + "ErrorMessage").text(error.errorMessage);        
         }
-        console.log(errorCode);
-        console.log(errorField);
-        console.log(errorMessage);
     }
 });

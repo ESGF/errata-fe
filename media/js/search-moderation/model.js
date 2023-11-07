@@ -1,6 +1,7 @@
 export { User }   from  '../shared/model.js';
 import getDefaultFilterKey from './defaultFilterKeys.js';
 
+
 // Encapsulates a search filter.
 export class SearchFilter {
     // Instance ctor.
@@ -21,8 +22,8 @@ export class SearchFilter {
         this.project = c.key.startsWith('esdoc') ? null : c.key.split(':')[1];
         this.uiPosition =  c.key === "esdoc:errata:project" ? 0 :
                            c.key === "esdoc:errata:severity" ? 1000 :
-                           c.key === "esdoc:errata:status" ? 1001 :
-                           c.key === "esdoc:errata:moderationStatus" ? 1002 : 100;
+                           c.key === "esdoc:errata:status" ? 1001 : 
+                           c.key === "esdoc:errata:moderation-status" ? 1002 : 100;
 
         // Project must be specified.
         if (c.key !== "esdoc:errata:project") {
@@ -67,6 +68,7 @@ export class SearchResult {
 class SearchResultExtensionInfo {
     // Instance ctor.
     constructor(i, filters) {
+        this.moderationStatus = filters[0].data.set['esdoc:errata:moderation-status:' + i.moderationStatus];
         this.severity = filters[2].data.set['esdoc:errata:severity:' + i.severity];
         this.status = filters[3].data.set['esdoc:errata:status:' + i.status];
         this.institutionID = i.institutionID.toUpperCase();

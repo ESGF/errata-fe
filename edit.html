@@ -4,16 +4,17 @@
 <!-- ---------------------------------------------- -->
 <!-- Document head 									-->
 <!-- ---------------------------------------------- -->
+
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
     <link rel="shortcut icon" href="media/img/favicon.ico" type="image/x-icon" />
-    <title>ES-DOC - Errata - Create / Edit Issue</title>
+    <title>ES-DOC - Errata - Edit Issue</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- ---------------------------------------------- -->
-	<!-- CSS: 											-->
-	<!-- ---------------------------------------------- -->
+    <!-- ---------------------------------------------- -->
+    <!-- CSS: 											-->
+    <!-- ---------------------------------------------- -->
     <link href="ext/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="media/css/shared/defaults.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="media/css/shared/cv.css" media="screen" rel="stylesheet" type="text/css" />
@@ -25,48 +26,102 @@
     <!-- ---------------------------------------------- -->
     <script src="ext/jquery-2.2.3.min.js"></script>
     <script src="ext/underscore-1.9.0.min.js"></script>
-    <script src="ext/backbone-1.3.3.min.js"></script>
+    <script src="ext/backbone-1.4.1.min.js"></script>
     <script src="ext/bootstrap-3.3.6/js/bootstrap.min.js"></script>
-    <script src="ext/js.cookie-2.1.0.js"></script>
-    <script src="ext/moment-2.12.0.min.js"></script>
+    <script src="ext/js.cookie-2.2.0.js"></script>
+    <script src="ext/moment-2.29.4.min.js"></script>
     <script src="ext/numeral-1.5.3.min.js"></script>
-    <script src="ext/pyessv-0.2.0.min.js" type="text/javascript"></script>
+    <script src="ext/pyessv-0.2.1.min.js" type="text/javascript"></script>
     <script src="ext/validate.min.js" type="text/javascript"></script>
 
     <!-- ---------------------------------------------- -->
     <!-- JS: Application script                         -->
     <!-- ---------------------------------------------- -->
-    <script src="media/js/edit/index.js" type="module"></script>
-    <!-- <script src="dist/edit.js" defer nomodule></script> -->
+    <script src="media/js/detail-edit/index.js" type="module"></script>
+    <!-- <script src="dist/detail-edit.js" defer nomodule></script> -->
 </head>
 
 <!-- ---------------------------------------------- -->
 <!-- Document body 									-->
 <!-- ---------------------------------------------- -->
+
 <body>
 
-<!-- BEGIN: Page header -->
-<script type="underscore/template" id="template-header">
+    <!-- BEGIN: Page header -->
+    <script type="underscore/template" id="template-header">
+
 <header class="main">
+    <!-- Logo -->
     <img src="media/img/logo.png"
          alt="Earth System Documentation"
          title="Earth System Documentation"
          class="pull-left esdoc-logo" />
     <h1 class="pull-right">
+        <!-- Title -->
         <small>
-            <b><%= APP.LONG_NAME %> - <% if (STATE.issue.isNew) { %>Create<% } else { %>Edit<% } %> Issue</b>
+            <% if (STATE.issue.isNew) {%>
+                <% if (STATE.user.isAuthenticated) {%>
+                    <b><%= APP.LONG_NAME %> - Create Issue</b>
+                <% } else { %>
+                    <b><%= APP.LONG_NAME %> - Propose Issue</b>
+                <% }; %>
+            <% } else { %>
+                <b><%= APP.LONG_NAME %> - Edit Issue</b>
+            <% }; %>
         </small>
         <strong class="h6"> v<%= APP.VERSION %></strong>
-        <button class="esdoc-support btn btn-success">Support</button>
-        <button class="esdoc-docs btn btn-success">Docs</button>
-        <button class="esdoc-errata-save btn btn-primary">Save</button>
+
+        <!-- Menu - Support -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-success">Support</button>
+            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="esdoc-support" href="#">Email</a></li>
+                <li><a class="esdoc-docs" href="#">Documentation</a></li>
+            </ul>
+        </div>
+
+        <!-- Menu - Save -->
+        <button class="esdoc-errata-save btn btn-primary btn-single">Save</button>
+
+        <!-- Menu -  Moderation -->
+        <% if (STATE.issue.isNew === false && 
+               STATE.user.isModerator && 
+               STATE.issue.moderationStatus != CONSTANTS.ISSUE.MODERATION_STATUS_NOT_REQUIRED) { %>
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary">Moderate</button>
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <% if (STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_IN_REVIEW || 
+                           STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_REJECTED) { %>
+                        <li><a class="esdoc-moderate-accept" href="#">Accept</a></li>
+                    <% } %>
+                    <% if (STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_ACCEPTED || 
+                           STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_REJECTED) { %>
+                            <li><a class="esdoc-moderate-review" href="#">In-Review</a></li>
+                    <% } %>
+                    <% if (STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_ACCEPTED || 
+                           STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_IN_REVIEW) { %>
+                        <li><a class="esdoc-moderate-reject" href="#">Reject</a></li>
+                    <% } %>
+                </ul>
+            </div>
+        <% } %>
     </h1>
 </header>
-</script>
-<!-- END: page header -->
 
-<!-- BEGIN: Issue -->
-<script type="underscore/template" id="template-issue">
+    </script>
+    <!-- END: page header -->
+
+    <!-- BEGIN: Issue -->
+    <script type="underscore/template" id="template-issue">
+
 <article class="container-fluid">
     <header class="bg-primary">
         <h2>
@@ -75,26 +130,72 @@
     </header>
     <%= UTILS.renderTemplate("template-issue-details") %>
 </article>
-</script>
-<!-- END: Issue -->
 
-<!-- BEGIN: Issue details -->
-<script type="underscore/template" id="template-issue-details">
+    </script>
+    <!-- END: Issue -->
+
+    <!-- BEGIN: Issue details -->
+    <script type="underscore/template" id="template-issue-details">
 
 <table class="table">
     <tbody>
+        <!-- Field: email -->
+        <% if (STATE.user.isAnonymous) { %>
+            <tr>
+                <td class="field-name">Email Address *</td>
+                <td class="field-value email">
+                    <input 
+                        id="email"
+                        name="email"
+                        type="text"
+                        tabindex="1"
+                        class="form-control"
+                        placeholder="Enter your email - a system moderator will contact you in due course." >
+                    </input>
+                    <div id="emailErrorMessage" class="field-error" />
+                 </td>
+            </tr>
+        <% } %>
+
+        <!-- Fields: Moderation -->
+        <% if (STATE.issue.isNew === false && 
+               STATE.user.isModerator && 
+               STATE.issue.moderationStatus != CONSTANTS.ISSUE.MODERATION_STATUS_NOT_REQUIRED) { %>
+            <tr>
+                <td class="field-name">Moderation Status *</td>
+                <td class="field-value moderation-status">
+                    <input 
+                        id="moderationStatus"
+                        name="moderationStatus"
+                        type="text"
+                        tabindex="2"
+                        disabled="true"
+                        class="form-control"
+                        value="<%= STATE.issue.moderationStatus.toUpperCase() %>" >
+                    </input>
+                </td>
+            </tr>
+        <% } %>
 
         <!-- Field: project -->
         <tr>
             <td class="field-name">Project *</td>
             <td class="field-value project">
                 <% if (!STATE.issue.isNew) { %>
-                    <%= STATE.issue.project.toUpperCase() %>
+                    <input 
+                        id="project"
+                        name="project"
+                        type="text"
+                        tabindex="2"
+                        disabled="true"
+                        class="form-control"
+                        value="<%= STATE.issue.project.toUpperCase() %>" >
+                    </input>
                 <% } else { %>
                     <select id="project"
                             name="project"
                             class="form-control"
-                            tabindex="1">
+                            tabindex="2">
                         <% if (STATE.issue.isNew) { %>
                             <option value="null">Select Project</option>
                         <% } %>
@@ -117,7 +218,7 @@
                 <input id="title"
                        name="title"
                        type="text"
-                       tabindex="2"
+                       tabindex="3"
                        <% if (!STATE.issue.isNew) { %>disabled="true"<% } %>
                        class="form-control"
                        placeholder="Enter a unique title between 16 and 255 characters."
@@ -133,7 +234,7 @@
                 <textarea id="description"
                           name="description"
                           class="form-control"
-                          tabindex="3"
+                          tabindex="4"
                           placeholder="Enter an explanation of the issue between 16 and 1023 characters."
                           rows="3"><%= STATE.issue.description%></textarea>
                   <div id="descriptionErrorMessage" class="field-error" />
@@ -144,7 +245,7 @@
         <tr>
             <td class="field-name">Severity *</td>
             <td class="field-value severity">
-                <select id="severity" name="severity" class="form-control" tabindex="4">
+                <select id="severity" name="severity" class="form-control" tabindex="5">
                     <% if (STATE.issue.isNew) { %>
                         <option value="null">Select Severity</option>
                     <% } %>
@@ -163,7 +264,7 @@
         <tr <% if (STATE.issue.isNew) { %>class="hidden"<% } %>>
             <td class="field-name">Status *</td>
             <td class="field-value status">
-                <select id="status" name="status" class="form-control" tabindex="5">
+                <select id="status" name="status" class="form-control" tabindex="6">
                     <% _.each(PYESSV.ESDOC.ERRATA.getStatus(), function(i) { %>
                         <% if (STATE.issue.status === 'new' || i.canonicalName !== 'new') { %>
                             <option value="<%= i.canonicalName %>"
@@ -183,7 +284,7 @@
             <td class="field-value urls">
                 <textarea id="urls"
                           name="urls"
-                          tabindex="6"
+                          tabindex="7"
                           class="form-control"
                           placeholder="Enter a new line separated list of links."
                           rows="6"><%= STATE.issue.materials.join('\n') %></textarea>
@@ -197,7 +298,7 @@
             <td class="field-value materials">
                 <textarea id="materials"
                           name="materials"
-                          tabindex="6"
+                          tabindex="8"
                           class="form-control"
                           placeholder="Enter a new line separated list of image file links (.jpg, .gif, .png, .tiff)."
                           rows="6"><%= STATE.issue.materials.join('\n') %></textarea>
@@ -212,7 +313,7 @@
                 <textarea class="form-control"
                           id="datasets"
                           name="datasets"
-                          tabindex="7"
+                          tabindex="9"
                           placeholder="Enter a new line separated list of ESG-F datset identifiers."
                           rows="15"><%= STATE.issue.datasets.join('\n') %></textarea>
                   <div id="datasetsErrorMessage" class="field-error" />
@@ -227,10 +328,10 @@
     </tbody>
 </table>
 </script>
-<!-- END: Issue details -->
+    <!-- END: Issue details -->
 
-<!-- BEGIN: Issue materials -->
-<script type="underscore/template" id="template-issue-materials">
+    <!-- BEGIN: Issue materials -->
+    <script type="underscore/template" id="template-issue-materials">
 <% _.each(STATE.issue.materials, function(material) { %>
         <img src="<%= material %>"
              alt="NO MATERIALS PROVIDED"
@@ -238,10 +339,10 @@
              class="img"/>
 <% }); %>
 </script>
-<!-- END: Issue materials -->
+    <!-- END: Issue materials -->
 
-<!-- BEGIN: Issue datasets -->
-<script type="underscore/template" id="template-issue-datasets">
+    <!-- BEGIN: Issue datasets -->
+    <script type="underscore/template" id="template-issue-datasets">
 <table class="table table-bordered table-striped">
     <thead>
         <tr class="column-headers">
@@ -282,51 +383,52 @@
     </tfoot>
 </ table>
 </script>
-<!-- END: Issue datasets -->
+    <!-- END: Issue datasets -->
 
-<!-- BEGIN: feedback -->
-<div id="feedbackContainer" class="modal fade feedback-container">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">
-                    <span class="feedback-title"></span>
-                    <small class="feedback-version"></small>
-                </h4>
-            </div>
-            <div class="modal-body">
-                <p><b id="feedbackText"><b></p>
-                <div class="progress">
-                  <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-                    <span class="sr-only">100% Complete</span>
-                  </div>
+    <!-- BEGIN: feedback -->
+    <div id="feedbackContainer" class="modal fade feedback-container">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span class="feedback-title"></span>
+                        <small class="feedback-version"></small>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <p><b id="feedbackText"><b></p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar"
+                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                            <span class="sr-only">100% Complete</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- END: feedback -->
+    <!-- END: feedback -->
 
-<!-- BEGIN: information dialog -->
-<div id="infoDialogContainer" class="modal fade feedback-container">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">
-                    <span class="infoDialog-title"></span>
-                    <small class="infoDialog-version"></small>
-                </h4>
-            </div>
-            <div class="modal-body">
-                <p><b id="infoDialogText"><b></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+    <!-- BEGIN: information dialog -->
+    <div id="infoDialogContainer" class="modal fade feedback-container">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span class="infoDialog-title"></span>
+                        <small class="infoDialog-version"></small>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <p><b id="infoDialogText"><b></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- END: information dialog -->
+    <!-- END: information dialog -->
 
 </body>
 

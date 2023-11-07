@@ -11,7 +11,7 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
     <link rel="shortcut icon" href="media/img/favicon.ico" type="image/x-icon" />
-    <title>ES-DOC - Errata - Search</title>
+    <title>ES-DOC - Errata - Moderate</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- ---------------------------------------------- -->
@@ -21,9 +21,9 @@
     <link href="media/css/shared/defaults.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="media/css/shared/cv.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="media/css/shared/header.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="media/css/search/filter.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="media/css/search/grid.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="media/css/search/other.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="media/css/moderate/filter.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="media/css/moderate/grid.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="media/css/moderate/other.css" media="screen" rel="stylesheet" type="text/css" />
 
     <!-- ---------------------------------------------- -->
     <!-- JS: 3rd party libraries                        -->
@@ -39,8 +39,8 @@
     <!-- ---------------------------------------------- -->
     <!-- JS: Application script                         -->
     <!-- ---------------------------------------------- -->
-    <script src="media/js/search/index.js" type="module"></script>
-    <script src="dist/search.js" defer nomodule></script>
+    <script src="media/js/search-moderation/index.js" type="module"></script>
+    <script src="dist/moderate.js" defer nomodule></script>
 </head>
 
 <!-- ---------------------------------------------- -->
@@ -59,7 +59,7 @@
     <h1 class="pull-right">
         <!-- Title -->
         <small>
-            <b><%= APP.LONG_NAME %> - Search</b>
+            <b><%= APP.LONG_NAME %> - Moderate</b>
         </small>
         <strong class="h6"> v<%= APP.VERSION %></strong>
 
@@ -75,29 +75,6 @@
                 <li><a class="esdoc-docs" href="#">Documentation</a></li>
             </ul>
         </div>
-
-        <!-- Menu - PID -->
-        <button class="esdoc-pid-lookup btn btn-primary btn-single">PID Search</button>
-
-        <!-- Menu - Moderation -->
-        <% if (STATE.user.isModerator) {%>
-            <button class="esdoc-errata-moderate btn btn-primary btn-single">Moderate</button>
-        <% }; %>
-
-        <!-- Menu - Create -->
-        <% if (STATE.user.isAuthenticated) {%>
-            <button class="esdoc-errata-create btn btn-primary btn-single">Create</button>
-        <% }; %>
-
-        <!-- Menu - Propose -->
-        <% if (!STATE.user.isAuthenticated) {%>
-            <button class="esdoc-errata-propose btn btn-primary btn-single">Propose</button>
-        <% }; %>
-
-        <!-- Menu - Login -->
-        <% if (!STATE.user.isAuthenticated) {%>
-            <button class="esdoc-errata-login btn btn-primary btn-single">Login</button>
-        <% }; %>
     </h1>
 </header>
 </script>
@@ -144,7 +121,7 @@
 <script type="underscore/template" id="template-grid-header">
 <thead>
     <tr class="bg-primary">
-        <th colspan="8">
+        <th colspan="9">
             <span class="pull-left summary-main">
             <%= UTILS.renderTemplate("template-grid-header-summary") %>
             </span>
@@ -206,6 +183,13 @@
             </small>
             <span class='pull-right glyphicon sort-target-status' />
         </th>
+
+        <th title='Moderation Status' class="text-center sort-target sort-target-moderation-status">
+            <small class="sort-target-moderation-status">
+                Moderation
+            </small>
+            <span class='pull-right glyphicon sort-target-moderation-status' />
+        </th>
     </tr>
 </thead>
 </script>
@@ -262,7 +246,7 @@
     <% }); %>
 <% } else { %>
     <tr class="null-search">
-        <td colspan="8">
+        <td colspan="9">
             <strong>SEARCH RETURNED NO RESULTS</strong>
         </td>
     </tr>
@@ -314,6 +298,11 @@
             <%= issue.ext.status.label %>
         </small>
     </td>
+    <td class="issue-moderation-status <%= issue.moderationStatus %> text-center" title="issue moderation status">
+        <small>
+            <%= issue.ext.moderationStatus.label %>
+        </small>
+    </td>
 </tr>
 </script>
 <!-- END: grid body row -->
@@ -322,7 +311,7 @@
 <script type="underscore/template" id="template-grid-footer">
 <tfoot>
     <tr class="bg-default">
-        <th colspan="8">
+        <th colspan="9">
             <%= UTILS.renderTemplate("template-grid-footer-summary") %>
             <span class="pull-right">
                 <strong><small>

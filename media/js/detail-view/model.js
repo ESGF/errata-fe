@@ -1,8 +1,8 @@
-// Module imports.
+export { User } from '../shared/model.js';
 import * as STATE from  './state.js';
 
 // Search result.
-export default class Issue {
+export class Issue {
     // Instance ctor.
     constructor(i) {
         _.each(_.keys(i), (k) => {
@@ -34,7 +34,6 @@ class IssueExtensionInfo {
         this.facets = _.map(i.facets, (j) => new IssueFacet(j));
         this.institute = i.institute.toUpperCase();
         this.project = STATE.getVocabTerm('esdoc:errata:project', i.project);
-        // this.project = PYESSV.ESDOC.ERRATA.getProject(i.project);
         this.projectFacets = _.filter(this.project.facets, (j) => { return j.split(':')[2].startsWith('institut') === false});
         this.projectDocURL = this.project.isDocumented ? "https://documentation.es-doc.org/" + this.project.canonicalName : null;
         this.severity = STATE.getVocabTerm('esdoc:errata:severity', i.severity);
