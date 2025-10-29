@@ -41,14 +41,14 @@ export const API_SEARCH_MODERATION = "/2/search/errata/moderation";
 export const API_SEARCH_SETUP = "/2/search/errata/setup";
 
 // Set documentation url.
-export const DOCUMENTATION = "https://es-doc.github.io/esdoc-errata-client/";
-export const DOCUMENTATION_PID = "https://es-doc.github.io/esdoc-errata-client/lookup.html"
+export const DOCUMENTATION = "https://ipsl.gitbook.io/esgf-errata-service";
+export const DOCUMENTATION_PID = "https://ipsl.gitbook.io/esgf-errata-service/errata-service-web-pages/look-up-an-issue"
 
 // Page: moderate errata.
 export const PAGE_MODERATE = '/static/moderate.html';
 
 // Page: ES-DOC home.
-export const PAGE_HOME = "https://es-doc.org";
+export const PAGE_HOME = "https://errata.ipsl.fr";
 
 // Page: Edit errata.
 export const PAGE_EDIT = '/static/edit.html';
