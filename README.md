@@ -1,2 +1,2 @@
-# esdoc-errata-fe
-ES-DOC dataset errata front end
+# ESGF-errata-fe
+ESGF dataset errata front end

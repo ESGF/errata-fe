@@ -5,7 +5,7 @@ export const CONTACT = "support@errata.es-doc.org";
 export const SUPPORT = "support@errata.es-doc.org";
 
 // Default email subject.
-export const SUBJECT = 'ES-DOC ERRATA :: subject goes here';
+export const SUBJECT = 'ESGF ERRATA :: subject goes here';
 
 // Default email message.
-export const MESSAGE = "Dear ES-DOC ERRATA support team,";
+export const MESSAGE = "Dear ESGF ERRATA support team,";

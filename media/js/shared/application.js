@@ -2,7 +2,7 @@
 export const COPYRIGHT_YEAR = new Date().getFullYear();
 
 // Full title.
-export const FULLTITLE = "ES-DOC Dataset Errata";
+export const FULLTITLE = "ESGF Dataset Errata";
 
 // Long name.
 export const LONG_NAME = "Dataset Errata";
@@ -11,7 +11,7 @@ export const LONG_NAME = "Dataset Errata";
 export const NAME = "Errata";
 
 // Organization.
-export const ORGANIZATION = "ES-DOC";
+export const ORGANIZATION = "ESGF";
 
 // Version.
 export const VERSION = '2.0.0';

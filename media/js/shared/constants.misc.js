@@ -1,5 +1,5 @@
 // Logging related.
-export const LOGGING_PREFIX = "ES-DOC-ERRATA :: ";
+export const LOGGING_PREFIX = "ESGF-ERRATA :: ";
 
 // Text to display in lieu of null value.
 export const NULL_FIELD = '--';

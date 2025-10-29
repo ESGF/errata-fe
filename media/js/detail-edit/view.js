@@ -119,7 +119,7 @@ export default Backbone.View.extend({
 
     // Updates page title.
     setPageTitle: function () {
-        let title = "ES-DOC - Errata - ";
+        let title = "ESGF - Errata - ";
         if (STATE.issue.isNew) {
             if (STATE.user.isAuthenticated) {
                 title += "Create Issue";

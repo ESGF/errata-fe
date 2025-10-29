@@ -49,7 +49,7 @@ export const openEmail = (address, subject, message) => {
 export const openSupportEmail = () => {
     var subject;
 
-    subject = "ES-DOC :: SUPPORT :: {0} (v{1})";
+    subject = "ESGF :: SUPPORT :: {0} (v{1})";
     subject = subject.replace("{0}", APP.NAME.toUpperCase());
     subject = subject.replace("{1}", APP.VERSION);
     openEmail(constants.EMAIL.SUPPORT, subject);
