@@ -1,8 +1,8 @@
 // Contact email.
-export const CONTACT = "support@errata.es-doc.org";
+export const CONTACT = "support_errata@listes.ipsl.fr";
 
 // Support email.
-export const SUPPORT = "support@errata.es-doc.org";
+export const SUPPORT = "support_errata@listes.ipsl.fr";
 
 // Default email subject.
 export const SUBJECT = 'ESGF ERRATA :: subject goes here';
