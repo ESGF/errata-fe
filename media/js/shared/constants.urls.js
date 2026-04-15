@@ -48,7 +48,7 @@ export const DOCUMENTATION_PID = "https://ipsl.gitbook.io/esgf-errata-service/er
 export const PAGE_MODERATE = '/static/moderate.html';
 
 // Page: ES-DOC home.
-export const PAGE_HOME = "https://errata.ipsl.fr";
+export const PAGE_HOME = "https://errata.esgf.io";
 
 // Page: Edit errata.
 export const PAGE_EDIT = '/static/edit.html';
