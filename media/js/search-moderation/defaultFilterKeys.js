@@ -17,79 +17,61 @@ export default ({ key }) => {
 // Map of vocab keys to url parameters.
 const DEFAULT_KEYS = {
     // ... errata project default.
-    'esdoc:errata:project': {
+    'project': {
         urlParam: 'project',
-        defaultValue: 'esdoc:errata:project:cmip6'
-    },
-
-    // ... CMIP5 defaults.
-    'wcrp:cmip5:experiment': {
-        urlParam: 'experiment',
-        defaultValue: null
-    },
-    'wcrp:cmip5:institute': {
-        urlParam: 'institute',
-        defaultValue: null
-    },
-    'wcrp:cmip5:model': {
-        urlParam: 'model',
-        defaultValue: null
-    },
-    'wcrp:cmip5:variable': {
-        urlParam: 'variable',
-        defaultValue: null
+        defaultValue: 'cmip6'
     },
 
     // ... CMIP6 defaults.
-    'wcrp:cmip6:experiment-id': {
+    'experiment_id': {
         urlParam: 'experiment',
         defaultValue: null
     },
-    'wcrp:cmip6:institution-id': {
+    'institution_id': {
         urlParam: 'institute',
         defaultValue: null
     },
-    'wcrp:cmip6:source-id': {
+    'source_id': {
         urlParam: 'source',
         defaultValue: null
     },
-    'wcrp:cmip6:variable-id': {
+    'variable_id': {
         urlParam: 'variable',
         defaultValue: null
     },
 
     // ... CORDEX defaults.
-    'wcrp:cordex:experiment': {
+    'experiment': {
         urlParam: 'experiment',
         defaultValue: null
     },
-    'wcrp:cordex:institute': {
+    'institute': {
         urlParam: 'institute',
         defaultValue: null
     },
-    'wcrp:cordex:rcm-model': {
+    'rcm-model': {
         urlParam: 'model',
         defaultValue: null
     },
-    'wcrp:cordex:variable': {
+    'variable': {
         urlParam: 'variable',
         defaultValue: null
     },
 
     // ... INPUT4MIPS defaults.
-    'wcrp:input4mips:institution-id': {
+    'institution-id': {
         urlParam: 'institute',
         defaultValue: null
     },
-    'wcrp:input4mips:source-id': {
+    'source-id': {
         urlParam: 'source',
         defaultValue: null
     },
-    'wcrp:input4mips:target-mip': {
+    'target-mip': {
         urlParam: 'mip',
         defaultValue: null
     },
-    'wcrp:input4mips:variable-id': {
+    'variable-id': {
         urlParam: 'variable',
         defaultValue: null
     },

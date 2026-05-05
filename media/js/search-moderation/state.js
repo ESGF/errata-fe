@@ -74,7 +74,7 @@ export const updateFilter = (filterType, filterValue) => {
     filter.data.current = _.find(filter.data.all, (i) => {
         return i.key === filterValue;
     });
-    if (filter.key === 'esdoc:errata:project') {
+    if (filter.key === 'project') {
         setActiveFilters();
     }
 

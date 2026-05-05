@@ -31,7 +31,6 @@
     <script src="ext/js.cookie-2.2.0.js"></script>
     <script src="ext/moment-2.29.4.min.js"></script>
     <script src="ext/numeral-1.5.3.min.js"></script>
-    <script src="ext/pyessv-0.2.1.min.js" type="text/javascript"></script>
 
     <!-- ---------------------------------------------- -->
     <!-- JS: Application script                         -->
@@ -188,7 +187,7 @@
             </td>
         </tr>
         <tr>
-            <td class="field-name">Institute</td>
+            <td class="field-name">Organization</td>
             <td class="field-value">
                 <%= STATE.issue.ext.institute %>
             </td>
@@ -264,8 +263,8 @@
         <!-- moderation -->
         <tr>
             <td class="field-name">Moderation Status</td>
-            <td class="field-value issue-moderation-status <%= STATE.issue.moderationStatus %>">
-                <%= STATE.issue.moderationStatus.toUpperCase() %>
+            <td class="field-value issue-moderation-status <%= STATE.issue.moderation_status %>">
+                <%= STATE.issue.moderation_status.toUpperCase() %>
             </td>
         </tr>
 
@@ -273,7 +272,7 @@
         <tr>
             <td class="field-name">Tracking Info.</td>
             <td>
-                Created by <%= STATE.issue.createdBy %> @ <%= STATE.issue.createdDate.slice(0, 19) %>
+                Created by <%= STATE.issue.createdBy %> @ <%= STATE.issue.created_date.slice(0, 19) %>
             </td>
         </tr>
         <% if (STATE.issue.updatedDate) { %>

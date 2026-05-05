@@ -61,7 +61,12 @@ export default Backbone.View.extend({
 
         // Filter: value change.
         'change .filter select': (e) => {
-            APP.trigger('state:filterUpdate', $(e.target).val());
+            const $select = $(e.target);
+
+            APP.trigger('state:filterUpdate', {
+                collection: $select.attr('id'),
+                term: $select.val()
+            });
         },
 
         // Pager: navigate to manually chosen page.

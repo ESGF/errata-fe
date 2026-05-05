@@ -37,14 +37,14 @@ APP.on("state:filterUpdated", (filter) => {
     executeSearch("search:begin", "search:dataDownload");
 
     // Raise project change event (when relevant).
-    if (filter.key === 'esdoc:errata:project') {
+    if (filter.key === 'project') {
         APP.trigger("project:changed");
     }
 });
 
 // Event handler: state:filterUpdate.
-APP.on("state:filterUpdate", (filterValue) => {
-    STATE.updateFilter(filterValue.split(':').slice(0, 3).join(':'), filterValue);
+APP.on("state:filterUpdate", ({ collection, term }) => {
+    STATE.updateFilter(collection, term);
 });
 
 // Event handler: setup:initialSearchDataDownload.
@@ -77,15 +77,12 @@ const executeSearch = (preEventType, eventType) => {
 
     // Set target.
     url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.API_SEARCH;
-    params = [];
+    params = {};
     _.each(_.values(STATE.getActiveFilters()), (f) => {
         if (f.data.current.key.endsWith('*') === false) {
-            params.push(f.data.current.key);
+            params[f.key] = f.data.current.key
         }
     });
-    params = {
-        criteria: params.join(",")
-    };
 
     // Download.
     APP.trigger(eventType + "ing");
