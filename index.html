@@ -116,7 +116,7 @@
     <div class="row">
         <% _.each(_.sortBy(STATE.getActiveFilters(), 'uiPosition'), function(f) { %>
         <span>
-            <select id="filter-<%= f.key %>" class="form-control input-sm">
+            <select id="<%= f.key %>" class="form-control input-sm">
                 <% _.each(f.data.all, function(i) { %>
                     <option value="<%= i.key %>" <%= i === f.data.current ? "selected" : "" %> >
                         <%- i.label %>
@@ -160,7 +160,7 @@
 
         <th title='Institution Identifier' class="text-center sort-target sort-target-institutionID">
             <small class="sort-target-institutionID">
-                Institute
+                Organization
             </small>
             <span class='pull-right glyphicon sort-target-institutionID' />
         </th>
@@ -291,7 +291,7 @@
     </td>
     <td class="issue-date-created text-center" title="issue creation date">
         <small>
-            <%= issue.dateCreated.slice(0, 10) %>
+            <%= issue.dateCreated ? issue.dateCreated.slice(0, 10) : '--' %>
         </small>
     </td>
     <td class="issue-date-updated text-center" title="issue last updated date">
@@ -306,12 +306,12 @@
     </td>
     <td class="issue-severity <%= issue.severity %> text-center" title="issue severity">
         <small>
-            <%= issue.ext.severity.label %>
+            <%= issue.ext.severity ? issue.ext.severity.label : '--' %>
         </small>
     </td>
     <td class="issue-status <%= issue.status %> text-center" title="issue status">
         <small>
-            <%= issue.ext.status.label %>
+            <%= issue.ext.status ? issue.ext.status.label : '--' %>
         </small>
     </td>
 </tr>

@@ -187,7 +187,7 @@
             </td>
         </tr>
         <tr>
-            <td class="field-name">Institute</td>
+            <td class="field-name">Organization</td>
             <td class="field-value">
                 <%= STATE.issue.ext.institute %>
             </td>
@@ -263,8 +263,8 @@
         <!-- moderation -->
         <tr>
             <td class="field-name">Moderation Status</td>
-            <td class="field-value issue-moderation-status <%= STATE.issue.moderationStatus %>">
-                <%= STATE.issue.moderationStatus.toUpperCase() %>
+            <td class="field-value issue-moderation-status <%= STATE.issue.moderation_status %>">
+                <%= STATE.issue.moderation_status.toUpperCase() %>
             </td>
         </tr>
 
@@ -272,7 +272,7 @@
         <tr>
             <td class="field-name">Tracking Info.</td>
             <td>
-                Created by <%= STATE.issue.createdBy %> @ <%= STATE.issue.createdDate.slice(0, 19) %>
+                Created by <%= STATE.issue.createdBy %> @ <%= STATE.issue.created_date.slice(0, 19) %>
             </td>
         </tr>
         <% if (STATE.issue.updatedDate) { %>

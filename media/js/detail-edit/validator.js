@@ -105,7 +105,7 @@ const CONSTRAINTS = {
     project: {
         presence: true,
         inclusion: {
-            within: ['cmip5', 'cmip6', 'cordex', 'input4mips'],
+            within: ['cmip6', 'cmip7', 'cordex-cmip5', 'cordex-cmip6', 'input4mips'],
             message: ERR_REQUIRED_FIELD
         }
     },
