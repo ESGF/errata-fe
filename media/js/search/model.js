@@ -18,16 +18,16 @@ export class SearchFilter {
         this.defaultKey = getDefaultFilterKey(c) || null;
         this.key = c.key;
         this.label = c.label;
-        this.project = c.key.startsWith('esdoc') ? null : c.key.split(':')[1];
-        this.uiPosition =  c.key === "esdoc:errata:project" ? 0 :
-                           c.key === "esdoc:errata:severity" ? 1000 :
-                           c.key === "esdoc:errata:status" ? 1001 :
-                           c.key === "esdoc:errata:moderationStatus" ? 1002 : 100;
+        this.project = c.project;
+        this.uiPosition =  c.key === "project" ? 0 :
+                           c.key === "severity" ? 1000 :
+                           c.key === "status" ? 1001 :
+                           c.key === "moderationStatus" ? 1002 : 100;
 
         // Project must be specified.
-        if (c.key !== "esdoc:errata:project") {
+        if (c.key !== "project") {
             this.data.all.unshift({
-                key: this.key + ":*",
+                key: "*",
                 label: "*"
             });
         }
@@ -48,17 +48,19 @@ export class SearchFilter {
 // Search result.
 export class SearchResult {
     // Instance ctor.
-    constructor(i, filters) {
-        this.project = i[0];
-        this.institutionID = i[1];
-        this.uid = i[2];
-        this.title = i[3];
-        this.severity = i[4];
-        this.status = i[5];
-        this.dateCreated = i[6];
-        this.dateClosed = i[7];
-        this.dateUpdated = i[8];
-        this.moderationStatus = i[9];
+    constructor(data, filters) {
+        // Support both object and array formats for backward compatibility.
+        this.project = data.project;
+        this.institutionID = data.institute;
+        this.uid = data.uid;
+        this.title = data.title;
+        this.severity = data.severity;
+        this.status = data.status;
+        this.dateCreated = data.dateCreated || null;
+        this.dateClosed = data.dateClosed || null;
+        this.dateUpdated = data.dateUpdated || null;
+        this.moderationStatus = data.moderation_status;
+
         this.ext = new SearchResultExtensionInfo(this, filters);
     }
 }
@@ -67,12 +69,12 @@ export class SearchResult {
 class SearchResultExtensionInfo {
     // Instance ctor.
     constructor(i, filters) {
-        this.severity = filters[2].data.set['esdoc:errata:severity:' + i.severity];
-        this.status = filters[3].data.set['esdoc:errata:status:' + i.status];
-        this.institutionID = i.institutionID.toUpperCase();
+        this.severity = filters[1].data.set[i.severity];
+        this.status = filters[2].data.set[i.status];
+        this.institutionID = i.institutionID ? i.institutionID.toUpperCase() : '--';
         this.title = (i.title || '--').trim();
-        if (i.title.length > 53) {
-            this.title = i.title.slice(0, 53) + " ...";
+        if (this.title.length > 53) {
+            this.title = this.title.slice(0, 53) + " ...";
         }
     }
 }

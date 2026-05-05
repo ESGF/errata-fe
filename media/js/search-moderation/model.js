@@ -20,13 +20,13 @@ export class SearchFilter {
         this.key = c.key;
         this.label = c.label;
         this.project = c.key.startsWith('esdoc') ? null : c.key.split(':')[1];
-        this.uiPosition =  c.key === "esdoc:errata:project" ? 0 :
-                           c.key === "esdoc:errata:severity" ? 1000 :
-                           c.key === "esdoc:errata:status" ? 1001 : 
-                           c.key === "esdoc:errata:moderation-status" ? 1002 : 100;
+        this.uiPosition =  c.key === "project" ? 0 :
+                           c.key === "severity" ? 1000 :
+                           c.key === "status" ? 1001 : 
+                           c.key === "moderation-status" ? 1002 : 100;
 
         // Project must be specified.
-        if (c.key !== "esdoc:errata:project") {
+        if (c.key !== "project") {
             this.data.all.unshift({
                 key: this.key + ":*",
                 label: "*"

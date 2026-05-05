@@ -9,9 +9,7 @@ import './feedback.js';
 
 // Event handler: document ready.
 $(document).ready(() => {
-    PYESSV.initialise(() => {
-        APP.trigger("setup:begin");
-    });
+    APP.trigger("setup:begin");
 });
 
 // Event handler: setup complete.

@@ -37,7 +37,7 @@ APP.on("state:filterUpdated", (filter) => {
     executeSearch("search:begin", "search:dataDownload");
 
     // Raise project change event (when relevant).
-    if (filter.key === 'esdoc:errata:project') {
+    if (filter.key === 'project') {
         APP.trigger("project:changed");
     }
 });

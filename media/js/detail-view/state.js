@@ -54,7 +54,7 @@ export const getVocabTerm = (collectionID, termID) => {
     const collection = getVocabCollection(collectionID);
     if (collection) {
         return _.find(collection.terms, (i) => {
-            return i.canonicalName === termID;
+            return i.canonical_name === termID;
         });
     }
 }
