@@ -47,8 +47,8 @@ APP.on("errata:save:dispatch:success", () => {
 // Event handler: errata save error reported by server.
 APP.on("errata:save:dispatch:error", (response) => {
     UTILS.hideFeedback();
-    if (response && response.responseJSON && response.responseJSON.errorCode) {
-        UTILS.displayInfoDialog(`Errata is invalid - ${response.responseJSON.errorMessage}.`);
+    if (response &&  response.errorCode) {
+        UTILS.displayInfoDialog(`Errata is invalid - ${response.errorMessage}.`);
     } else {
         UTILS.displayInfoDialog("An error occurred whilst saving the errata details - please try again.  If the problem persists then contact support.");
     }

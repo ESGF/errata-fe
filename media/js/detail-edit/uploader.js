@@ -36,8 +36,9 @@ const dispatchPost = (url, payload, eventNamespace) => {
         "Content-Type": 'application/json; charset=UTF-8',
         "X-XSRFToken": Cookies.get('_xsrf')
     };
+
     if (STATE.user.isAnonymous === false) {
-        headers = {            
+        headers = {
             "Authorization": STATE.user.oauthCredentials,
             ...headers
         };
@@ -50,11 +51,33 @@ const dispatchPost = (url, payload, eventNamespace) => {
         dataType: 'json',
         headers: headers
     })
-        .always((r) => {
-            if (r.status === 200) {
-                APP.trigger(`${eventNamespace}:success`, payload);
-            } else {
-                APP.trigger(`${eventNamespace}:error`, r);
+    .done((data, textStatus, xhr) => {
+        APP.trigger(`${eventNamespace}:success`, data || {});
+    })
+    .fail((xhr, textStatus, errorThrown) => {
+        let response = {};
+
+        try {
+            response = xhr.responseJSON;
+
+            if (!response && xhr.responseText) {
+                response = JSON.parse(xhr.responseText);
             }
+        } catch (e) {
+            response = {};
+        }
+
+        const error = {
+            status: xhr.status,
+            errorCode: response?.error_code || null,
+            errorField: response?.error_field || null,
+            errorMessage:
+                response?.error_message ||
+                errorThrown ||
+                xhr.statusText ||
+                "Unknown error"
+        };
+
+        APP.trigger(`${eventNamespace}:error`, error);
     });
 };
