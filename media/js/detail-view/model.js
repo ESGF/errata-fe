@@ -4,9 +4,9 @@ import * as STATE from  './state.js';
 // Search result.
 export class Issue {
     // Instance ctor.
-    constructor(i) {
-        _.each(_.keys(i), (k) => {
-            this[k] = i[k];
+    constructor(json_input) {
+        _.each(_.keys(json_input), (property) => {
+            this[property] = json_input[property];
         })
         this.datasets = this.datasets.sort();
         this.ext = new IssueExtensionInfo(this);
@@ -30,15 +30,20 @@ export class Issue {
 // Extended issue information.
 class IssueExtensionInfo {
     // Instance ctor.
-    constructor(i) {
-        this.facets = _.map(i.facets, (term, collection) => new IssueFacet(collection, term));
-        this.institute = i.institute.toUpperCase();
-        this.project = STATE.getVocabTerm('project', i.project);
-        this.projectFacets = _.filter(this.project.facets, (j) => { return j.startsWith('institut') === false});
+    constructor(issue) {
+        this.facets = [];
+        _.each(issue.facets, (terms, collection) => {
+            _.each(terms, (term) => {
+                this.facets.push(new IssueFacet(collection, term));
+            });
+        });
+        this.institute = issue.institute.toUpperCase();
+        this.project = STATE.getVocabTerm('project', issue.project);
+        this.projectFacets = _.filter(this.project.facets, (facet) => { return facet.startsWith('institut') === false});
         this.projectDocURL = this.project.isDocumented ? "https://documentation.es-doc.org/" + this.project.canonicalName : null;
-        this.severity = STATE.getVocabTerm('severity', i.severity);
-        this.status = STATE.getVocabTerm('status', i.status);
-        this.affectedFacets = _.map(this.projectFacets, (j) => new AffectedFacetSet(i.project, this.facets, j));
+        this.severity = STATE.getVocabTerm('severity', issue.severity);
+        this.status = STATE.getVocabTerm('status', issue.status);
+        this.affectedFacets = _.map(this.projectFacets, (collectionID) => new AffectedFacetSet(issue.project, this.facets, collectionID));
     }
 }
 
@@ -46,7 +51,6 @@ class IssueExtensionInfo {
 class IssueFacet {
     // Instance ctor.
     constructor(collection, term) {
-        this.namespace = term;
         this.typeof = collection;
         this.value = term;
     }
@@ -56,14 +60,24 @@ class IssueFacet {
 class AffectedFacetSet {
     constructor(project, facets, collectionID) {
         this.collection = STATE.getVocabCollection(collectionID);
+
         this.terms = _.filter(this.collection.terms, (term) => {
             return _.find(facets, (facet) => {
-                return term.drs_name === facet.namespace;
+                return (
+                    facet.typeof === collectionID &&
+                    term.drs_name === facet.value
+                );
             })
         });
+
         if (_.isUndefined(this.collection.cimDocumentType) === false) {
-            _.each(this.terms, (i) => {
-                i.documentationURL = 'https://documentation.es-doc.org/' + project + '/' + this.collection.cimDocumentTypeAlternativeName + 's/' + i.canonicalName;
+            _.each(this.terms, (term) => {
+                term.documentationURL =
+                    'https://documentation.es-doc.org/' +
+                    project + '/' +
+                    this.collection.cimDocumentTypeAlternativeName +
+                    's/' +
+                    term.canonicalName;
             });
         }
     }
