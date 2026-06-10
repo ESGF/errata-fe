@@ -93,7 +93,7 @@
     <div class="row">
         <% _.each(_.sortBy(STATE.getActiveFilters(), 'uiPosition'), function(f) { %>
         <span>
-            <select id="filter-<%= f.key %>" class="form-control input-sm">
+            <select id="<%= f.key %>" class="form-control input-sm">
                 <% _.each(f.data.all, function(i) { %>
                     <option value="<%= i.key %>" <%= i === f.data.current ? "selected" : "" %> >
                         <%- i.label %>
@@ -300,7 +300,7 @@
     </td>
     <td class="issue-moderation-status <%= issue.moderationStatus %> text-center" title="issue moderation status">
         <small>
-            <%= issue.ext.moderationStatus.label %>
+            <%= issue.moderationStatus %>
         </small>
     </td>
 </tr>

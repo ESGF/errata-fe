@@ -59,7 +59,7 @@ export class SearchResult {
         this.dateCreated = data.dateCreated || null;
         this.dateClosed = data.dateClosed || null;
         this.dateUpdated = data.dateUpdated || null;
-        this.moderationStatus = data.moderation_status;
+        this.moderationStatus = data.moderationStatus;
 
         this.ext = new SearchResultExtensionInfo(this, filters);
     }

@@ -145,7 +145,7 @@ export default Backbone.View.extend({
 
     // Event handler: errata:moderate:dispatch:success.
     _onModerationStatusChange: function ({ moderationStatus: newStatus }) {
-        $("#moderationStatus").val(newStatus.toUpperCase());
+        $("#moderation-status").val(newStatus.toUpperCase());
     },
 
     // Event handler: errata:save:dispatch:error.

@@ -53,7 +53,7 @@ export class Issue {
         this.project = i.project;
         this.severity = i.severity;
         this.status = i.status;
-        this.moderationStatus = i.moderationStatus;
+        this.moderationStatus = i.facets["moderation-status"];
         this.moderationWindow = i.moderationWindow;
         this.title = i.title;
         this.uid = i.uid;
