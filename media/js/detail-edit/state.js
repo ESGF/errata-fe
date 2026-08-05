@@ -20,6 +20,15 @@ export const projects = [
         'is_pid_client': true
     },
     {
+        'canonical_name': 'cmip6plus',
+        'key': 'cmip6plus',
+        'label': 'CMIP6Plus',
+        'namespace': 'cmip6plus',
+        'facets': ['institution_id', 'experiment_id', 'source_id', 'variable_id'],
+        'is_documented': true,
+        'is_pid_client': true
+    },
+    {
         'canonical_name': 'cmip7',
         'key': 'cmip7',
         'label': 'CMIP7',
