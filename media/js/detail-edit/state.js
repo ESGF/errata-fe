@@ -42,7 +42,7 @@ export const projects = [
         'key': 'cordex-cmip6',
         'label': 'CORDEX-CMIP6',
         'namespace': 'cordex-cmip6',
-        'facets': ['institute', 'experiment', 'rcm-model', 'variable'],
+        'facets': ['institution_id', 'driving_experiment_id', 'source_id', 'variable_id'],
         'is_documented': true,
         'is_pid_client': true
     },
