@@ -161,7 +161,7 @@ APP.on("errata:save:start", () => {
 // Utility fn: returns issue slot identifier from view field identifier.
 const getIssueSlotFromViewField = (field) => {
     if (field.id === "moderation-status") {
-        return "moderationStatus";
+        return "moderation_status";
     } else {
         return field.id;
     }

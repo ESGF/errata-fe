@@ -65,9 +65,9 @@ APP.on("errata:moderate:dispatch:error", () => {
 
 APP.on("errata:moderate:dispatch:success", (details) => {
     let msg = "Moderation status has been sucessfully updated.  ";
-    if (details.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_ACCEPTED) {
+    if (details.moderation_status == CONSTANTS.ISSUE.MODERATION_STATUS_ACCEPTED) {
         msg += "  An acceptance email has been sent to the errata proposer.";
-    } else if (details.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_REJECTED) {
+    } else if (details.moderation_status == CONSTANTS.ISSUE.MODERATION_STATUS_REJECTED) {
         msg += "  A rejection email has been sent to the errata proposer.";
     }
 

@@ -10,7 +10,7 @@ export class Issue {
         this.materials = [];
         this.project = null;
         this.status = "new";
-        this.moderationStatus = "not-required";
+        this.moderation_status = "not-required";
         this.title = null;
         this.uid = UTILS.getURLParam("uid") || UTILS.generateUUID();
         this.isNew = UTILS.getURLParam("uid") ? false : true;
@@ -53,7 +53,7 @@ export class Issue {
         this.project = i.project;
         this.severity = i.severity;
         this.status = i.status;
-        this.moderationStatus = i.facets["moderation-status"];
+        this.moderation_status = i.facets["moderation-status"];
         this.moderationWindow = i.moderationWindow;
         this.title = i.title;
         this.uid = i.uid;
@@ -66,7 +66,7 @@ export class Issue {
             datasets: this.datasets,
             description: this.description,
             materials: this.materials,
-            moderationStatus: this.moderationStatus,
+            moderation_status: this.moderation_status,
             project: this.project,
             severity: this.severity,
             status: this.status,

@@ -89,7 +89,7 @@
         <!-- Menu -  Moderation -->
         <% if (STATE.issue.isNew === false && 
                STATE.user.isModerator && 
-               STATE.issue.moderationStatus != CONSTANTS.ISSUE.MODERATION_STATUS_NOT_REQUIRED) { %>
+               STATE.issue.moderation_status != CONSTANTS.ISSUE.MODERATION_STATUS_NOT_REQUIRED) { %>
             <div class="btn-group">
                 <button type="button" class="btn btn-primary">Moderate</button>
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -97,16 +97,16 @@
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <ul class="dropdown-menu">
-                    <% if (STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_IN_REVIEW || 
-                           STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_REJECTED) { %>
+                    <% if (STATE.issue.moderation_status == CONSTANTS.ISSUE.MODERATION_STATUS_IN_REVIEW || 
+                           STATE.issue.moderation_status == CONSTANTS.ISSUE.MODERATION_STATUS_REJECTED) { %>
                         <li><a class="esdoc-moderate-accept" href="#">Accept</a></li>
                     <% } %>
-                    <% if (STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_ACCEPTED || 
-                           STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_REJECTED) { %>
+                    <% if (STATE.issue.moderation_status == CONSTANTS.ISSUE.MODERATION_STATUS_ACCEPTED || 
+                           STATE.issue.moderation_status == CONSTANTS.ISSUE.MODERATION_STATUS_REJECTED) { %>
                             <li><a class="esdoc-moderate-review" href="#">In-Review</a></li>
                     <% } %>
-                    <% if (STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_ACCEPTED || 
-                           STATE.issue.moderationStatus == CONSTANTS.ISSUE.MODERATION_STATUS_IN_REVIEW) { %>
+                    <% if (STATE.issue.moderation_status == CONSTANTS.ISSUE.MODERATION_STATUS_ACCEPTED || 
+                           STATE.issue.moderation_status == CONSTANTS.ISSUE.MODERATION_STATUS_IN_REVIEW) { %>
                         <li><a class="esdoc-moderate-reject" href="#">Reject</a></li>
                     <% } %>
                 </ul>
@@ -159,18 +159,18 @@
         <!-- Fields: Moderation -->
         <% if (STATE.issue.isNew === false && 
                STATE.user.isModerator && 
-               STATE.issue.moderationStatus != CONSTANTS.ISSUE.MODERATION_STATUS_NOT_REQUIRED) { %>
+               STATE.issue.moderation_status != CONSTANTS.ISSUE.MODERATION_STATUS_NOT_REQUIRED) { %>
             <tr>
                 <td class="field-name">Moderation Status *</td>
                 <td class="field-value moderation-status">
                     <input 
-                        id="moderationStatus"
-                        name="moderationStatus"
+                        id="moderation_status"
+                        name="moderation_status"
                         type="text"
                         tabindex="2"
                         disabled="true"
                         class="form-control"
-                        value="<%= STATE.issue.moderationStatus.toUpperCase() %>" >
+                        value="<%= STATE.issue.moderation_status.toUpperCase() %>" >
                     </input>
                 </td>
             </tr>

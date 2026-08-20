@@ -23,7 +23,7 @@ export class SearchFilter {
         this.uiPosition =  c.key === "project" ? 0 :
                            c.key === "severity" ? 1000 :
                            c.key === "status" ? 1001 : 
-                           c.key === "moderationStatus" ? 1002 : 100;
+                           c.key === "moderation_status" ? 1002 : 100;
 
         // Project must be specified.
         if (c.key !== "project") {
@@ -60,7 +60,7 @@ export class SearchResult {
         this.dateCreated = data.dateCreated || null;
         this.dateClosed = data.dateClosed || null;
         this.dateUpdated = data.dateUpdated || null;
-        this.moderationStatus = data.moderationStatus;
+        this.moderation_status = data.moderation_status;
 
         this.ext = new SearchResultExtensionInfo(this, filters);
     }

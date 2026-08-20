@@ -17,11 +17,11 @@ APP.on("errata:save:dispatch", () => {
 });
 
 // Event handler: errata:moderate:accept.
-APP.on("errata:moderate", (moderationStatus) => {
+APP.on("errata:moderate", (moderation_status) => {
     const eventNamespace = "errata:moderate:dispatch";
     const payload = {
         uid: STATE.issue.uid,
-        moderationStatus: moderationStatus
+        moderation_status: moderation_status
     };
     const url = CONSTANTS.URLS.API_BASE_URL + CONSTANTS.URLS.API_PUBLICATION_MODERATE;
 

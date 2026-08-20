@@ -52,7 +52,7 @@ export const initFilters = (data) => {
 // Sets active filter flag.
 export const setActiveFilters = () => {
     _.each(filters, (f) => {
-        f.isActive = (_.isNull(f.project) && f.key !== "moderationStatus") || 
+        f.isActive = (_.isNull(f.project) && f.key !== "moderation_status") || 
                      f.project === filters[0].data.current.key;
     });
 };

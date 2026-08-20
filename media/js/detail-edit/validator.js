@@ -90,7 +90,7 @@ const CONSTRAINTS = {
     materials: {
         materialsValidator: {}
     },
-    "moderationStatus": {
+    "moderation_status": {
         presence: true,
         inclusion: {
             within : [
