@@ -8,7 +8,10 @@ export class Issue {
         _.each(_.keys(i), (k) => {
             this[k] = i[k];
         })
-        this.datasets = this.datasets.sort();
+        // this.datasets = this.datasets.sort();
+        this.datasets = Array.isArray(this.datasets)
+        ? this.datasets.sort()
+        : [];
         this.ext = new IssueExtensionInfo(this);
     }
 

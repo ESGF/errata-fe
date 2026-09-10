@@ -39,7 +39,8 @@ export const setVocabs = (data) => {
 export const setIssue = (data) => {
     issue = new Issue(data);
     datasets = data.datasets;
-    facets = data.facets;
+    // facets = data.facets;
+    facets = issue.facets || {};
 }
 
 // Gets a vocabulary collection.
