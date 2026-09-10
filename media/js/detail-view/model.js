@@ -57,7 +57,15 @@ class IssueFacet {
 // Encapsulates information regarding a set of affected facets.
 class AffectedFacetSet {
     constructor(project, facets, collectionID) {
-        this.collection = STATE.getVocabCollection(collectionID);
+        // this.collection = STATE.getVocabCollection(collectionID);
+        this.collection = STATE.getVocabCollection(collectionID) ||
+        STATE.getVocabCollection(collectionID.replace(/-/g, '_'));
+        if (!this.collection) {
+        console.warn(`Missing vocabulary collection: ${collectionID}`);
+        this.terms = [];
+        return;
+        }
+
         this.terms = _.filter(this.collection.terms, (term) => {
             return _.find(facets, (facet) => {
                 return term.drs_name === facet.namespace;
