@@ -47,14 +47,13 @@ const dispatchPost = (url, payload, eventNamespace) => {
         method: "POST",
         url: url,
         data: JSON.stringify(payload),
-        dataType: 'json',
+        // dataType: 'json',
         headers: headers
     })
-        .always((r) => {
-            if (r.status === 200) {
-                APP.trigger(`${eventNamespace}:success`, payload);
-            } else {
-                APP.trigger(`${eventNamespace}:error`, r);
-            }
+    .done(() => {
+        APP.trigger(`${eventNamespace}:success`, payload);
+    })
+    .fail((response) => {
+        APP.trigger(`${eventNamespace}:error`, response);
     });
 };
