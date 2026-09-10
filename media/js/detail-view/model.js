@@ -33,12 +33,14 @@ class IssueExtensionInfo {
     constructor(i) {
         this.facets = _.map(i.facets, (term, collection) => new IssueFacet(collection, term));
         this.institute = i.institute.toUpperCase();
-        this.project = STATE.getVocabTerm('project', i.project);
+       // this.project = STATE.getVocabTerm('project', i.project);
+        const projectID = i.facets.project || i.project;
+        this.project = STATE.getVocabTerm('project', projectID);
         this.projectFacets = _.filter(this.project.facets, (j) => { return j.startsWith('institut') === false});
         this.projectDocURL = this.project.isDocumented ? "https://documentation.es-doc.org/" + this.project.canonicalName : null;
         this.severity = STATE.getVocabTerm('severity', i.severity);
         this.status = STATE.getVocabTerm('status', i.status);
-        this.affectedFacets = _.map(this.projectFacets, (j) => new AffectedFacetSet(i.project, this.facets, j));
+        this.affectedFacets = _.map(this.projectFacets, (j) => new AffectedFacetSet(projectID, this.facets, j));
     }
 }
 
