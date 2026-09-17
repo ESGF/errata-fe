@@ -34,7 +34,16 @@ export class Issue {
 class IssueExtensionInfo {
     // Instance ctor.
     constructor(i) {
-        this.facets = _.map(i.facets, (term, collection) => new IssueFacet(collection, term));
+        this.facets = _.flatten(
+            _.map(i.facets, (terms, collection) => {
+                const values = Array.isArray(terms) ? terms : [terms];
+
+                return _.map(
+                    values,
+                    term => new IssueFacet(collection, term)
+                );
+            })
+        );
         this.institute = i.institute.toUpperCase();
        // this.project = STATE.getVocabTerm('project', i.project);
         const projectID = i.facets.project || i.project;
