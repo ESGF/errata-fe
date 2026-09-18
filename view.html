@@ -272,25 +272,28 @@
         <tr>
             <td class="field-name">Tracking Info.</td>
             <td>
-                Created by <%= STATE.issue.createdBy %> @ <%= STATE.issue.created_date.slice(0, 19) %>
-            </td>
+            Created by <%= STATE.issue.created_by %>
+            @ <%= STATE.issue.created_date.slice(0, 19) %>            </td>
         </tr>
-        <% if (STATE.issue.updatedDate) { %>
-            <tr>
-                <td></td>
-                <td>
-                    Last updated by <%= STATE.issue.updatedBy %> @ <%= STATE.issue.updatedDate.slice(0, 19) %>
-                </td>
-            </tr>
-        <% } %>
-        <% if (STATE.issue.closedDate) { %>
-            <tr>
-                <td></td>
-                <td>
-                    Closed by <%= STATE.issue.closedBy %> @ <%= STATE.issue.closedDate.slice(0, 19) %>
-                </td>
-            </tr>
-        <% } %>
+       <% if (STATE.issue.updated_date) { %>
+    <tr>
+        <td></td>
+        <td>
+            Last updated by <%= STATE.issue.updated_by %>
+            @ <%= STATE.issue.updated_date.slice(0, 19) %>
+        </td>
+    </tr>
+<% } %>
+
+<% if (STATE.issue.closed_date) { %>
+    <tr>
+        <td></td>
+        <td>
+            Closed by <%= STATE.issue.closed_by %>
+            @ <%= STATE.issue.closed_date.slice(0, 19) %>
+        </td>
+    </tr>
+<% } %>
 
     </tbody>
 </table>
