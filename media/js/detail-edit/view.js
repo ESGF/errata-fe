@@ -150,7 +150,7 @@ export default Backbone.View.extend({
 
     // Event handler: errata:save:dispatch:error.
     _onSaveToServerError: function ({ responseJSON: error }) {
-        if (error.errorField) {
+        if (error && error.errorField) {
             this.$(".field-value ." + error.errorField).addClass('has-error');
             this.$("#" + error.errorField + "ErrorMessage").text(error.errorMessage);        
         }
